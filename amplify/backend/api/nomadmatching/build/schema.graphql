@@ -1,0 +1,156 @@
+type Task {
+  id: ID!
+  title: String!
+  description: String
+  status: String
+}
+
+type PrivateNote {
+  id: ID!
+  content: String!
+}
+
+enum ModelSortDirection {
+  ASC
+  DESC
+}
+
+type ModelTaskConnection {
+  items: [Task]
+  nextToken: String
+}
+
+input ModelStringFilterInput {
+  ne: String
+  eq: String
+  le: String
+  lt: String
+  ge: String
+  gt: String
+  contains: String
+  notContains: String
+  between: [String]
+  beginsWith: String
+}
+
+input ModelIDFilterInput {
+  ne: ID
+  eq: ID
+  le: ID
+  lt: ID
+  ge: ID
+  gt: ID
+  contains: ID
+  notContains: ID
+  between: [ID]
+  beginsWith: ID
+}
+
+input ModelIntFilterInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  contains: Int
+  notContains: Int
+  between: [Int]
+}
+
+input ModelFloatFilterInput {
+  ne: Float
+  eq: Float
+  le: Float
+  lt: Float
+  ge: Float
+  gt: Float
+  contains: Float
+  notContains: Float
+  between: [Float]
+}
+
+input ModelBooleanFilterInput {
+  ne: Boolean
+  eq: Boolean
+}
+
+input ModelTaskFilterInput {
+  id: ModelIDFilterInput
+  title: ModelStringFilterInput
+  description: ModelStringFilterInput
+  status: ModelStringFilterInput
+  and: [ModelTaskFilterInput]
+  or: [ModelTaskFilterInput]
+  not: ModelTaskFilterInput
+}
+
+type Query {
+  getTask(id: ID!): Task
+  listTasks(filter: ModelTaskFilterInput, limit: Int, nextToken: String): ModelTaskConnection
+  getPrivateNote(id: ID!): PrivateNote
+  listPrivateNotes(filter: ModelPrivateNoteFilterInput, limit: Int, nextToken: String): ModelPrivateNoteConnection
+}
+
+input CreateTaskInput {
+  id: ID
+  title: String!
+  description: String
+  status: String
+}
+
+input UpdateTaskInput {
+  id: ID!
+  title: String
+  description: String
+  status: String
+}
+
+input DeleteTaskInput {
+  id: ID
+}
+
+type Mutation {
+  createTask(input: CreateTaskInput!): Task
+  updateTask(input: UpdateTaskInput!): Task
+  deleteTask(input: DeleteTaskInput!): Task
+  createPrivateNote(input: CreatePrivateNoteInput!): PrivateNote
+  updatePrivateNote(input: UpdatePrivateNoteInput!): PrivateNote
+  deletePrivateNote(input: DeletePrivateNoteInput!): PrivateNote
+}
+
+type Subscription {
+  onCreateTask: Task @aws_subscribe(mutations: ["createTask"])
+  onUpdateTask: Task @aws_subscribe(mutations: ["updateTask"])
+  onDeleteTask: Task @aws_subscribe(mutations: ["deleteTask"])
+  onCreatePrivateNote: PrivateNote @aws_subscribe(mutations: ["createPrivateNote"])
+  onUpdatePrivateNote: PrivateNote @aws_subscribe(mutations: ["updatePrivateNote"])
+  onDeletePrivateNote: PrivateNote @aws_subscribe(mutations: ["deletePrivateNote"])
+}
+
+type ModelPrivateNoteConnection {
+  items: [PrivateNote]
+  nextToken: String
+}
+
+input ModelPrivateNoteFilterInput {
+  id: ModelIDFilterInput
+  content: ModelStringFilterInput
+  and: [ModelPrivateNoteFilterInput]
+  or: [ModelPrivateNoteFilterInput]
+  not: ModelPrivateNoteFilterInput
+}
+
+input CreatePrivateNoteInput {
+  id: ID
+  content: String!
+}
+
+input UpdatePrivateNoteInput {
+  id: ID!
+  content: String
+}
+
+input DeletePrivateNoteInput {
+  id: ID
+}

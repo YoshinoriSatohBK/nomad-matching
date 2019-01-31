@@ -1,0 +1,27 @@
+## [Start] Static Group Authorization Checks **
+#set( $userGroups = $ctx.identity.claims.get("cognito:groups") )
+#set( $allowedGroups = ["Employees"] )
+#set($isStaticGroupAuthorized = $util.defaultIfNull($isStaticGroupAuthorized, false))
+#foreach( $userGroup in $userGroups )
+  #foreach( $allowedGroup in $allowedGroups )
+    #if( $allowedGroup == $userGroup )
+      #set( $isStaticGroupAuthorized = true )
+    #end
+  #end
+#end
+## [End] Static Group Authorization Checks **
+
+
+## No Dynamic Group Authorization Rules **
+
+
+## No Owner Authorization Rules **
+
+
+## [Start] Throw if unauthorized **
+#if( !($isStaticGroupAuthorized == true || $isDynamicGroupAuthorized == true || $isOwnerAuthorized == true) )
+  $util.unauthorized()
+#end
+## [End] Throw if unauthorized **
+
+$util.toJson($context.result)

@@ -1,0 +1,19 @@
+{
+    "master": {
+        "awscloudformation": {
+            "AuthRoleName": "nomad-matching-20190131120910-authRole",
+            "UnauthRoleArn": "arn:aws:iam::539459320497:role/nomad-matching-20190131120910-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::539459320497:role/nomad-matching-20190131120910-authRole",
+            "Region": "ap-northeast-1",
+            "DeploymentBucketName": "nomad-matching-20190131120910-deployment",
+            "UnauthRoleName": "nomad-matching-20190131120910-unauthRole",
+            "StackName": "nomad-matching-20190131120910",
+            "StackId": "arn:aws:cloudformation:ap-northeast-1:539459320497:stack/nomad-matching-20190131120910/94ade7c0-2505-11e9-b42e-0a5da605f772"
+        },
+        "categories": {
+            "auth": {
+                "cognito09b59faa": {}
+            }
+        }
+    }
+}

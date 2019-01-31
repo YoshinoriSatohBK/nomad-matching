@@ -1,0 +1,17 @@
+{
+    "projectName": "nomad-matching",
+    "version": "1.0",
+    "frontend": "javascript",
+    "javascript": {
+        "framework": "vue",
+        "config": {
+            "SourceDir": "src",
+            "DistributionDir": "dist",
+            "BuildCommand": "npm run-script build",
+            "StartCommand": "npm run-script serve"
+        }
+    },
+    "providers": [
+        "awscloudformation"
+    ]
+}

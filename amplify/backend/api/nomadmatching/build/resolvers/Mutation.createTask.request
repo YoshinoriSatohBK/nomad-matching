@@ -1,0 +1,45 @@
+## [Start] Static Group Authorization Checks **
+#set( $userGroups = $ctx.identity.claims.get("cognito:groups") )
+#set( $allowedGroups = ["Managers"] )
+#set($isStaticGroupAuthorized = $util.defaultIfNull($isStaticGroupAuthorized, false))
+#foreach( $userGroup in $userGroups )
+  #foreach( $allowedGroup in $allowedGroups )
+    #if( $allowedGroup == $userGroup )
+      #set( $isStaticGroupAuthorized = true )
+    #end
+  #end
+#end
+## [End] Static Group Authorization Checks **
+
+
+## No Dynamic Group Authorization Rules **
+
+
+## No Owner Authorization Rules **
+
+
+## [Start] Throw if unauthorized **
+#if( !($isStaticGroupAuthorized == true || $isDynamicGroupAuthorized == true || $isOwnerAuthorized == true) )
+  $util.unauthorized()
+#end
+## [End] Throw if unauthorized **
+
+## [Start] Prepare DynamoDB PutItem Request. **
+$util.qr($context.args.input.put("createdAt", $util.time.nowISO8601()))
+$util.qr($context.args.input.put("updatedAt", $util.time.nowISO8601()))
+$util.qr($context.args.input.put("__typename", "Task"))
+{
+  "version": "2017-02-28",
+  "operation": "PutItem",
+  "key": {
+      "id":     $util.dynamodb.toDynamoDBJson($util.defaultIfNullOrBlank($ctx.args.input.id, $util.autoId()))
+  },
+  "attributeValues": $util.dynamodb.toMapValuesJson($context.args.input),
+  "condition": {
+      "expression": "attribute_not_exists(#id)",
+      "expressionNames": {
+          "#id": "id"
+    }
+  }
+}
+## [End] Prepare DynamoDB PutItem Request. **

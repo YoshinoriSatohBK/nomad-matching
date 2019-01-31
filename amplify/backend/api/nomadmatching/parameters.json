@@ -1,0 +1,13 @@
+{
+    "AppSyncApiName": "nomadmatching",
+    "AuthCognitoUserPoolId": {
+        "Fn::GetAtt": [
+            "authcognito09b59faa",
+            "Outputs.UserPoolId"
+        ]
+    },
+    "schemaGraphql": "s3://nomad-matching-20190131120910-deployment/amplify-appsync-files/schema.graphql.1548904405197",
+    "ResolverBucket": "nomad-matching-20190131120910-deployment",
+    "ResolverRootKey": "amplify-appsync-files",
+    "DeploymentTimestamp": "1548904405197"
+}
