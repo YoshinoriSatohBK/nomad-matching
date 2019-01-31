@@ -1,13 +1,9 @@
-type Task {
-  id: ID!
-  title: String!
-  description: String
-  status: String
-}
-
-type PrivateNote {
-  id: ID!
-  content: String!
+type UserProfile {
+  identityId: ID!
+  email: String!
+  profileImageUrl: String!
+  name: String!
+  screenName: String!
 }
 
 enum ModelSortDirection {
@@ -15,8 +11,8 @@ enum ModelSortDirection {
   DESC
 }
 
-type ModelTaskConnection {
-  items: [Task]
+type ModelUserProfileConnection {
+  items: [UserProfile]
   nextToken: String
 }
 
@@ -75,82 +71,50 @@ input ModelBooleanFilterInput {
   eq: Boolean
 }
 
-input ModelTaskFilterInput {
-  id: ModelIDFilterInput
-  title: ModelStringFilterInput
-  description: ModelStringFilterInput
-  status: ModelStringFilterInput
-  and: [ModelTaskFilterInput]
-  or: [ModelTaskFilterInput]
-  not: ModelTaskFilterInput
+input ModelUserProfileFilterInput {
+  identityId: ModelIDFilterInput
+  email: ModelStringFilterInput
+  profileImageUrl: ModelStringFilterInput
+  name: ModelStringFilterInput
+  screenName: ModelStringFilterInput
+  and: [ModelUserProfileFilterInput]
+  or: [ModelUserProfileFilterInput]
+  not: ModelUserProfileFilterInput
 }
 
 type Query {
-  getTask(id: ID!): Task
-  listTasks(filter: ModelTaskFilterInput, limit: Int, nextToken: String): ModelTaskConnection
-  getPrivateNote(id: ID!): PrivateNote
-  listPrivateNotes(filter: ModelPrivateNoteFilterInput, limit: Int, nextToken: String): ModelPrivateNoteConnection
+  getUserProfile(id: ID!): UserProfile
+  listUserProfiles(filter: ModelUserProfileFilterInput, limit: Int, nextToken: String): ModelUserProfileConnection
 }
 
-input CreateTaskInput {
-  id: ID
-  title: String!
-  description: String
-  status: String
+input CreateUserProfileInput {
+  identityId: ID!
+  email: String!
+  profileImageUrl: String!
+  name: String!
+  screenName: String!
 }
 
-input UpdateTaskInput {
-  id: ID!
-  title: String
-  description: String
-  status: String
+input UpdateUserProfileInput {
+  identityId: ID
+  email: String
+  profileImageUrl: String
+  name: String
+  screenName: String
 }
 
-input DeleteTaskInput {
+input DeleteUserProfileInput {
   id: ID
 }
 
 type Mutation {
-  createTask(input: CreateTaskInput!): Task
-  updateTask(input: UpdateTaskInput!): Task
-  deleteTask(input: DeleteTaskInput!): Task
-  createPrivateNote(input: CreatePrivateNoteInput!): PrivateNote
-  updatePrivateNote(input: UpdatePrivateNoteInput!): PrivateNote
-  deletePrivateNote(input: DeletePrivateNoteInput!): PrivateNote
+  createUserProfile(input: CreateUserProfileInput!): UserProfile
+  updateUserProfile(input: UpdateUserProfileInput!): UserProfile
+  deleteUserProfile(input: DeleteUserProfileInput!): UserProfile
 }
 
 type Subscription {
-  onCreateTask: Task @aws_subscribe(mutations: ["createTask"])
-  onUpdateTask: Task @aws_subscribe(mutations: ["updateTask"])
-  onDeleteTask: Task @aws_subscribe(mutations: ["deleteTask"])
-  onCreatePrivateNote: PrivateNote @aws_subscribe(mutations: ["createPrivateNote"])
-  onUpdatePrivateNote: PrivateNote @aws_subscribe(mutations: ["updatePrivateNote"])
-  onDeletePrivateNote: PrivateNote @aws_subscribe(mutations: ["deletePrivateNote"])
-}
-
-type ModelPrivateNoteConnection {
-  items: [PrivateNote]
-  nextToken: String
-}
-
-input ModelPrivateNoteFilterInput {
-  id: ModelIDFilterInput
-  content: ModelStringFilterInput
-  and: [ModelPrivateNoteFilterInput]
-  or: [ModelPrivateNoteFilterInput]
-  not: ModelPrivateNoteFilterInput
-}
-
-input CreatePrivateNoteInput {
-  id: ID
-  content: String!
-}
-
-input UpdatePrivateNoteInput {
-  id: ID!
-  content: String
-}
-
-input DeletePrivateNoteInput {
-  id: ID
+  onCreateUserProfile: UserProfile @aws_subscribe(mutations: ["createUserProfile"])
+  onUpdateUserProfile: UserProfile @aws_subscribe(mutations: ["updateUserProfile"])
+  onDeleteUserProfile: UserProfile @aws_subscribe(mutations: ["deleteUserProfile"])
 }

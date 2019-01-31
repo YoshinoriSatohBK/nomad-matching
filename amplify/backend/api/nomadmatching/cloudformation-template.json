@@ -134,7 +134,7 @@
                 }
             }
         },
-        "TaskTable": {
+        "UserProfileTable": {
             "Type": "AWS::DynamoDB::Table",
             "Properties": {
                 "TableName": {
@@ -144,7 +144,7 @@
                             "Fn::Join": [
                                 "-",
                                 [
-                                    "Task",
+                                    "UserProfile",
                                     {
                                         "Fn::GetAtt": [
                                             "GraphQLAPI",
@@ -161,7 +161,7 @@
                             "Fn::Join": [
                                 "-",
                                 [
-                                    "Task",
+                                    "UserProfile",
                                     {
                                         "Fn::GetAtt": [
                                             "GraphQLAPI",
@@ -198,7 +198,7 @@
                 }
             }
         },
-        "TaskIAMRole": {
+        "UserProfileIAMRole": {
             "Type": "AWS::IAM::Role",
             "Properties": {
                 "RoleName": {
@@ -208,7 +208,7 @@
                             "Fn::Join": [
                                 "-",
                                 [
-                                    "TaskTable",
+                                    "UserProfileTable",
                                     "role",
                                     {
                                         "Fn::GetAtt": [
@@ -226,7 +226,7 @@
                             "Fn::Join": [
                                 "-",
                                 [
-                                    "TaskTable",
+                                    "UserProfileTable",
                                     "role",
                                     {
                                         "Fn::GetAtt": [
@@ -272,7 +272,7 @@
                                     "Resource": [
                                         {
                                             "Fn::GetAtt": [
-                                                "TaskTable",
+                                                "UserProfileTable",
                                                 "Arn"
                                             ]
                                         },
@@ -282,7 +282,7 @@
                                                 [
                                                     {
                                                         "Fn::GetAtt": [
-                                                            "TaskTable",
+                                                            "UserProfileTable",
                                                             "Arn"
                                                         ]
                                                     },
@@ -298,7 +298,7 @@
                 ]
             }
         },
-        "TaskDataSource": {
+        "UserProfileDataSource": {
             "Type": "AWS::AppSync::DataSource",
             "Properties": {
                 "ApiId": {
@@ -307,11 +307,11 @@
                         "ApiId"
                     ]
                 },
-                "Name": "TaskTable",
+                "Name": "UserProfileTable",
                 "Type": "AMAZON_DYNAMODB",
                 "ServiceRoleArn": {
                     "Fn::GetAtt": [
-                        "TaskIAMRole",
+                        "UserProfileIAMRole",
                         "Arn"
                     ]
                 },
@@ -324,7 +324,7 @@
                                     ":",
                                     {
                                         "Fn::GetAtt": [
-                                            "TaskTable",
+                                            "UserProfileTable",
                                             "Arn"
                                         ]
                                     }
@@ -333,16 +333,16 @@
                         ]
                     },
                     "TableName": {
-                        "Ref": "TaskTable"
+                        "Ref": "UserProfileTable"
                     }
                 }
             },
             "DependsOn": [
-                "TaskTable",
-                "TaskIAMRole"
+                "UserProfileTable",
+                "UserProfileIAMRole"
             ]
         },
-        "GetTaskResolver": {
+        "GetUserProfileResolver": {
             "Type": "AWS::AppSync::Resolver",
             "Properties": {
                 "ApiId": {
@@ -353,11 +353,11 @@
                 },
                 "DataSourceName": {
                     "Fn::GetAtt": [
-                        "TaskDataSource",
+                        "UserProfileDataSource",
                         "Name"
                     ]
                 },
-                "FieldName": "getTask",
+                "FieldName": "getUserProfile",
                 "TypeName": "Query",
                 "RequestMappingTemplateS3Location": {
                     "Fn::Join": [
@@ -379,7 +379,7 @@
                                                 ".",
                                                 [
                                                     "Query",
-                                                    "getTask",
+                                                    "getUserProfile",
                                                     "request",
                                                     {
                                                         "Ref": "DeploymentTimestamp"
@@ -413,7 +413,7 @@
                                                 ".",
                                                 [
                                                     "Query",
-                                                    "getTask",
+                                                    "getUserProfile",
                                                     "response",
                                                     {
                                                         "Ref": "DeploymentTimestamp"
@@ -430,7 +430,7 @@
             },
             "DependsOn": "GraphQLSchema"
         },
-        "ListTaskResolver": {
+        "ListUserProfileResolver": {
             "Type": "AWS::AppSync::Resolver",
             "Properties": {
                 "ApiId": {
@@ -441,11 +441,11 @@
                 },
                 "DataSourceName": {
                     "Fn::GetAtt": [
-                        "TaskDataSource",
+                        "UserProfileDataSource",
                         "Name"
                     ]
                 },
-                "FieldName": "listTasks",
+                "FieldName": "listUserProfiles",
                 "TypeName": "Query",
                 "RequestMappingTemplateS3Location": {
                     "Fn::Join": [
@@ -467,7 +467,7 @@
                                                 ".",
                                                 [
                                                     "Query",
-                                                    "listTasks",
+                                                    "listUserProfiles",
                                                     "request",
                                                     {
                                                         "Ref": "DeploymentTimestamp"
@@ -501,7 +501,7 @@
                                                 ".",
                                                 [
                                                     "Query",
-                                                    "listTasks",
+                                                    "listUserProfiles",
                                                     "response",
                                                     {
                                                         "Ref": "DeploymentTimestamp"
@@ -518,7 +518,7 @@
             },
             "DependsOn": "GraphQLSchema"
         },
-        "CreateTaskResolver": {
+        "CreateUserProfileResolver": {
             "Type": "AWS::AppSync::Resolver",
             "Properties": {
                 "ApiId": {
@@ -529,11 +529,11 @@
                 },
                 "DataSourceName": {
                     "Fn::GetAtt": [
-                        "TaskDataSource",
+                        "UserProfileDataSource",
                         "Name"
                     ]
                 },
-                "FieldName": "createTask",
+                "FieldName": "createUserProfile",
                 "TypeName": "Mutation",
                 "RequestMappingTemplateS3Location": {
                     "Fn::Join": [
@@ -555,7 +555,7 @@
                                                 ".",
                                                 [
                                                     "Mutation",
-                                                    "createTask",
+                                                    "createUserProfile",
                                                     "request",
                                                     {
                                                         "Ref": "DeploymentTimestamp"
@@ -589,7 +589,7 @@
                                                 ".",
                                                 [
                                                     "Mutation",
-                                                    "createTask",
+                                                    "createUserProfile",
                                                     "response",
                                                     {
                                                         "Ref": "DeploymentTimestamp"
@@ -606,7 +606,7 @@
             },
             "DependsOn": "GraphQLSchema"
         },
-        "UpdateTaskResolver": {
+        "UpdateUserProfileResolver": {
             "Type": "AWS::AppSync::Resolver",
             "Properties": {
                 "ApiId": {
@@ -617,11 +617,11 @@
                 },
                 "DataSourceName": {
                     "Fn::GetAtt": [
-                        "TaskDataSource",
+                        "UserProfileDataSource",
                         "Name"
                     ]
                 },
-                "FieldName": "updateTask",
+                "FieldName": "updateUserProfile",
                 "TypeName": "Mutation",
                 "RequestMappingTemplateS3Location": {
                     "Fn::Join": [
@@ -643,7 +643,7 @@
                                                 ".",
                                                 [
                                                     "Mutation",
-                                                    "updateTask",
+                                                    "updateUserProfile",
                                                     "request",
                                                     {
                                                         "Ref": "DeploymentTimestamp"
@@ -677,7 +677,7 @@
                                                 ".",
                                                 [
                                                     "Mutation",
-                                                    "updateTask",
+                                                    "updateUserProfile",
                                                     "response",
                                                     {
                                                         "Ref": "DeploymentTimestamp"
@@ -694,7 +694,7 @@
             },
             "DependsOn": "GraphQLSchema"
         },
-        "DeleteTaskResolver": {
+        "DeleteUserProfileResolver": {
             "Type": "AWS::AppSync::Resolver",
             "Properties": {
                 "ApiId": {
@@ -705,11 +705,11 @@
                 },
                 "DataSourceName": {
                     "Fn::GetAtt": [
-                        "TaskDataSource",
+                        "UserProfileDataSource",
                         "Name"
                     ]
                 },
-                "FieldName": "deleteTask",
+                "FieldName": "deleteUserProfile",
                 "TypeName": "Mutation",
                 "RequestMappingTemplateS3Location": {
                     "Fn::Join": [
@@ -731,7 +731,7 @@
                                                 ".",
                                                 [
                                                     "Mutation",
-                                                    "deleteTask",
+                                                    "deleteUserProfile",
                                                     "request",
                                                     {
                                                         "Ref": "DeploymentTimestamp"
@@ -765,655 +765,7 @@
                                                 ".",
                                                 [
                                                     "Mutation",
-                                                    "deleteTask",
-                                                    "response",
-                                                    {
-                                                        "Ref": "DeploymentTimestamp"
-                                                    }
-                                                ]
-                                            ]
-                                        }
-                                    ]
-                                ]
-                            }
-                        ]
-                    ]
-                }
-            },
-            "DependsOn": "GraphQLSchema"
-        },
-        "PrivateNoteTable": {
-            "Type": "AWS::DynamoDB::Table",
-            "Properties": {
-                "TableName": {
-                    "Fn::If": [
-                        "HasEnvironmentParameter",
-                        {
-                            "Fn::Join": [
-                                "-",
-                                [
-                                    "PrivateNote",
-                                    {
-                                        "Fn::GetAtt": [
-                                            "GraphQLAPI",
-                                            "ApiId"
-                                        ]
-                                    },
-                                    {
-                                        "Ref": "env"
-                                    }
-                                ]
-                            ]
-                        },
-                        {
-                            "Fn::Join": [
-                                "-",
-                                [
-                                    "PrivateNote",
-                                    {
-                                        "Fn::GetAtt": [
-                                            "GraphQLAPI",
-                                            "ApiId"
-                                        ]
-                                    }
-                                ]
-                            ]
-                        }
-                    ]
-                },
-                "KeySchema": [
-                    {
-                        "AttributeName": "id",
-                        "KeyType": "HASH"
-                    }
-                ],
-                "AttributeDefinitions": [
-                    {
-                        "AttributeName": "id",
-                        "AttributeType": "S"
-                    }
-                ],
-                "ProvisionedThroughput": {
-                    "ReadCapacityUnits": {
-                        "Ref": "DynamoDBModelTableReadIOPS"
-                    },
-                    "WriteCapacityUnits": {
-                        "Ref": "DynamoDBModelTableWriteIOPS"
-                    }
-                },
-                "StreamSpecification": {
-                    "StreamViewType": "NEW_AND_OLD_IMAGES"
-                }
-            }
-        },
-        "PrivateNoteIAMRole": {
-            "Type": "AWS::IAM::Role",
-            "Properties": {
-                "RoleName": {
-                    "Fn::If": [
-                        "HasEnvironmentParameter",
-                        {
-                            "Fn::Join": [
-                                "-",
-                                [
-                                    "PrivateNoteTable",
-                                    "role",
-                                    {
-                                        "Fn::GetAtt": [
-                                            "GraphQLAPI",
-                                            "ApiId"
-                                        ]
-                                    },
-                                    {
-                                        "Ref": "env"
-                                    }
-                                ]
-                            ]
-                        },
-                        {
-                            "Fn::Join": [
-                                "-",
-                                [
-                                    "PrivateNoteTable",
-                                    "role",
-                                    {
-                                        "Fn::GetAtt": [
-                                            "GraphQLAPI",
-                                            "ApiId"
-                                        ]
-                                    }
-                                ]
-                            ]
-                        }
-                    ]
-                },
-                "AssumeRolePolicyDocument": {
-                    "Version": "2012-10-17",
-                    "Statement": [
-                        {
-                            "Effect": "Allow",
-                            "Principal": {
-                                "Service": "appsync.amazonaws.com"
-                            },
-                            "Action": "sts:AssumeRole"
-                        }
-                    ]
-                },
-                "Policies": [
-                    {
-                        "PolicyName": "DynamoDBAccess",
-                        "PolicyDocument": {
-                            "Version": "2012-10-17",
-                            "Statement": [
-                                {
-                                    "Effect": "Allow",
-                                    "Action": [
-                                        "dynamodb:BatchGetItem",
-                                        "dynamodb:BatchWriteItem",
-                                        "dynamodb:PutItem",
-                                        "dynamodb:DeleteItem",
-                                        "dynamodb:GetItem",
-                                        "dynamodb:Scan",
-                                        "dynamodb:Query",
-                                        "dynamodb:UpdateItem"
-                                    ],
-                                    "Resource": [
-                                        {
-                                            "Fn::GetAtt": [
-                                                "PrivateNoteTable",
-                                                "Arn"
-                                            ]
-                                        },
-                                        {
-                                            "Fn::Join": [
-                                                "/",
-                                                [
-                                                    {
-                                                        "Fn::GetAtt": [
-                                                            "PrivateNoteTable",
-                                                            "Arn"
-                                                        ]
-                                                    },
-                                                    "*"
-                                                ]
-                                            ]
-                                        }
-                                    ]
-                                }
-                            ]
-                        }
-                    }
-                ]
-            }
-        },
-        "PrivateNoteDataSource": {
-            "Type": "AWS::AppSync::DataSource",
-            "Properties": {
-                "ApiId": {
-                    "Fn::GetAtt": [
-                        "GraphQLAPI",
-                        "ApiId"
-                    ]
-                },
-                "Name": "PrivateNoteTable",
-                "Type": "AMAZON_DYNAMODB",
-                "ServiceRoleArn": {
-                    "Fn::GetAtt": [
-                        "PrivateNoteIAMRole",
-                        "Arn"
-                    ]
-                },
-                "DynamoDBConfig": {
-                    "AwsRegion": {
-                        "Fn::Select": [
-                            3,
-                            {
-                                "Fn::Split": [
-                                    ":",
-                                    {
-                                        "Fn::GetAtt": [
-                                            "PrivateNoteTable",
-                                            "Arn"
-                                        ]
-                                    }
-                                ]
-                            }
-                        ]
-                    },
-                    "TableName": {
-                        "Ref": "PrivateNoteTable"
-                    }
-                }
-            },
-            "DependsOn": [
-                "PrivateNoteTable",
-                "PrivateNoteIAMRole"
-            ]
-        },
-        "GetPrivateNoteResolver": {
-            "Type": "AWS::AppSync::Resolver",
-            "Properties": {
-                "ApiId": {
-                    "Fn::GetAtt": [
-                        "GraphQLAPI",
-                        "ApiId"
-                    ]
-                },
-                "DataSourceName": {
-                    "Fn::GetAtt": [
-                        "PrivateNoteDataSource",
-                        "Name"
-                    ]
-                },
-                "FieldName": "getPrivateNote",
-                "TypeName": "Query",
-                "RequestMappingTemplateS3Location": {
-                    "Fn::Join": [
-                        "",
-                        [
-                            "s3://",
-                            {
-                                "Fn::Join": [
-                                    "/",
-                                    [
-                                        {
-                                            "Ref": "ResolverBucket"
-                                        },
-                                        {
-                                            "Ref": "ResolverRootKey"
-                                        },
-                                        {
-                                            "Fn::Join": [
-                                                ".",
-                                                [
-                                                    "Query",
-                                                    "getPrivateNote",
-                                                    "request",
-                                                    {
-                                                        "Ref": "DeploymentTimestamp"
-                                                    }
-                                                ]
-                                            ]
-                                        }
-                                    ]
-                                ]
-                            }
-                        ]
-                    ]
-                },
-                "ResponseMappingTemplateS3Location": {
-                    "Fn::Join": [
-                        "",
-                        [
-                            "s3://",
-                            {
-                                "Fn::Join": [
-                                    "/",
-                                    [
-                                        {
-                                            "Ref": "ResolverBucket"
-                                        },
-                                        {
-                                            "Ref": "ResolverRootKey"
-                                        },
-                                        {
-                                            "Fn::Join": [
-                                                ".",
-                                                [
-                                                    "Query",
-                                                    "getPrivateNote",
-                                                    "response",
-                                                    {
-                                                        "Ref": "DeploymentTimestamp"
-                                                    }
-                                                ]
-                                            ]
-                                        }
-                                    ]
-                                ]
-                            }
-                        ]
-                    ]
-                }
-            },
-            "DependsOn": "GraphQLSchema"
-        },
-        "ListPrivateNoteResolver": {
-            "Type": "AWS::AppSync::Resolver",
-            "Properties": {
-                "ApiId": {
-                    "Fn::GetAtt": [
-                        "GraphQLAPI",
-                        "ApiId"
-                    ]
-                },
-                "DataSourceName": {
-                    "Fn::GetAtt": [
-                        "PrivateNoteDataSource",
-                        "Name"
-                    ]
-                },
-                "FieldName": "listPrivateNotes",
-                "TypeName": "Query",
-                "RequestMappingTemplateS3Location": {
-                    "Fn::Join": [
-                        "",
-                        [
-                            "s3://",
-                            {
-                                "Fn::Join": [
-                                    "/",
-                                    [
-                                        {
-                                            "Ref": "ResolverBucket"
-                                        },
-                                        {
-                                            "Ref": "ResolverRootKey"
-                                        },
-                                        {
-                                            "Fn::Join": [
-                                                ".",
-                                                [
-                                                    "Query",
-                                                    "listPrivateNotes",
-                                                    "request",
-                                                    {
-                                                        "Ref": "DeploymentTimestamp"
-                                                    }
-                                                ]
-                                            ]
-                                        }
-                                    ]
-                                ]
-                            }
-                        ]
-                    ]
-                },
-                "ResponseMappingTemplateS3Location": {
-                    "Fn::Join": [
-                        "",
-                        [
-                            "s3://",
-                            {
-                                "Fn::Join": [
-                                    "/",
-                                    [
-                                        {
-                                            "Ref": "ResolverBucket"
-                                        },
-                                        {
-                                            "Ref": "ResolverRootKey"
-                                        },
-                                        {
-                                            "Fn::Join": [
-                                                ".",
-                                                [
-                                                    "Query",
-                                                    "listPrivateNotes",
-                                                    "response",
-                                                    {
-                                                        "Ref": "DeploymentTimestamp"
-                                                    }
-                                                ]
-                                            ]
-                                        }
-                                    ]
-                                ]
-                            }
-                        ]
-                    ]
-                }
-            },
-            "DependsOn": "GraphQLSchema"
-        },
-        "CreatePrivateNoteResolver": {
-            "Type": "AWS::AppSync::Resolver",
-            "Properties": {
-                "ApiId": {
-                    "Fn::GetAtt": [
-                        "GraphQLAPI",
-                        "ApiId"
-                    ]
-                },
-                "DataSourceName": {
-                    "Fn::GetAtt": [
-                        "PrivateNoteDataSource",
-                        "Name"
-                    ]
-                },
-                "FieldName": "createPrivateNote",
-                "TypeName": "Mutation",
-                "RequestMappingTemplateS3Location": {
-                    "Fn::Join": [
-                        "",
-                        [
-                            "s3://",
-                            {
-                                "Fn::Join": [
-                                    "/",
-                                    [
-                                        {
-                                            "Ref": "ResolverBucket"
-                                        },
-                                        {
-                                            "Ref": "ResolverRootKey"
-                                        },
-                                        {
-                                            "Fn::Join": [
-                                                ".",
-                                                [
-                                                    "Mutation",
-                                                    "createPrivateNote",
-                                                    "request",
-                                                    {
-                                                        "Ref": "DeploymentTimestamp"
-                                                    }
-                                                ]
-                                            ]
-                                        }
-                                    ]
-                                ]
-                            }
-                        ]
-                    ]
-                },
-                "ResponseMappingTemplateS3Location": {
-                    "Fn::Join": [
-                        "",
-                        [
-                            "s3://",
-                            {
-                                "Fn::Join": [
-                                    "/",
-                                    [
-                                        {
-                                            "Ref": "ResolverBucket"
-                                        },
-                                        {
-                                            "Ref": "ResolverRootKey"
-                                        },
-                                        {
-                                            "Fn::Join": [
-                                                ".",
-                                                [
-                                                    "Mutation",
-                                                    "createPrivateNote",
-                                                    "response",
-                                                    {
-                                                        "Ref": "DeploymentTimestamp"
-                                                    }
-                                                ]
-                                            ]
-                                        }
-                                    ]
-                                ]
-                            }
-                        ]
-                    ]
-                }
-            },
-            "DependsOn": "GraphQLSchema"
-        },
-        "UpdatePrivateNoteResolver": {
-            "Type": "AWS::AppSync::Resolver",
-            "Properties": {
-                "ApiId": {
-                    "Fn::GetAtt": [
-                        "GraphQLAPI",
-                        "ApiId"
-                    ]
-                },
-                "DataSourceName": {
-                    "Fn::GetAtt": [
-                        "PrivateNoteDataSource",
-                        "Name"
-                    ]
-                },
-                "FieldName": "updatePrivateNote",
-                "TypeName": "Mutation",
-                "RequestMappingTemplateS3Location": {
-                    "Fn::Join": [
-                        "",
-                        [
-                            "s3://",
-                            {
-                                "Fn::Join": [
-                                    "/",
-                                    [
-                                        {
-                                            "Ref": "ResolverBucket"
-                                        },
-                                        {
-                                            "Ref": "ResolverRootKey"
-                                        },
-                                        {
-                                            "Fn::Join": [
-                                                ".",
-                                                [
-                                                    "Mutation",
-                                                    "updatePrivateNote",
-                                                    "request",
-                                                    {
-                                                        "Ref": "DeploymentTimestamp"
-                                                    }
-                                                ]
-                                            ]
-                                        }
-                                    ]
-                                ]
-                            }
-                        ]
-                    ]
-                },
-                "ResponseMappingTemplateS3Location": {
-                    "Fn::Join": [
-                        "",
-                        [
-                            "s3://",
-                            {
-                                "Fn::Join": [
-                                    "/",
-                                    [
-                                        {
-                                            "Ref": "ResolverBucket"
-                                        },
-                                        {
-                                            "Ref": "ResolverRootKey"
-                                        },
-                                        {
-                                            "Fn::Join": [
-                                                ".",
-                                                [
-                                                    "Mutation",
-                                                    "updatePrivateNote",
-                                                    "response",
-                                                    {
-                                                        "Ref": "DeploymentTimestamp"
-                                                    }
-                                                ]
-                                            ]
-                                        }
-                                    ]
-                                ]
-                            }
-                        ]
-                    ]
-                }
-            },
-            "DependsOn": "GraphQLSchema"
-        },
-        "DeletePrivateNoteResolver": {
-            "Type": "AWS::AppSync::Resolver",
-            "Properties": {
-                "ApiId": {
-                    "Fn::GetAtt": [
-                        "GraphQLAPI",
-                        "ApiId"
-                    ]
-                },
-                "DataSourceName": {
-                    "Fn::GetAtt": [
-                        "PrivateNoteDataSource",
-                        "Name"
-                    ]
-                },
-                "FieldName": "deletePrivateNote",
-                "TypeName": "Mutation",
-                "RequestMappingTemplateS3Location": {
-                    "Fn::Join": [
-                        "",
-                        [
-                            "s3://",
-                            {
-                                "Fn::Join": [
-                                    "/",
-                                    [
-                                        {
-                                            "Ref": "ResolverBucket"
-                                        },
-                                        {
-                                            "Ref": "ResolverRootKey"
-                                        },
-                                        {
-                                            "Fn::Join": [
-                                                ".",
-                                                [
-                                                    "Mutation",
-                                                    "deletePrivateNote",
-                                                    "request",
-                                                    {
-                                                        "Ref": "DeploymentTimestamp"
-                                                    }
-                                                ]
-                                            ]
-                                        }
-                                    ]
-                                ]
-                            }
-                        ]
-                    ]
-                },
-                "ResponseMappingTemplateS3Location": {
-                    "Fn::Join": [
-                        "",
-                        [
-                            "s3://",
-                            {
-                                "Fn::Join": [
-                                    "/",
-                                    [
-                                        {
-                                            "Ref": "ResolverBucket"
-                                        },
-                                        {
-                                            "Ref": "ResolverRootKey"
-                                        },
-                                        {
-                                            "Fn::Join": [
-                                                ".",
-                                                [
-                                                    "Mutation",
-                                                    "deletePrivateNote",
+                                                    "deleteUserProfile",
                                                     "response",
                                                     {
                                                         "Ref": "DeploymentTimestamp"

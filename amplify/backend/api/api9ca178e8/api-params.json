@@ -1,0 +1,34 @@
+{
+    "paths": [
+        {
+            "name": "/twitter-auth",
+            "lambdaFunction": "nomadmatchinge620bc79",
+            "privacy": {
+                "open": true
+            }
+        }
+    ],
+    "resourceName": "api9ca178e8",
+    "apiName": "api9ca178e8",
+    "functionArns": [
+        {
+            "lambdaFunction": "nomadmatchinge620bc79"
+        }
+    ],
+    "privacy": {
+        "auth": 0,
+        "unauth": 0,
+        "authRoleName": "nomad-matching-20190131143015-authRole",
+        "unAuthRoleName": "nomad-matching-20190131143015-unauthRole"
+    },
+    "dependsOn": [
+        {
+            "category": "function",
+            "resourceName": "nomadmatchinge620bc79",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        }
+    ]
+}

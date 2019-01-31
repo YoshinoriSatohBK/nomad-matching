@@ -10,16 +10,16 @@
 			"service": "AppSync",
 			"providerPlugin": "awscloudformation",
 			"output": {
-				"securityType": "AMAZON_COGNITO_USER_POOLS"
+				"securityType": "AWS_IAM"
 			}
 		},
-		"api59bb6e8f": {
+		"api9ca178e8": {
 			"service": "API Gateway",
 			"providerPlugin": "awscloudformation",
 			"dependsOn": [
 				{
 					"category": "function",
-					"resourceName": "nomadmatchinge2937a30",
+					"resourceName": "nomadmatchinge620bc79",
 					"attributes": [
 						"Name",
 						"Arn"
@@ -29,7 +29,7 @@
 		}
 	},
 	"function": {
-		"nomadmatchinge2937a30": {
+		"nomadmatchinge620bc79": {
 			"service": "Lambda",
 			"providerPlugin": "awscloudformation",
 			"build": true,
