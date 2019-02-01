@@ -1,6 +1,6 @@
 projects:
   nomadmatching:
-    schemaPath: amplify/backend/function/nomadmatchinge620bc79/src/src/graphql/schema.json
+    schemaPath: src/graphql/schema.json
     includes:
       - src/graphql/**/*.js
     excludes:

@@ -3,7 +3,7 @@
 
 export const onCreateUserProfile = `subscription OnCreateUserProfile {
   onCreateUserProfile {
-    identityId
+    id
     email
     profileImageUrl
     name
@@ -13,7 +13,7 @@ export const onCreateUserProfile = `subscription OnCreateUserProfile {
 `;
 export const onUpdateUserProfile = `subscription OnUpdateUserProfile {
   onUpdateUserProfile {
-    identityId
+    id
     email
     profileImageUrl
     name
@@ -23,7 +23,7 @@ export const onUpdateUserProfile = `subscription OnUpdateUserProfile {
 `;
 export const onDeleteUserProfile = `subscription OnDeleteUserProfile {
   onDeleteUserProfile {
-    identityId
+    id
     email
     profileImageUrl
     name

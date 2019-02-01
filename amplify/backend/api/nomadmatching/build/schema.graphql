@@ -1,5 +1,5 @@
 type UserProfile {
-  identityId: ID!
+  id: ID!
   email: String!
   profileImageUrl: String!
   name: String!
@@ -72,7 +72,7 @@ input ModelBooleanFilterInput {
 }
 
 input ModelUserProfileFilterInput {
-  identityId: ModelIDFilterInput
+  id: ModelIDFilterInput
   email: ModelStringFilterInput
   profileImageUrl: ModelStringFilterInput
   name: ModelStringFilterInput
@@ -85,10 +85,11 @@ input ModelUserProfileFilterInput {
 type Query {
   getUserProfile(id: ID!): UserProfile
   listUserProfiles(filter: ModelUserProfileFilterInput, limit: Int, nextToken: String): ModelUserProfileConnection
+  searchUserProfiles(filter: SearchableUserProfileFilterInput, sort: SearchableUserProfileSortInput, limit: Int, nextToken: Int): SearchableUserProfileConnection
 }
 
 input CreateUserProfileInput {
-  identityId: ID!
+  id: ID
   email: String!
   profileImageUrl: String!
   name: String!
@@ -96,7 +97,7 @@ input CreateUserProfileInput {
 }
 
 input UpdateUserProfileInput {
-  identityId: ID
+  id: ID!
   email: String
   profileImageUrl: String
   name: String
@@ -117,4 +118,87 @@ type Subscription {
   onCreateUserProfile: UserProfile @aws_subscribe(mutations: ["createUserProfile"])
   onUpdateUserProfile: UserProfile @aws_subscribe(mutations: ["updateUserProfile"])
   onDeleteUserProfile: UserProfile @aws_subscribe(mutations: ["deleteUserProfile"])
+}
+
+input SearchableStringFilterInput {
+  ne: String
+  eq: String
+  match: String
+  matchPhrase: String
+  matchPhrasePrefix: String
+  multiMatch: String
+  exists: Boolean
+  wildcard: String
+  regexp: String
+}
+
+input SearchableIDFilterInput {
+  ne: ID
+  eq: ID
+  match: ID
+  matchPhrase: ID
+  matchPhrasePrefix: ID
+  multiMatch: ID
+  exists: Boolean
+  wildcard: ID
+  regexp: ID
+}
+
+input SearchableIntFilterInput {
+  ne: Int
+  gt: Int
+  lt: Int
+  gte: Int
+  lte: Int
+  eq: Int
+  range: [Int]
+}
+
+input SearchableFloatFilterInput {
+  ne: Float
+  gt: Float
+  lt: Float
+  gte: Float
+  lte: Float
+  eq: Float
+  range: [Float]
+}
+
+input SearchableBooleanFilterInput {
+  eq: Boolean
+  ne: Boolean
+}
+
+input SearchableUserProfileFilterInput {
+  id: SearchableIDFilterInput
+  email: SearchableStringFilterInput
+  profileImageUrl: SearchableStringFilterInput
+  name: SearchableStringFilterInput
+  screenName: SearchableStringFilterInput
+  and: [SearchableUserProfileFilterInput]
+  or: [SearchableUserProfileFilterInput]
+  not: SearchableUserProfileFilterInput
+}
+
+enum SearchableSortDirection {
+  asc
+  desc
+}
+
+enum SearchableUserProfileSortableFields {
+  id
+  email
+  profileImageUrl
+  name
+  screenName
+}
+
+input SearchableUserProfileSortInput {
+  field: SearchableUserProfileSortableFields
+  direction: SearchableSortDirection
+}
+
+type SearchableUserProfileConnection {
+  items: [UserProfile]
+  nextToken: String
 }

@@ -3,7 +3,7 @@
 
 export const getUserProfile = `query GetUserProfile($id: ID!) {
   getUserProfile(id: $id) {
-    identityId
+    id
     email
     profileImageUrl
     name
@@ -18,7 +18,30 @@ export const listUserProfiles = `query ListUserProfiles(
 ) {
   listUserProfiles(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
-      identityId
+      id
+      email
+      profileImageUrl
+      name
+      screenName
+    }
+    nextToken
+  }
+}
+`;
+export const searchUserProfiles = `query SearchUserProfiles(
+  $filter: SearchableUserProfileFilterInput
+  $sort: SearchableUserProfileSortInput
+  $limit: Int
+  $nextToken: Int
+) {
+  searchUserProfiles(
+    filter: $filter
+    sort: $sort
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
       email
       profileImageUrl
       name

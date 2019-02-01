@@ -42,6 +42,7 @@ async function getOAuthClient() {
   );
   console.log(consumerSecret);
   const callbackURL = await getSsmParameter("/NomadMatching/Dev/CallbackUrl");
+  console.log(callbackURL);
 
   return new OAuth(
     "https://api.twitter.com/oauth/request_token",
@@ -75,7 +76,6 @@ async function getTwitterClient(access_token_key, access_token_secret) {
 app.post("/twitter-auth/request-token", async (req, res) => {
   try {
     const oauth = await getOAuthClient();
-    console.log(oauth);
     const responseBody = await new Promise((resolve, reject) => {
       oauth.getOAuthRequestToken(
         (error, oauth_token, oauth_token_secret, results) => {

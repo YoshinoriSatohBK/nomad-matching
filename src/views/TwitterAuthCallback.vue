@@ -7,20 +7,16 @@
 <script>
 import AWS from "aws-sdk";
 import { API, graphqlOperation } from "aws-amplify";
-// import * as queries from "../graphql/queries";
-import * as mutations from "../graphql/mutations";
+import * as queries from "../graphql/queries";
 
 async function getTwitterUser(accessToken, accessTokenSecret) {
-  const twitterUser = await API.get("api63b4be66", "/twitter-auth/get-user", {
+  const twitterUser = await API.get("api9ca178e8", "/twitter-auth/get-user", {
     queryStringParameters: {
       access_token_key: accessToken,
       access_token_secret: accessTokenSecret
     }
   });
   console.log(twitterUser);
-  if (!twitterUser.email) {
-    throw new Error();
-  }
   return twitterUser;
 }
 
@@ -44,7 +40,7 @@ export default {
     const oAuthVerifier = this.$route.query.oauth_verifier;
     const oAuthTokenSecret = localStorage.getItem("oauth_token_secret");
 
-    const res = await API.post("api59bb6e8f", "/twitter-auth/access-token", {
+    const res = await API.post("api9ca178e8", "/twitter-auth/access-token", {
       body: {
         oauth_token: oAuthToken,
         oauth_token_secret: oAuthTokenSecret,
@@ -69,20 +65,20 @@ export default {
       console.log(AWS.config.credentials.sessionToken);
 
       const twitterUser = await getTwitterUser(accessToken, accessTokenSecret);
-      const identityId = await getIdentityId(accessToken, accessTokenSecret);
-      console.log(identityId);
-      const appUser = {
-        identityId: identityId,
-        email: twitterUser.email,
-        profileImageUrl: twitterUser.profile_image_url_https,
-        name: twitterUser.name,
-        screenName: twitterUser.screen_name
-      };
+      this.$store.dispatch("setTwitterUser", twitterUser);
 
-      const newUser = await API.graphql(
-        graphqlOperation(mutations.createUser, { input: appUser })
+      const identity = await getIdentityId(accessToken, accessTokenSecret);
+      this.$store.dispatch("setIdentityId", identity.IdentityId);
+
+      const user = await API.graphql(
+        graphqlOperation(queries.getUserProfile, { id: identity.IdentityId })
       );
-      console.log(newUser);
+
+      if (user.data.getUserProfile) {
+        this.$router.push("/home");
+      } else {
+        this.$router.push("/user-profile");
+      }
     });
   }
 };

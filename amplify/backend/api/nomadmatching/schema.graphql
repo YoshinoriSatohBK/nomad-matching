@@ -1,8 +1,9 @@
 type UserProfile
   @model
+  @searchable
   @auth(rules: [{allow: owner}])
 {
-  identityId: ID!
+  id: ID!
   email: String!
   profileImageUrl: String!
   name: String!

@@ -3,7 +3,7 @@
 
 export const createUserProfile = `mutation CreateUserProfile($input: CreateUserProfileInput!) {
   createUserProfile(input: $input) {
-    identityId
+    id
     email
     profileImageUrl
     name
@@ -13,7 +13,7 @@ export const createUserProfile = `mutation CreateUserProfile($input: CreateUserP
 `;
 export const updateUserProfile = `mutation UpdateUserProfile($input: UpdateUserProfileInput!) {
   updateUserProfile(input: $input) {
-    identityId
+    id
     email
     profileImageUrl
     name
@@ -23,7 +23,7 @@ export const updateUserProfile = `mutation UpdateUserProfile($input: UpdateUserP
 `;
 export const deleteUserProfile = `mutation DeleteUserProfile($input: DeleteUserProfileInput!) {
   deleteUserProfile(input: $input) {
-    identityId
+    id
     email
     profileImageUrl
     name
