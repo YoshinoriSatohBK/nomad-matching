@@ -39,30 +39,29 @@
 </template>
 
 <script>
-// import AWS from "aws-sdk";
-import { API, graphqlOperation } from "aws-amplify";
-import * as mutations from "../graphql/mutations";
-
 export default {
   name: "user-profile",
   components: {},
+  computed: {
+    twitterUser: function() {
+      return this.$store.state.twitterUser;
+    },
+    identityId: function() {
+      return this.$store.state.identityId;
+    }
+  },
   methods: {
     async saveProfile() {
-      console.log(this.$store);
-      const twitterUser = this.$store.getters.getTwitterUser;
       const appUser = {
-        id: this.$store.getters.getIdentityId,
-        email: twitterUser.email,
-        profileImageUrl: twitterUser.profile_image_url_https,
-        name: twitterUser.name,
-        screenName: twitterUser.screen_name
+        id: this.identityId,
+        email: this.twitterUser.email,
+        profileImageUrl: this.twitterUser.profile_image_url_https,
+        name: this.twitterUser.name,
+        screenName: this.twitterUser.screen_name
       };
       console.log(appUser);
 
-      const newUser = await API.graphql(
-        graphqlOperation(mutations.createUserProfile, { input: appUser })
-      );
-      console.log(newUser);
+      await this.$store.dispatch("userProfile/fetchUserProfile");
     }
   }
 };

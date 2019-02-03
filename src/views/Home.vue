@@ -6,28 +6,32 @@
 </template>
 
 <script>
-import { API } from "aws-amplify";
+import auth from "../lib/auth";
 
 export default {
   name: "home",
   components: {},
+  computed: {
+    oAuthToken: function() {
+      return this.$store.state.auth.oAuthToken;
+    },
+    identityId: function() {
+      return this.$store.state.auth.identityId;
+    }
+  },
+  async mounted() {
+    await auth.authenticated(
+      "ap-northeast-1:4d5f6798-a9cf-4df8-9922-78766e1275ec"
+    );
+  },
   methods: {
     async signin() {
-      const res = await API.post(
-        "api9ca178e8",
-        "/twitter-auth/request-token",
-        {}
-      );
-      localStorage.setItem("oauth_token", res.oauth_token);
-      localStorage.setItem("oauth_token_secret", res.oauth_token_secret);
+      await this.$store.dispatch("auth/fetchTwitterOAuthToken");
       window.location.href = `https://api.twitter.com/oauth/authenticate?oauth_token=${
-        res.oauth_token
+        this.oAuthToken
       }`;
     },
-    async signout() {
-      localStorage.removeItem("oauth_token");
-      localStorage.removeItem("oauth_token_secret");
-    }
+    async signout() {}
   }
 };
 </script>
