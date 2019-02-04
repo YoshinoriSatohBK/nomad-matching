@@ -35,16 +35,16 @@
 
     div
       p アルコール
-      input(type="radio" name="smoking" value="true" v-model="drink")
+      input(type="radio" name="drink" value="true" v-model="drink")
       span 飲む
-      input(type="radio" name="smoking" value="false" v-model="drink")
+      input(type="radio" name="drink" value="false" v-model="drink")
       span 飲まない
 
     div
       p ノマドステータス
-      input(type="radio" name="smoking" value="nomad" v-model="nomadStatus")
+      input(type="radio" name="nomadStatus" value="nomad" v-model="nomadStatus")
       span 現時点でノマド
-      input(type="radio" name="smoking" value="future" v-model="nomadStatus")
+      input(type="radio" name="nomadStatus" value="future" v-model="nomadStatus")
       span 将来的に目指している
 
     div
@@ -55,8 +55,14 @@
 export default {
   name: "user-profile",
   components: {},
-  mounted() {
-    if (this.twitterUser) {
+  async mounted() {
+    await this.$store.dispatch("authUser/fetchUserProfile");
+    if (this.userProfile && this.userProfile.id) {
+      this.name = this.userProfile.name;
+      this.email = this.userProfile.email;
+      this.imageUrl = this.userProfile.imageUrl;
+      await this.$store.dispatch("twitter/clearUser");
+    } else if (this.twitterUser) {
       this.name = this.twitterUser.name;
       this.email = this.twitterUser.email;
       this.imageUrl = this.twitterUser.profile_image_url_https;
@@ -67,9 +73,9 @@ export default {
       name: "",
       email: "",
       imageUrl: "",
-      location: "",
-      income: "",
-      skill: "",
+      location: "中野区",
+      income: 0,
+      skill: "AWS",
       smoking: false,
       drink: false,
       nomadStatus: "noamd"
@@ -78,12 +84,14 @@ export default {
   computed: {
     twitterUser: function() {
       return this.$store.state.twitter.user;
+    },
+    userProfile: function() {
+      return this.$store.state.authUser.userProfile;
     }
   },
   methods: {
     async saveProfile() {
       const profile = {
-        id: this.identityId,
         name: this.name,
         email: this.email,
         imageUrl: this.imageUrl,
@@ -91,12 +99,12 @@ export default {
         income: this.income,
         skill: this.skill,
         smoking: this.smoking,
-        drink: this.drink,
+        drink: true,
         nomadStatus: this.nomadStatus
       };
-      console.log(profile);
-      await this.$store.dispatch("twitter/clearAuth");
-      await this.$store.dispatch("authUser/fetchUserProfile");
+      await this.$store.dispatch("authUser/saveUserProfile", {
+        profile: profile
+      });
     }
   }
 };

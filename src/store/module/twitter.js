@@ -64,6 +64,9 @@ const actions = {
     commit("clearAccessTokens");
     commit("clearOAuthTokens");
     commit("clearUser");
+  },
+  async clearUser({ commit }) {
+    commit("clearUser");
   }
 };
 

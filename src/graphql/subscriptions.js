@@ -9,6 +9,7 @@ export const onCreateUserProfile = `subscription OnCreateUserProfile {
     imageUrl
     location
     income
+    skill
     smoking
     drink
     nomadStatus
@@ -23,6 +24,7 @@ export const onUpdateUserProfile = `subscription OnUpdateUserProfile {
     imageUrl
     location
     income
+    skill
     smoking
     drink
     nomadStatus
@@ -37,6 +39,7 @@ export const onDeleteUserProfile = `subscription OnDeleteUserProfile {
     imageUrl
     location
     income
+    skill
     smoking
     drink
     nomadStatus

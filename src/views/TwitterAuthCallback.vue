@@ -13,13 +13,16 @@ export default {
   computed: {
     oAuthVerifier: function() {
       return this.$route.query.oauth_verifier;
+    },
+    userProfile: function() {
+      return this.$store.state.authUser.userProfile;
     }
   },
   async mounted() {
     await libAuth.authenticateCallback(this.oAuthVerifier);
     await this.$store.dispatch("userProfile/fetchUserProfile");
     if (this.userProfile) {
-      this.$router.push("/top");
+      this.$router.push("/");
     } else {
       this.$router.push("/user-profile");
     }

@@ -9,7 +9,7 @@ type UserProfile
   imageUrl: String!
   location: String!
   income: Int!
-  skill: Sting!
+  skill: String!
   smoking: Boolean!
   drink: Boolean!
   nomadStatus: String!

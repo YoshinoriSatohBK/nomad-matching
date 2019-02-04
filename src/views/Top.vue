@@ -8,7 +8,14 @@
       div 検索条件
       ul
         li(v-for="user in userList")
-          div {{ user }}
+          div
+            img(:src="user.imageUrl")
+            div {{ user.name }}
+            div {{ user.location }}
+            div {{ user.skill }}
+            div {{ user.income }} 〜 {{ user.income }}
+            div {{ user.nomadStatus }}
+            button(@click="matching(user)") お茶したい
 
 </template>
 
@@ -35,6 +42,13 @@ export default {
     },
     async signout() {
       await libAuth.clearAuthentication();
+    },
+    async matching(user) {
+      location.href =
+        "mailto:" +
+        user.email +
+        "?subject=お茶しませんか" +
+        "&body=お茶しませんか";
     }
   }
 };

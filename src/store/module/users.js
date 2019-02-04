@@ -14,10 +14,10 @@ const mutations = {
 const actions = {
   async fetchUserList({ commit }) {
     const res = await API.graphql(
-      graphqlOperation(queries.listUserProfiles, {})
+      graphqlOperation(queries.searchUserProfiles, {})
     );
     console.log(res);
-    commit("setList", res.data.listUserProfiles.items);
+    commit("setList", res.data.searchUserProfiles.items);
   }
 };
 

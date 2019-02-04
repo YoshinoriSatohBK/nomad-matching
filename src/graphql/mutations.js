@@ -9,6 +9,7 @@ export const createUserProfile = `mutation CreateUserProfile($input: CreateUserP
     imageUrl
     location
     income
+    skill
     smoking
     drink
     nomadStatus
@@ -23,6 +24,7 @@ export const updateUserProfile = `mutation UpdateUserProfile($input: UpdateUserP
     imageUrl
     location
     income
+    skill
     smoking
     drink
     nomadStatus
@@ -37,6 +39,7 @@ export const deleteUserProfile = `mutation DeleteUserProfile($input: DeleteUserP
     imageUrl
     location
     income
+    skill
     smoking
     drink
     nomadStatus

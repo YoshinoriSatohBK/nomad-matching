@@ -1,6 +1,6 @@
 import libAuth from "../lib/auth";
 
-const excludePaths = ["twitterState", "twitter-auth-callback"];
+const excludePaths = ["top", "twitter-auth-callback"];
 
 export default async (to, from, next) => {
   console.log("auth middleware");

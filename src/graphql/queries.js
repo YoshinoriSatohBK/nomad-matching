@@ -9,6 +9,7 @@ export const getUserProfile = `query GetUserProfile($id: ID!) {
     imageUrl
     location
     income
+    skill
     smoking
     drink
     nomadStatus
@@ -28,6 +29,7 @@ export const listUserProfiles = `query ListUserProfiles(
       imageUrl
       location
       income
+      skill
       smoking
       drink
       nomadStatus
@@ -55,6 +57,7 @@ export const searchUserProfiles = `query SearchUserProfiles(
       imageUrl
       location
       income
+      skill
       smoking
       drink
       nomadStatus

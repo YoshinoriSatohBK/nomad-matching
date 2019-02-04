@@ -5,6 +5,7 @@ type UserProfile {
   imageUrl: String!
   location: String!
   income: Int!
+  skill: String!
   smoking: Boolean!
   drink: Boolean!
   nomadStatus: String!
@@ -82,6 +83,7 @@ input ModelUserProfileFilterInput {
   imageUrl: ModelStringFilterInput
   location: ModelStringFilterInput
   income: ModelIntFilterInput
+  skill: ModelStringFilterInput
   smoking: ModelBooleanFilterInput
   drink: ModelBooleanFilterInput
   nomadStatus: ModelStringFilterInput
@@ -103,6 +105,7 @@ input CreateUserProfileInput {
   imageUrl: String!
   location: String!
   income: Int!
+  skill: String!
   smoking: Boolean!
   drink: Boolean!
   nomadStatus: String!
@@ -115,6 +118,7 @@ input UpdateUserProfileInput {
   imageUrl: String
   location: String
   income: Int
+  skill: String
   smoking: Boolean
   drink: Boolean
   nomadStatus: String
@@ -192,6 +196,7 @@ input SearchableUserProfileFilterInput {
   imageUrl: SearchableStringFilterInput
   location: SearchableStringFilterInput
   income: SearchableIntFilterInput
+  skill: SearchableStringFilterInput
   smoking: SearchableBooleanFilterInput
   drink: SearchableBooleanFilterInput
   nomadStatus: SearchableStringFilterInput
@@ -212,6 +217,7 @@ enum SearchableUserProfileSortableFields {
   imageUrl
   location
   income
+  skill
   smoking
   drink
   nomadStatus
