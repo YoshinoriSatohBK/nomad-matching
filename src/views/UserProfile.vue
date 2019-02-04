@@ -44,10 +44,7 @@ export default {
   components: {},
   computed: {
     twitterUser: function() {
-      return this.$store.state.twitterUser;
-    },
-    identityId: function() {
-      return this.$store.state.identityId;
+      return this.$store.state.auth.twitterUser;
     }
   },
   methods: {

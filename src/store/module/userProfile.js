@@ -1,3 +1,4 @@
+import AWS from "aws-sdk";
 import { API, graphqlOperation } from "aws-amplify";
 import * as queries from "../../graphql/queries";
 
@@ -12,10 +13,10 @@ const mutations = {
 };
 
 const actions = {
-  async fetchUserProfile({ commit, rootState }) {
+  async fetchUserProfile({ commit }) {
     const userProfile = await API.graphql(
       graphqlOperation(queries.getUserProfile, {
-        id: rootState.auth.identityId
+        id: AWS.config.credentials.identityId
       })
     );
     console.log(userProfile);

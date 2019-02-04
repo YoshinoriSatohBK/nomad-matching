@@ -1,13 +1,15 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import auth from "./module/auth";
+import createPersistedState from "vuex-persistedstate";
+import twitter from "./module/twitter";
 import userProfile from "./module/userProfile";
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
+  plugins: [createPersistedState()],
   modules: {
-    auth,
+    twitter,
     userProfile
   }
 });

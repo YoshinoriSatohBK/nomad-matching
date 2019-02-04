@@ -1,23 +1,49 @@
 import AWS from "aws-sdk";
 import awsExports from "../aws-exports";
+import store from "../store";
 
-const setCredentials = async (accessToken, accessTokenSecret) => {
+const twitterState = store.state.twitter;
+
+const setCredentials = async () => {
   AWS.config.credentials = new AWS.CognitoIdentityCredentials({
     IdentityPoolId: awsExports.aws_cognito_identity_pool_id,
     Logins: {
-      "api.twitter.com": String(`${accessToken};${accessTokenSecret}`)
+      "api.twitter.com": String(
+        `${twitterState.accessToken};${twitterState.accessTokenSecret}`
+      )
     }
   });
-
   await AWS.config.credentials.getPromise();
-  console.log(AWS.config.credentials);
 };
 
-const authenticated = async identityId => {
-  return identityId;
+const authenticate = async () => {
+  if (!twitterState.accessToken || !twitterState.accessTokenSecret) {
+    await store.dispatch("twitter/fetchOAuthToken");
+    window.location.href = `https://api.twitter.com/oauth/authenticate?oauth_token=${
+      twitterState.oAuthToken
+    }`;
+  } else {
+    await setCredentials();
+  }
+};
+
+const clearAuthentication = async () => {
+  await store.dispatch("twitter/clearAuth");
+};
+
+const authenticateCallback = async oAuthVerifier => {
+  await store.dispatch("twitter/fetchAccessToken", {
+    oAuthVerifier: oAuthVerifier
+  });
+  await setCredentials();
+  await store.dispatch("twitter/fetchTwitterUser", {
+    accessToken: twitterState.access_token,
+    accessTokenSecret: twitterState.access_token_secret
+  });
 };
 
 export default {
-  setCredentials,
-  authenticated
+  authenticate,
+  authenticateCallback,
+  clearAuthentication
 };
