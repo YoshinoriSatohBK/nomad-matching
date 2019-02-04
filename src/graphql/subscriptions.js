@@ -4,30 +4,42 @@
 export const onCreateUserProfile = `subscription OnCreateUserProfile {
   onCreateUserProfile {
     id
-    email
-    profileImageUrl
     name
-    screenName
+    email
+    imageUrl
+    location
+    income
+    smoking
+    drink
+    nomadStatus
   }
 }
 `;
 export const onUpdateUserProfile = `subscription OnUpdateUserProfile {
   onUpdateUserProfile {
     id
-    email
-    profileImageUrl
     name
-    screenName
+    email
+    imageUrl
+    location
+    income
+    smoking
+    drink
+    nomadStatus
   }
 }
 `;
 export const onDeleteUserProfile = `subscription OnDeleteUserProfile {
   onDeleteUserProfile {
     id
-    email
-    profileImageUrl
     name
-    screenName
+    email
+    imageUrl
+    location
+    income
+    smoking
+    drink
+    nomadStatus
   }
 }
 `;

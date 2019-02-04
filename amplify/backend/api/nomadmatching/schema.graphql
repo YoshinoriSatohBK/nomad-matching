@@ -4,8 +4,13 @@ type UserProfile
   @auth(rules: [{allow: owner}])
 {
   id: ID!
-  email: String!
-  profileImageUrl: String!
   name: String!
-  screenName: String!
+  email: String!
+  imageUrl: String!
+  location: String!
+  income: Int!
+  skill: Sting!
+  smoking: Boolean!
+  drink: Boolean!
+  nomadStatus: String!
 }

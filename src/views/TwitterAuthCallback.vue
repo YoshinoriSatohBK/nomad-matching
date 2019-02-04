@@ -19,7 +19,7 @@ export default {
     await libAuth.authenticateCallback(this.oAuthVerifier);
     await this.$store.dispatch("userProfile/fetchUserProfile");
     if (this.userProfile) {
-      this.$router.push("/home");
+      this.$router.push("/top");
     } else {
       this.$router.push("/user-profile");
     }

@@ -1,9 +1,13 @@
 type UserProfile {
   id: ID!
-  email: String!
-  profileImageUrl: String!
   name: String!
-  screenName: String!
+  email: String!
+  imageUrl: String!
+  location: String!
+  income: Int!
+  smoking: Boolean!
+  drink: Boolean!
+  nomadStatus: String!
 }
 
 enum ModelSortDirection {
@@ -73,10 +77,14 @@ input ModelBooleanFilterInput {
 
 input ModelUserProfileFilterInput {
   id: ModelIDFilterInput
-  email: ModelStringFilterInput
-  profileImageUrl: ModelStringFilterInput
   name: ModelStringFilterInput
-  screenName: ModelStringFilterInput
+  email: ModelStringFilterInput
+  imageUrl: ModelStringFilterInput
+  location: ModelStringFilterInput
+  income: ModelIntFilterInput
+  smoking: ModelBooleanFilterInput
+  drink: ModelBooleanFilterInput
+  nomadStatus: ModelStringFilterInput
   and: [ModelUserProfileFilterInput]
   or: [ModelUserProfileFilterInput]
   not: ModelUserProfileFilterInput
@@ -90,18 +98,26 @@ type Query {
 
 input CreateUserProfileInput {
   id: ID
-  email: String!
-  profileImageUrl: String!
   name: String!
-  screenName: String!
+  email: String!
+  imageUrl: String!
+  location: String!
+  income: Int!
+  smoking: Boolean!
+  drink: Boolean!
+  nomadStatus: String!
 }
 
 input UpdateUserProfileInput {
   id: ID!
-  email: String
-  profileImageUrl: String
   name: String
-  screenName: String
+  email: String
+  imageUrl: String
+  location: String
+  income: Int
+  smoking: Boolean
+  drink: Boolean
+  nomadStatus: String
 }
 
 input DeleteUserProfileInput {
@@ -171,10 +187,14 @@ input SearchableBooleanFilterInput {
 
 input SearchableUserProfileFilterInput {
   id: SearchableIDFilterInput
-  email: SearchableStringFilterInput
-  profileImageUrl: SearchableStringFilterInput
   name: SearchableStringFilterInput
-  screenName: SearchableStringFilterInput
+  email: SearchableStringFilterInput
+  imageUrl: SearchableStringFilterInput
+  location: SearchableStringFilterInput
+  income: SearchableIntFilterInput
+  smoking: SearchableBooleanFilterInput
+  drink: SearchableBooleanFilterInput
+  nomadStatus: SearchableStringFilterInput
   and: [SearchableUserProfileFilterInput]
   or: [SearchableUserProfileFilterInput]
   not: SearchableUserProfileFilterInput
@@ -187,10 +207,14 @@ enum SearchableSortDirection {
 
 enum SearchableUserProfileSortableFields {
   id
-  email
-  profileImageUrl
   name
-  screenName
+  email
+  imageUrl
+  location
+  income
+  smoking
+  drink
+  nomadStatus
 }
 
 input SearchableUserProfileSortInput {

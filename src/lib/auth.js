@@ -16,14 +16,18 @@ const setCredentials = async () => {
   await AWS.config.credentials.getPromise();
 };
 
+const authenticated = () => {
+  return twitterState.accessToken && twitterState.accessTokenSecret;
+};
+
 const authenticate = async () => {
-  if (!twitterState.accessToken || !twitterState.accessTokenSecret) {
+  if (authenticated()) {
+    await setCredentials();
+  } else {
     await store.dispatch("twitter/fetchOAuthToken");
     window.location.href = `https://api.twitter.com/oauth/authenticate?oauth_token=${
       twitterState.oAuthToken
     }`;
-  } else {
-    await setCredentials();
   }
 };
 
@@ -43,6 +47,7 @@ const authenticateCallback = async oAuthVerifier => {
 };
 
 export default {
+  authenticated,
   authenticate,
   authenticateCallback,
   clearAuthentication

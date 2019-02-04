@@ -1,7 +1,7 @@
 import apiTwitterAuth from "../../api/twittterAuth";
 
 const state = {
-  twitterUser: {},
+  user: {},
   oAuthToken: null,
   oAuthTokenSecret: null,
   accessToken: null,
@@ -9,11 +9,11 @@ const state = {
 };
 
 const mutations = {
-  setTwitterUser(state, twitterUser) {
-    state.twitterUser = twitterUser;
+  setUser(state, user) {
+    state.user = user;
   },
-  clearTwitterUser(state) {
-    state.twitterUser = {};
+  clearUser(state) {
+    state.user = {};
   },
   setOAuthToken(state, oAuthToken) {
     state.oAuthToken = oAuthToken;
@@ -44,8 +44,6 @@ const actions = {
     commit("setOAuthTokenSecret", res.oauth_token_secret);
   },
   async fetchAccessToken({ commit, state }, payload) {
-    console.log(state);
-    console.log(payload);
     const res = await apiTwitterAuth.getAccessToken(
       state.oAuthToken,
       state.oAuthTokenSecret,
@@ -55,17 +53,17 @@ const actions = {
     commit("setAccessToken", res.access_token);
     commit("setAccessTokenSecret", res.access_token_secret);
   },
-  async fetchTwitterUser({ commit }, payload) {
-    const twitterUser = await apiTwitterAuth.getTwitterUser(
-      payload.accessToken,
-      payload.accessTokenSecret
+  async fetchTwitterUser({ commit, state }) {
+    const user = await apiTwitterAuth.getTwitterUser(
+      state.accessToken,
+      state.accessTokenSecret
     );
-    commit("setTwitterUser", twitterUser);
+    commit("setUser", user);
   },
   async clearAuth({ commit }) {
     commit("clearAccessTokens");
     commit("clearOAuthTokens");
-    commit("clearTwitterUser");
+    commit("clearUser");
   }
 };
 

@@ -4,30 +4,42 @@
 export const createUserProfile = `mutation CreateUserProfile($input: CreateUserProfileInput!) {
   createUserProfile(input: $input) {
     id
-    email
-    profileImageUrl
     name
-    screenName
+    email
+    imageUrl
+    location
+    income
+    smoking
+    drink
+    nomadStatus
   }
 }
 `;
 export const updateUserProfile = `mutation UpdateUserProfile($input: UpdateUserProfileInput!) {
   updateUserProfile(input: $input) {
     id
-    email
-    profileImageUrl
     name
-    screenName
+    email
+    imageUrl
+    location
+    income
+    smoking
+    drink
+    nomadStatus
   }
 }
 `;
 export const deleteUserProfile = `mutation DeleteUserProfile($input: DeleteUserProfileInput!) {
   deleteUserProfile(input: $input) {
     id
-    email
-    profileImageUrl
     name
-    screenName
+    email
+    imageUrl
+    location
+    income
+    smoking
+    drink
+    nomadStatus
   }
 }
 `;

@@ -4,10 +4,14 @@
 export const getUserProfile = `query GetUserProfile($id: ID!) {
   getUserProfile(id: $id) {
     id
-    email
-    profileImageUrl
     name
-    screenName
+    email
+    imageUrl
+    location
+    income
+    smoking
+    drink
+    nomadStatus
   }
 }
 `;
@@ -19,10 +23,14 @@ export const listUserProfiles = `query ListUserProfiles(
   listUserProfiles(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
       id
-      email
-      profileImageUrl
       name
-      screenName
+      email
+      imageUrl
+      location
+      income
+      smoking
+      drink
+      nomadStatus
     }
     nextToken
   }
@@ -42,10 +50,14 @@ export const searchUserProfiles = `query SearchUserProfiles(
   ) {
     items {
       id
-      email
-      profileImageUrl
       name
-      screenName
+      email
+      imageUrl
+      location
+      income
+      smoking
+      drink
+      nomadStatus
     }
     nextToken
   }
