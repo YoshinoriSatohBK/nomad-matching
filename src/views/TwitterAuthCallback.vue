@@ -20,7 +20,7 @@ export default {
   },
   async mounted() {
     await libAuth.authenticateCallback(this.oAuthVerifier);
-    await this.$store.dispatch("userProfile/fetchUserProfile");
+    await this.$store.dispatch("authUser/fetchUserProfile");
     if (this.userProfile) {
       this.$router.push("/");
     } else {

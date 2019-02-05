@@ -84,7 +84,7 @@
 				"TemplateURL": "https://s3.amazonaws.com/nomad-matching-20190131143015-deployment/amplify-cfn-templates/auth/cognito09b59faa-cloudformation-template.yml",
 				"Parameters": {
 					"identityPoolName": "nomad_matching09b59faa_identitypool_09b59faa",
-					"allowUnauthenticatedIdentities": false,
+					"allowUnauthenticatedIdentities": true,
 					"thirdPartyAuth": false,
 					"lambdaLogPolicy": "cognito09b59faa_lambda_log_policy",
 					"openIdLambdaRoleName": "cognito09b59faa_openid_lambda_role",
@@ -155,12 +155,12 @@
 							"Outputs.UserPoolId"
 						]
 					},
-					"schemaGraphql": "s3://nomad-matching-20190131143015-deployment/amplify-appsync-files/schema.graphql.1549330920366",
+					"schemaGraphql": "s3://nomad-matching-20190131143015-deployment/amplify-appsync-files/schema.graphql.1549366946921",
 					"ElasticSearchStreamingLambdaCodeS3Key": "amplify-appsync-files/python_streaming_function.zip",
 					"ElasticSearchStreamingLambdaCodeS3Bucket": "nomad-matching-20190131143015-deployment",
 					"ResolverBucket": "nomad-matching-20190131143015-deployment",
 					"ResolverRootKey": "amplify-appsync-files",
-					"DeploymentTimestamp": "1549330920366",
+					"DeploymentTimestamp": "1549366946921",
 					"env": "dev"
 				}
 			}

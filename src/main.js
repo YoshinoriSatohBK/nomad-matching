@@ -22,6 +22,10 @@ Vue.use(Buefy);
 import VueHead from "vue-head";
 Vue.use(VueHead);
 
+// Vue Carousel
+import VueCarousel from "vue-carousel";
+Vue.use(VueCarousel);
+
 // Vue.config.productionTip = false;
 
 new Vue({

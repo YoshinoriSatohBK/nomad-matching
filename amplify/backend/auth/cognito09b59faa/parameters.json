@@ -1,6 +1,6 @@
 {
     "identityPoolName": "nomad_matching09b59faa_identitypool_09b59faa",
-    "allowUnauthenticatedIdentities": false,
+    "allowUnauthenticatedIdentities": true,
     "thirdPartyAuth": false,
     "lambdaLogPolicy": "cognito09b59faa_lambda_log_policy",
     "openIdLambdaRoleName": "cognito09b59faa_openid_lambda_role",

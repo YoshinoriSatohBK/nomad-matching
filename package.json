@@ -17,6 +17,7 @@
     "pug-plain-loader": "^1.0.0",
     "register-service-worker": "^1.5.2",
     "vue": "^2.5.21",
+    "vue-carousel": "^0.17.0",
     "vue-head": "^2.1.1",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1",
