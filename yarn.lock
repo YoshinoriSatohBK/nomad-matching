@@ -757,6 +757,30 @@
     lodash "^4.17.10"
     to-fast-properties "^2.0.0"
 
+"@fortawesome/fontawesome-common-types@^0.2.14":
+  version "0.2.14"
+  resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-common-types/-/fontawesome-common-types-0.2.14.tgz#0eb86a77ac88e8c12c48591735283f0bf0ea5606"
+  integrity sha512-LOcvERCI96KioXSIfOYN4IATv2ROJOyf72dYnpoWfOIkuyLp45oMej1kL03kYdzvktLCzYhykgHwiu6nkg9Xbw==
+
+"@fortawesome/fontawesome-svg-core@^1.2.14":
+  version "1.2.14"
+  resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-svg-core/-/fontawesome-svg-core-1.2.14.tgz#48fde5fbfa223cffd5fac9c0402cfbe87605a7d0"
+  integrity sha512-T1qCqkwm9PuvK53J64D1ovfrOTa1kG+SrHNj5cFst/rrskhCnbxpRdbqFIdc/thmXC0ebBX8nOUyja2/mrxe4g==
+  dependencies:
+    "@fortawesome/fontawesome-common-types" "^0.2.14"
+
+"@fortawesome/free-solid-svg-icons@^5.7.1":
+  version "5.7.1"
+  resolved "https://registry.yarnpkg.com/@fortawesome/free-solid-svg-icons/-/free-solid-svg-icons-5.7.1.tgz#df41b8643383862a2af93456e7129e5ffc0fb7ae"
+  integrity sha512-5V/Q+JoPzuiIHW2JwmZGvE9bHguvNJKa7611DPo51uIvYv9LweX/SnDF+HC23X2W5T3myHhnGi+EZJTmidAmyg==
+  dependencies:
+    "@fortawesome/fontawesome-common-types" "^0.2.14"
+
+"@fortawesome/vue-fontawesome@^0.1.5":
+  version "0.1.5"
+  resolved "https://registry.yarnpkg.com/@fortawesome/vue-fontawesome/-/vue-fontawesome-0.1.5.tgz#ea70a4d4ad0d6d617048a5b2a2ff33e21fe47d61"
+  integrity sha512-tiNZCgh+ZkUsyFfm2MQMMdHKRrKj82M7g0XFPSNNY+s5nRB82soy0US+xj0jGRy433b0c4WpylCOhgle3294Uw==
+
 "@iamstarkov/listr-update-renderer@0.4.1":
   version "0.4.1"
   resolved "https://registry.yarnpkg.com/@iamstarkov/listr-update-renderer/-/listr-update-renderer-0.4.1.tgz#d7c48092a2dcf90fd672b6c8b458649cb350c77e"
@@ -2220,6 +2244,13 @@ bser@^2.0.0:
   dependencies:
     node-int64 "^0.4.0"
 
+buefy@^0.7.2:
+  version "0.7.2"
+  resolved "https://registry.yarnpkg.com/buefy/-/buefy-0.7.2.tgz#966b540b75d10dd0aba4d4921f0670430d6e5518"
+  integrity sha512-5nj7mJeJE81Ai86Zx1YwADugTJcH3w+iY6WDKiMqDohxXWDSE1Mxzfvn5SJqYb4ofc45lU8yTSTYpOMaZCpR/A==
+  dependencies:
+    bulma "0.7.2"
+
 buffer-from@^1.0.0:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/buffer-from/-/buffer-from-1.1.1.tgz#32713bc028f75c02fdb710d7c7bcec1f2c6070ef"
@@ -2253,6 +2284,11 @@ builtin-status-codes@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/builtin-status-codes/-/builtin-status-codes-3.0.0.tgz#85982878e21b98e1c66425e03d0174788f569ee8"
   integrity sha1-hZgoeOIbmOHGZCXgPQF0eI9Wnug=
+
+bulma@0.7.2:
+  version "0.7.2"
+  resolved "https://registry.yarnpkg.com/bulma/-/bulma-0.7.2.tgz#8e944377b74c7926558830d38d8e19eaf49f5fb6"
+  integrity sha512-6JHEu8U/1xsyOst/El5ImLcZIiE2JFXgvrz8GGWbnDLwTNRPJzdAM0aoUM1Ns0avALcVb6KZz9NhzmU53dGDcQ==
 
 bytes@3.0.0:
   version "3.0.0"
@@ -10664,6 +10700,11 @@ vue-eslint-parser@^4.0.2:
     espree "^4.1.0"
     esquery "^1.0.1"
     lodash "^4.17.11"
+
+vue-head@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/vue-head/-/vue-head-2.1.1.tgz#05c455d6bddd1f21e84ae6c537e600ac960d07fb"
+  integrity sha512-nU/HRSoX4PYvXp6GlqYqUresESu6oZP4/TbPF4L73BumNyELcDHvRE/89X5VxUuoTzesScFnkVijYaoAYuWOSQ==
 
 vue-hot-reload-api@^2.3.0:
   version "2.3.1"
