@@ -13,7 +13,7 @@
 
     div.full-width-image
       div.full-width-image__text 次は、2人ででどこへ行こう
-      img(src="../assets/images/main_photo.jpg")
+      img(src="../assets/images/main_photo.jpg" width="100%")
 
     div.text-title
       p ノマドワーカー専用のマッチングサイト
@@ -176,6 +176,7 @@ export default {
       return this.$store.state.users.publicList.map(user => {
         return {
           name: user.name,
+          email: user.email,
           location: user.location,
           skill: user.skill,
           incomeRange: getIncomeRangeString(user.income),
@@ -244,7 +245,7 @@ export default {
   width: 100%
   &__text
     position absolute
-    top 108px
+    top 16%
     left 20px
     font-size 14px
     font-family Hiragino Kaku Gothic ProN
@@ -433,8 +434,7 @@ export default {
   height 160px
 
 .user-item
-  width 130px
-  max-width 170px
+  width 50%
   margin-bottom 40px
 
 .user-info
@@ -442,6 +442,9 @@ export default {
   font-family Hiragino Kaku Gothic ProN
   text-align left
   margin-bottom 10px
+  max-width 150px
+  margin-left auto
+  margin-right auto
   &-name
     font-size 12px
     display inline-block
@@ -450,7 +453,7 @@ export default {
     font-size 10px
     &-item
       display inline-block
-      margin-right 18px
+      margin-right 10px
 
 .copy-text
   color #6C5A3F
