@@ -47,6 +47,7 @@ const authenticateCallback = async oAuthVerifier => {
 };
 
 export default {
+  setCredentials,
   authenticated,
   authenticate,
   authenticateCallback,

@@ -13,18 +13,26 @@ const mutations = {
 
 const actions = {
   async fetchUserList({ commit }) {
+    console.log("fetchUserList");
     const res = await API.graphql(
       graphqlOperation(queries.searchUserProfiles, {})
     );
+    console.log("ffff");
     console.log(res);
-    // commit("setList", res.data.searchUserProfiles.items);
+    // 複数ユーザ表示ダミー
     commit("setList", [
+      res.data.searchUserProfiles.items[0],
+      res.data.searchUserProfiles.items[0],
+      res.data.searchUserProfiles.items[0],
+      res.data.searchUserProfiles.items[0],
+      res.data.searchUserProfiles.items[0],
       res.data.searchUserProfiles.items[0],
       res.data.searchUserProfiles.items[0],
       res.data.searchUserProfiles.items[0],
       res.data.searchUserProfiles.items[0],
       res.data.searchUserProfiles.items[0]
     ]);
+    // commit("setList", res.data.searchUserProfiles.items);
   }
 };
 

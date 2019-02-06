@@ -26,6 +26,10 @@ Vue.use(VueHead);
 import VueCarousel from "vue-carousel";
 Vue.use(VueCarousel);
 
+// Vue scrollto
+import VueScrollTo from "vue-scrollto";
+Vue.use(VueScrollTo);
+
 // Vue.config.productionTip = false;
 
 new Vue({

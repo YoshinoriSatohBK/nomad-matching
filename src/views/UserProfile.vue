@@ -1,54 +1,43 @@
 <template lang="pug">
   div
-    h1 user profile
+    h1 プロフィール登録
+
+    b-field(label="名前")
+      b-input(v-model="name")
+
+    b-field(label="メールアドレス")
+      b-input(type="email" v-model="email")
+    <!--div-->
+      <!--p プロフィール画像-->
+      <!--input(type="text" v-model="imageUrl")-->
+    b-field(label="地域")
+      b-input(v-model="location")
+
+    b-field(label="年収")
+      b-input(v-model="income")
+
+    b-field(label="スキル")
+      b-input(v-model="skill")
+
+    b-field(label="喫煙" )
+      b-select(v-model="smoking")
+        option(value="true") 吸う
+        option(value="false") 吸わない
+
+    b-field(label="アルコール" )
+      b-select(v-model="drink")
+        option(value="true") 飲む
+        option(value="false") 飲まない
+
+    b-field(label="ノマド" )
+      b-select(v-model="nomadStatus")
+        option(value="nomad") 達成済み
+        option(value="running") 目指している
+        option(value="other") その他
 
     div
-      p 名前
-      input(type="text" v-model="name")
-
-    div
-      p メールアドレス
-      input(type="text" v-model="email")
-
-    div
-      p プロフィール画像
-      input(type="text" v-model="imageUrl")
-
-    div
-      p 地域
-      input(type="text" v-model="location")
-
-    div
-      p 年収
-      input(type="text" v-model="income")
-
-    div
-      p スキル
-      input(type="text" v-model="skill")
-
-    div
-      p 喫煙
-      input(type="radio" name="smoking" value="true" v-model="smoking")
-      span する
-      input(type="radio" name="smoking" value="false" v-model="smoking")
-      span しない
-
-    div
-      p アルコール
-      input(type="radio" name="drink" value="true" v-model="drink")
-      span 飲む
-      input(type="radio" name="drink" value="false" v-model="drink")
-      span 飲まない
-
-    div
-      p ノマドステータス
-      input(type="radio" name="nomadStatus" value="nomad" v-model="nomadStatus")
-      span 現時点でノマド
-      input(type="radio" name="nomadStatus" value="future" v-model="nomadStatus")
-      span 将来的に目指している
-
-    div
-      button(@click="saveProfile()") save
+      button.button.is-primary(@click="saveProfile()") save
+      button.button(@click="$router.push('/')") 戻る
 </template>
 
 <script>
@@ -78,7 +67,8 @@ export default {
       skill: "AWS",
       smoking: false,
       drink: false,
-      nomadStatus: "noamd"
+      nomadStatus: "nomad",
+      smokingOptions: []
     };
   },
   computed: {
@@ -105,6 +95,10 @@ export default {
       await this.$store.dispatch("authUser/saveUserProfile", {
         profile: profile
       });
+      this.$toast.open("プロフィールを登録しました！");
+      setTimeout(() => {
+        this.$router.push("/");
+      }, 1750);
     }
   }
 };

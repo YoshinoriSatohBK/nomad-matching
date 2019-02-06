@@ -1,19 +1,21 @@
 <template lang="pug">
   div
-    div.my-nav
-      b-dropdown(hoverable).my-menu
+    div.my-header
+      b-dropdown(hoverable)
         a(slot="trigger")
-          b-icon(pack="fas" icon="bars" type="is-danger")
-        b-dropdown-item プロフィール
+          img(src="../assets/images/menu.png").menu-image
+        b-dropdown-item(@click="$router.push('/user-profile')") プロフィール
         b-dropdown-item(v-if="authenticated" @click="signout()") ログアウト
       div.my-title
         div.logo-pc
           img(src="../assets/images/mark_pc.png")
         div.logo-name Nomad links
 
+    div.full-width-image
+      div.full-width-image__text 次は、2人ででどこへ行こう
+      img(src="../assets/images/main_photo.jpg")
 
-    img(src="../assets/images/main_photo.jpg")
-    div.catchcopy
+    div.text-title
       p ノマドワーカー専用のマッチングサイト
       p "nomad links"
 
@@ -21,11 +23,17 @@
       div.button-parent-lg
         div.register-button-border
           div(@click="signin()").register-button
-            div.button-text Twitterで登録する
+            div.button-text-wrap
+              div.twitter-icon
+                img(src="../assets/images/twitter.png")
+              span.twitter-text Twitterで登録する
       div.button-parent-lg
         div.search-button-border
-          div(@click="signin()").search-button
-            div.button-text 出会いを探してみる
+          div(v-scroll-to="{el: '#nomad-list-scrollto', duration: 1000, easing: 'ease'}").search-button
+            div.button-text-wrap
+              div.heart-icon
+                img(src="../assets/images/heart.png")
+              span.heart-text 出会いを探してみる
 
     div.section.how-to-use
       h2.section-title 使い方
@@ -53,32 +61,39 @@
       div.button-parent-lg
         div.register-button-border
           div(@click="signin()").register-button
-            div.button-text Twitterで登録する
+            div.button-text-wrap
+              div.twitter-icon
+                img(src="../assets/images/twitter.png")
+              span.twitter-text Twitterで登録する
       div.button-parent-lg
         div.search-button-border
-          div(@click="signin()").search-button
-            div.button-text 出会いを探してみる
+          div(v-scroll-to="{el: '#nomad-list-scrollto', duration: 1000, easing: 'ease'}").search-button
+            div.button-text-wrap
+              div.heart-icon
+                img(src="../assets/images/heart.png")
+              span.heart-text 出会いを探してみる
 
-    div#nomad-list.section
+    div.nomad-list.section#nomad-list-scrollto
       div.mark-heart
         img(src="../assets/images/mark_heart.png")
       h2.section-title 登録しているノマドワーカー
       div.section-title-border
       div.columns.is-mobile.is-multiline
         div.column.user-item(v-for="user in userList")
-          img(:src="user.imageUrl").profile-image
+          // img(:src="user.imageUrl").profile-image
+          img(src="../assets/images/human.png").profile-image
           div.user-info
             div.user-info-name {{ user.name }}
             div.user-info-attr
               span.user-info-attr-item {{ user.location }}
               span.user-info-attr-item {{ user.skill }}
             div.user-info-attr
-              span.user-info-attr-item {{ user.income }} 〜 {{ user.income }}
+              span.user-info-attr-item {{ user.incomeRange }}
               span.user-info-attr-item {{ user.nomadStatus }}
           div.button-parent-sm
             div.matching-button-border
               div(@click="matching(user)").matching-button
-                div.button-text お茶したい
+                div.matching-text お茶したい
 
     div.catchcopy
       div.mark-heart
@@ -94,11 +109,11 @@
       div (画像当て込む)
 
     div.footer
-      div
-        b-icon(pack="fab" icon="instagram" type="is-white").sns-icon
-        b-icon(pack="fab" icon="twitter" type="is-white").sns-icon
-        b-icon(pack="fab" icon="youtube" type="is-white").sns-icon
-        b-icon(pack="fab" icon="facebook-f" type="is-white").sns-icon
+      div.sns-icons
+        b-icon(pack="fab" icon="instagram" type="is-white" size="is-small").sns-icon
+        b-icon(pack="fab" icon="twitter" type="is-white" size="is-small").sns-icon
+        b-icon(pack="fab" icon="youtube" type="is-white" size="is-small").sns-icon
+        b-icon(pack="fab" icon="facebook-f" type="is-white" size="is-small").sns-icon
       div.footer-links
         div.columns.is-mobile
           div.column.is-narrow.footer-link 会社概要
@@ -114,8 +129,93 @@
         div Produced by マナブ /Developed by Yoshinori /Designed by BEACH CAT
 </template>
 
+<script>
+import libAuth from "../lib/auth";
+import BDropdown from "buefy/src/components/dropdown/Dropdown";
+import { Carousel, Slide } from "vue-carousel";
+
+const getIncomeRangeString = income => {
+  if (income >= 0 && income < 400) {
+    return "0〜400万";
+  } else if (income >= 400 && income < 700) {
+    return "400〜700万";
+  } else if (income >= 700 && income < 1000) {
+    return "700〜1000万";
+  } else if (income >= 1000) {
+    return "1000万以上";
+  } else {
+    return "未設定";
+  }
+};
+
+const getNomadStatusString = nomadStatus => {
+  if (nomadStatus === "nomad") {
+    return "ノマド達成済み";
+  } else {
+    return "未設定";
+  }
+};
+
+export default {
+  name: "top",
+  components: {
+    BDropdown,
+    Carousel,
+    Slide
+  },
+  data() {
+    return {
+      perPage: 1
+    };
+  },
+  computed: {
+    authenticated: function() {
+      return libAuth.authenticated();
+    },
+    userList: function() {
+      return this.$store.state.users.publicList.map(user => {
+        return {
+          name: user.name,
+          location: user.location,
+          skill: user.skill,
+          incomeRange: getIncomeRangeString(user.income),
+          nomadStatus: getNomadStatusString(user.nomadStatus),
+          imageUrl: user.imageUrl
+        };
+      });
+    }
+  },
+  async mounted() {
+    console.log("mounted");
+    await this.$store.dispatch("users/fetchUserList");
+  },
+  methods: {
+    async signin() {
+      await libAuth.authenticate();
+    },
+    async signout() {
+      await libAuth.clearAuthentication();
+    },
+    async matching(user) {
+      location.href =
+        "mailto:" +
+        user.email +
+        "?subject=お茶しませんか" +
+        "&body=お茶しませんか";
+    }
+  }
+};
+</script>
+
 <style lang="stylus">
-.my-nav
+.menu-image
+  width 24.33px
+  height 21.57px
+  position relative
+  top 4px
+  left 5px
+
+.my-header
   margin 12px 20px
 
 .my-title
@@ -139,6 +239,26 @@
   top -10px
   color #FF6666
   font-weight bold
+
+.full-width-image
+  width: 100%
+  &__text
+    position absolute
+    top 108px
+    left 20px
+    font-size 14px
+    font-family Hiragino Kaku Gothic ProN
+    font-weight bold
+    color #6C5A3F
+
+.text-title
+  text-align center
+  line-height 1.8rem
+  font-size 14px
+  font-family Hiragino Kaku Gothic ProN
+  color #6C5A3F
+  p
+    line-height 24px
 
 .section-title
   font-weight bold
@@ -182,10 +302,34 @@
   margin 20px auto 0
   text-align center
 
-.button-text
+.button-text-wrap
   position relative
-  top -3px
+  top -5px
   color white
+
+.twitter-text
+  position relative
+  left -5px
+
+.twitter-icon
+  display inline-block
+  img
+    position relative
+    top 0px
+    vertical-align middle
+    width 50%
+    height 50%
+
+
+.heart-icon
+  display inline-block
+  img
+    position relative
+    vertical-align middle
+    width 50%
+    height 50%
+
+
 
 .register-button-border
   display inline-block
@@ -254,13 +398,20 @@
   border-width 1px
   border-style solid
 
+.matching-text
+  display inline-block
+  position relative
+  top -3px
+
 .how-to-use
   text-align center
   background #F5F5F5
   margin 20px 0
   padding 30px !important
+  border-top solid 2px #6C5A3F
+  border-bottom solid 2px #6C5A3F
 
-#nomad-list
+.nomad-list
   text-align center
   margin 0px 0
   padding 30px !important
@@ -269,8 +420,8 @@
   width 100%
   img
     display inline-block
-    width 30.87px
-    height 39.47px
+    width 37.54px
+    height 48.3px
 
 .nomad-list-title
   font-family Hiragino Kaku Gothic ProN
@@ -284,6 +435,7 @@
 .user-item
   width 130px
   max-width 170px
+  margin-bottom 40px
 
 .user-info
   color: #6C5A3F
@@ -307,17 +459,20 @@
   line-height 1.2rem
   text-align left
   padding 8px 20px
-  margin-bottom 60px
+  margin-bottom 50px
 
 .footer
   background #FF6666 !important
   padding 10px !important
 
+.sns-icons
+  margin-bottom 20px
+
 .sns-icon
   margin 0 10px
 
 .footer-links
-  margin 24px 0 !important
+  margin 40px 10px !important
   color white
   font-family Hiragino Kaku Gothic ProN
   font-size 12px
@@ -331,49 +486,3 @@
   font-family Hiragino Kaku Gothic ProN
   font-size 9px
 </style>
-
-<script>
-import libAuth from "../lib/auth";
-import BDropdown from "buefy/src/components/dropdown/Dropdown";
-import { Carousel, Slide } from "vue-carousel";
-
-export default {
-  name: "top",
-  components: {
-    BDropdown,
-    Carousel,
-    Slide
-  },
-  data() {
-    return {
-      perPage: 1
-    };
-  },
-  computed: {
-    authenticated: function() {
-      return libAuth.authenticated();
-    },
-    userList: function() {
-      return this.$store.state.users.publicList;
-    }
-  },
-  async mounted() {
-    await this.$store.dispatch("users/fetchUserList");
-  },
-  methods: {
-    async signin() {
-      await libAuth.authenticate();
-    },
-    async signout() {
-      await libAuth.clearAuthentication();
-    },
-    async matching(user) {
-      location.href =
-        "mailto:" +
-        user.email +
-        "?subject=お茶しませんか" +
-        "&body=お茶しませんか";
-    }
-  }
-};
-</script>
