@@ -17,7 +17,14 @@ const actions = {
       graphqlOperation(queries.searchUserProfiles, {})
     );
     console.log(res);
-    commit("setList", res.data.searchUserProfiles.items);
+    // commit("setList", res.data.searchUserProfiles.items);
+    commit("setList", [
+      res.data.searchUserProfiles.items[0],
+      res.data.searchUserProfiles.items[0],
+      res.data.searchUserProfiles.items[0],
+      res.data.searchUserProfiles.items[0],
+      res.data.searchUserProfiles.items[0]
+    ]);
   }
 };
 
