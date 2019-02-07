@@ -13,11 +13,9 @@ const mutations = {
 
 const actions = {
   async fetchUserList({ commit }) {
-    console.log("fetchUserList");
     const res = await API.graphql(
       graphqlOperation(queries.searchUserProfiles, {})
     );
-    console.log("ffff");
     console.log(res);
     // 複数ユーザ表示ダミー
     commit("setList", [
