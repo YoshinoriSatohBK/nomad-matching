@@ -7,9 +7,8 @@
         b-dropdown-item(@click="$router.push('/user-profile')") プロフィール
         b-dropdown-item(v-if="authenticated" @click="signout()") ログアウト
       div.my-title
-        div.logo-pc
-          img(src="../assets/images/mark_pc.png")
-        div.logo-name Nomad links
+        div.logo
+          img(src="../assets/images/logo.png")
 
     div.full-width-image
       div.full-width-image__text 次は、2人ででどこへ行こう
@@ -213,33 +212,28 @@ export default {
   width 24.33px
   height 21.57px
   position relative
-  top 4px
-  left 5px
+  top 9px
+  left 10px
 
 .my-header
-  margin 12px 20px
+  margin 0px 20px
+  height 63px
+  line-height 63px
 
 .my-title
   text-align center
   position absolute
-  top 0px
-  left calc(50% - 80px)
-  height 62px
-  line-height 62px
-  vertical-align middle
+  top 0%
+  left calc(50% - 98px)
 
-.logo-pc
-  width 34.45px
+.logo
+  width 195.33px
+  height 41.26px
   display inline-block
-
-.logo-name
+  vertical-align middle
   position relative
-  display inline-block
-  vertical-align middle
-  margin-left 10px
-  top -10px
-  color #FF6666
-  font-weight bold
+  top -4px
+
 
 .full-width-image
   width: 100%
