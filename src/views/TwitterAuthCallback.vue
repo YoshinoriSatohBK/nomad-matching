@@ -1,6 +1,6 @@
 <template lang="pug">
   div
-    b-loading(is-full-page="true")
+    div waiting...
 
 </template>
 
