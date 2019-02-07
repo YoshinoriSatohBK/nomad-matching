@@ -10,7 +10,7 @@
       slide(v-for="step in steps")
         img(:src="step.headImageSrc").step-image
         div.step-text {{ step.headText }}
-        img(:src="step.bodyImageSrc").step-body-image
+        img(:src="step.bodyImageSrc" :width="step.width" :style="{left: step.left}").step-body-image
 </template>
 
 <script>
@@ -28,17 +28,23 @@ export default {
         {
           headImageSrc: require("@/assets/images/step1.png"),
           headText: "気になるノマドを探す",
-          bodyImageSrc: require("@/assets/images/step1_pic.png")
+          bodyImageSrc: require("@/assets/images/step1_pic.png"),
+          width: "219.33px",
+          left: "0px"
         },
         {
           headImageSrc: require("@/assets/images/step2.png"),
           headText: "まずはお茶に誘ってみる",
-          bodyImageSrc: require("@/assets/images/step2_pic.png")
+          bodyImageSrc: require("@/assets/images/step2_pic.png"),
+          width: "250px",
+          left: "-15px"
         },
         {
           headImageSrc: require("@/assets/images/step3.png"),
           headText: "相手にメールが届きます。",
-          bodyImageSrc: require("@/assets/images/step3_pic.jpg")
+          bodyImageSrc: require("@/assets/images/step3_pic.png"),
+          width: "219.33px",
+          left: "0px"
         }
       ]
     };
@@ -61,13 +67,12 @@ export default {
   position relative
   left -6px
 
+.step-body-image
+  position relative
+
 .step-text
   font-size 14px
   font-family Hiragino Kaku Gothic ProN
   color #6C5A3F
   margin-bottom 8px
-
-.step-body-image
-  width 219px
-  height 247.5px
 </style>
