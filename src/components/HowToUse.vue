@@ -36,8 +36,8 @@ export default {
           headImageSrc: require("@/assets/images/step2.png"),
           headText: "まずはお茶に誘ってみる",
           bodyImageSrc: require("@/assets/images/step2_pic.png"),
-          width: "250px",
-          left: "-15px"
+          width: "265px",
+          left: "0px"
         },
         {
           headImageSrc: require("@/assets/images/step3.png"),
