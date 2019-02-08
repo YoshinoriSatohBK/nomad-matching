@@ -11,8 +11,6 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
-const excludeRoutes = ["twitter-auth-callback"];
-
 export default {
   components: {
     Header,
@@ -20,7 +18,7 @@ export default {
   },
   computed: {
     showHeaderFooter: function() {
-      return !excludeRoutes.includes(this.$router.history.current.name);
+      return this.$store.state.route.showHeaderFooter;
     }
   },
   head: {

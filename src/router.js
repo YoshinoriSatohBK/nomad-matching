@@ -30,5 +30,6 @@ const router = new Router({
 });
 
 router.beforeEach(middleware.auth);
+router.beforeEach(middleware.route);
 
 export default router;

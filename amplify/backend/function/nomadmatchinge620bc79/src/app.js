@@ -41,7 +41,9 @@ async function getOAuthClient() {
     true
   );
   console.log(consumerSecret);
-  const callbackURL = await getSsmParameter("/NomadMatching/Dev/CallbackUrl");
+  const callbackURL = await getSsmParameter(
+    "/NomadMatching/DevLocal/CallbackUrl"
+  );
   console.log(callbackURL);
 
   return new OAuth(

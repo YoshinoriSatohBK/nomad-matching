@@ -3,7 +3,8 @@
     b-dropdown(hoverable)
       a(slot="trigger")
         img(src="@/assets/images/menu.png").menu-image
-      b-dropdown-item(@click="$router.push('/user-profile')") プロフィール
+      b-dropdown-item(v-if="!authenticated" @click="signin()") Twitterでログイン
+      b-dropdown-item(v-if="authenticated" @click="$router.push('/user-profile')") プロフィール
       b-dropdown-item(v-if="authenticated" @click="signout()") ログアウト
     div.my-title
       div.logo
@@ -21,6 +22,9 @@ export default {
     }
   },
   methods: {
+    async signin() {
+      await libAuth.authenticate();
+    },
     async signout() {
       await libAuth.clearAuthentication();
     }

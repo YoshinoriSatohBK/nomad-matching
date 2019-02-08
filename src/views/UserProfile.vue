@@ -1,15 +1,24 @@
 <template lang="pug">
   div
-    h1 プロフィール登録
+    h1 プロフィール設定
+
+    b-field
+      b-upload(native drag-drop v-model="imageUrl")
+      section.section
+        div.content.has-text-centered
+          p
+            b-icon(
+              icon="upload"
+              size="is-large"
+            )
+          p Drop your files here or click to upload
 
     b-field(label="名前")
       b-input(v-model="name")
 
     b-field(label="メールアドレス")
       b-input(type="email" v-model="email")
-    <!--div-->
-      <!--p プロフィール画像-->
-      <!--input(type="text" v-model="imageUrl")-->
+
     b-field(label="地域")
       b-input(v-model="location")
 

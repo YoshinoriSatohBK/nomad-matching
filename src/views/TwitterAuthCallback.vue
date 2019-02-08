@@ -22,7 +22,8 @@ export default {
     await libAuth.authenticateCallback(this.oAuthVerifier);
     await this.$store.dispatch("authUser/fetchUserProfile");
     if (this.userProfile) {
-      this.$router.push("/");
+      this.$router.replace("/");
+      // window.location.href = "/";
     } else {
       this.$router.push("/user-profile");
     }

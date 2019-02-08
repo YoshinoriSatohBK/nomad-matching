@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import createPersistedState from "vuex-persistedstate";
+import route from "./module/route";
 import twitter from "./module/twitter";
 import authUser from "./module/authUser";
 import users from "./module/users";
@@ -12,6 +13,7 @@ export default new Vuex.Store({
   modules: {
     twitter,
     authUser,
-    users
+    users,
+    route
   }
 });
