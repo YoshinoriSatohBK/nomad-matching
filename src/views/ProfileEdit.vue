@@ -4,15 +4,18 @@
       SectionTitle(text="プロフィール設定")
 
     div.profile-image
-      b-field
-        b-upload(native drag-drop v-model="imageUrl")
-          div.image-box
-            p
-              b-icon(
-                icon="upload"
-                size="is-large"
+      div.image-box
+        img(src="@/assets/images/human.png")
+        b-field
+          b-upload(v-model="file")
+            div.camera-icon-wrap
+              b-icon.camera-icon(
+                pack="fas"
+                icon="camera"
+                type="is-white"
+                custom-size="profile-edit--camera-icon"
               )
-            p Drop your files here or click to upload
+
 
     b-field(label="名前")
       b-input(v-model="name")
@@ -141,4 +144,30 @@ export default {
   text-align center
   width 234px
   height 250px
+
+.camera-icon-wrap
+  display inline-block
+  position relative
+  top -60px
+  left 105px
+  width 73px
+  height 73px
+  border-radius 100%
+  background #AF9772
+  opacity 0.6
+
+.camera-icon
+  width 73px
+  height 73px
+  display inline-block
+</style>
+
+<style lang="stylus">
+.profile-edit--camera-icon
+  width 42.2px
+  height 32.25px
+  font-size 33px
+  position relative
+  top calc(50% - 19px)
+  left calc(50% - 15px)
 </style>

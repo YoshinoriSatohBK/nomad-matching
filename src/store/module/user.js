@@ -25,6 +25,18 @@ const getNomadStatusString = nomadStatus => {
   }
 };
 
+const getDisplayUser = user => {
+  return {
+    name: user.name,
+    email: user.email,
+    location: user.location,
+    skill: user.skill,
+    incomeRange: getIncomeRangeString(user.income),
+    nomadStatus: getNomadStatusString(user.nomadStatus),
+    imageUrl: user.imageUrl
+  };
+};
+
 const state = {
   authUserProfile: {},
   publicUserList: []
@@ -41,25 +53,12 @@ const mutations = {
 
 const actions = {
   async fetchAuthUserProfile({ commit }) {
-    console.log(AWS.config.credentials.identityId);
     const res = await API.graphql(
       graphqlOperation(queries.getUserProfile, {
         id: AWS.config.credentials.identityId
       })
     );
-    console.log(res);
-    const userProfile = res.data.getUserProfile;
-    console.log(userProfile);
-    const storedUserProfile = {
-      name: userProfile.name,
-      email: userProfile.email,
-      location: userProfile.location,
-      skill: userProfile.skill,
-      incomeRange: getIncomeRangeString(userProfile.income),
-      nomadStatus: getNomadStatusString(userProfile.nomadStatus),
-      imageUrl: userProfile.imageUrl
-    };
-    commit("setAuthUserProfile", storedUserProfile);
+    commit("setAuthUserProfile", getDisplayUser(res.data.getUserProfile));
   },
   async saveAuthUserProfile({ commit, state }, payload) {
     const profile = Object.assign(
@@ -68,7 +67,6 @@ const actions = {
       },
       payload.profile
     );
-    console.log(profile);
     if (state.userProfile && state.userProfile.id) {
       const res = await API.graphql(
         graphqlOperation(gqlMutations.updateUserProfile, {
@@ -89,18 +87,9 @@ const actions = {
     const res = await API.graphql(
       graphqlOperation(queries.searchUserProfiles, {})
     );
-    const publicUserList = res.data.searchUserProfiles.items.map(user => {
-      return {
-        name: user.name,
-        email: user.email,
-        location: user.location,
-        skill: user.skill,
-        incomeRange: getIncomeRangeString(user.income),
-        nomadStatus: getNomadStatusString(user.nomadStatus),
-        imageUrl: user.imageUrl
-      };
-    });
-    console.log(publicUserList);
+    const publicUserList = res.data.searchUserProfiles.items.map(user =>
+      getDisplayUser(user)
+    );
     // 複数ユーザ表示ダミー
     commit("setPublicUserList", [
       publicUserList[0],

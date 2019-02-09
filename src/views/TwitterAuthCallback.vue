@@ -23,7 +23,6 @@ export default {
     await this.$store.dispatch("user/fetchAuthUserProfile");
     if (this.userProfile) {
       this.$router.replace("/");
-      // window.location.href = "/";
     } else {
       this.$router.push("/user");
     }
