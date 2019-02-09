@@ -4,7 +4,7 @@
       a(slot="trigger")
         img(src="@/assets/images/menu.png").menu-image
       b-dropdown-item(v-if="!authenticated" @click="signin()") Twitterでログイン
-      b-dropdown-item(v-if="authenticated" @click="$router.push('/user-profile')") プロフィール
+      b-dropdown-item(v-if="authenticated" @click="$router.push('/mypage')") プロフィール
       b-dropdown-item(v-if="authenticated" @click="signout()") ログアウト
     div.my-title
       div.logo

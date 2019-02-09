@@ -3,7 +3,8 @@ import Router from "vue-router";
 import middleware from "./middleware";
 import Top from "./views/Top.vue";
 import TwitterAuthCallback from "./views/TwitterAuthCallback.vue";
-import UserProfile from "./views/UserProfile.vue";
+import ProfileEdit from "./views/ProfileEdit.vue";
+import ProfileShow from "./views/ProfileShow.vue";
 
 Vue.use(Router);
 
@@ -22,9 +23,14 @@ const router = new Router({
       component: TwitterAuthCallback
     },
     {
-      path: "/user-profile",
-      name: "user-profile",
-      component: UserProfile
+      path: "/user",
+      name: "user",
+      component: ProfileShow
+    },
+    {
+      path: "/mypage",
+      name: "mypage",
+      component: ProfileEdit
     }
   ]
 });

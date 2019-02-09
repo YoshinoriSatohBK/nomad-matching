@@ -18,11 +18,12 @@ export default {
     Worker
   },
   async mounted() {
-    await this.$store.dispatch("users/fetchUserList");
+    console.log("worker list mounted");
+    await this.$store.dispatch("user/fetchPublicUserList");
   },
   computed: {
     userList: function() {
-      return this.$store.state.users.publicList;
+      return this.$store.state.user.publicUserList;
     }
   },
   methods: {

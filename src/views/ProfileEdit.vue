@@ -1,17 +1,18 @@
 <template lang="pug">
   div
-    h1 プロフィール設定
+    div.profile-edit-title
+      SectionTitle(text="プロフィール設定")
 
-    b-field
-      b-upload(native drag-drop v-model="imageUrl")
-      section.section
-        div.content.has-text-centered
-          p
-            b-icon(
-              icon="upload"
-              size="is-large"
-            )
-          p Drop your files here or click to upload
+    div.profile-image
+      b-field
+        b-upload(native drag-drop v-model="imageUrl")
+          div.image-box
+            p
+              b-icon(
+                icon="upload"
+                size="is-large"
+              )
+            p Drop your files here or click to upload
 
     b-field(label="名前")
       b-input(v-model="name")
@@ -50,20 +51,35 @@
 </template>
 
 <script>
+import SectionTitle from "@/components/SectionTitle";
+
 export default {
-  name: "user-profile",
-  components: {},
+  name: "profile-edit",
+  components: {
+    SectionTitle
+  },
   async mounted() {
-    await this.$store.dispatch("authUser/fetchUserProfile");
+    await this.$store.dispatch("user/fetchAuthUserProfile");
     if (this.userProfile && this.userProfile.id) {
+      console.log("exist user profile");
       this.name = this.userProfile.name;
       this.email = this.userProfile.email;
       this.imageUrl = this.userProfile.imageUrl;
+      this.location = this.userProfile.location;
+      this.income = this.userProfile.income;
+      this.skill = this.userProfile.skill;
+      this.smoking = this.userProfile.smoking;
+      this.drink = this.userProfile.drink;
+      this.nomadStatus = this.userProfile.nomadStatus;
+      this.smokingOptions = this.userProfile.smokingOptions;
       await this.$store.dispatch("twitter/clearUser");
     } else if (this.twitterUser) {
+      console.log("exist twitterUser");
       this.name = this.twitterUser.name;
       this.email = this.twitterUser.email;
       this.imageUrl = this.twitterUser.profile_image_url_https;
+    } else {
+      console.log("not exists");
     }
   },
   data() {
@@ -71,12 +87,12 @@ export default {
       name: "",
       email: "",
       imageUrl: "",
-      location: "中野区",
+      location: "",
       income: 0,
-      skill: "AWS",
+      skill: "",
       smoking: false,
       drink: false,
-      nomadStatus: "nomad",
+      nomadStatus: "",
       smokingOptions: []
     };
   },
@@ -85,7 +101,7 @@ export default {
       return this.$store.state.twitter.user;
     },
     userProfile: function() {
-      return this.$store.state.authUser.userProfile;
+      return this.$store.state.user.authUserProfile;
     }
   },
   methods: {
@@ -101,7 +117,7 @@ export default {
         drink: true,
         nomadStatus: this.nomadStatus
       };
-      await this.$store.dispatch("authUser/saveUserProfile", {
+      await this.$store.dispatch("user/saveAuthUserProfile", {
         profile: profile
       });
       this.$toast.open("プロフィールを登録しました！");
@@ -112,3 +128,17 @@ export default {
   }
 };
 </script>
+
+<style scoped lang="stylus">
+.profile-edit-title
+  text-align center
+
+.profile-image
+  text-align center
+
+.image-box
+  display inline-block
+  text-align center
+  width 234px
+  height 250px
+</style>

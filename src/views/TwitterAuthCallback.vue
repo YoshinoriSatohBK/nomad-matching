@@ -15,17 +15,17 @@ export default {
       return this.$route.query.oauth_verifier;
     },
     userProfile: function() {
-      return this.$store.state.authUser.userProfile;
+      return this.$store.state.user.authUserProfile;
     }
   },
   async mounted() {
     await libAuth.authenticateCallback(this.oAuthVerifier);
-    await this.$store.dispatch("authUser/fetchUserProfile");
+    await this.$store.dispatch("user/fetchAuthUserProfile");
     if (this.userProfile) {
       this.$router.replace("/");
       // window.location.href = "/";
     } else {
-      this.$router.push("/user-profile");
+      this.$router.push("/user");
     }
   }
 };
