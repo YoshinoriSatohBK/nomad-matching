@@ -32,16 +32,18 @@ async function getSsmParameter(name, withDecryption = false) {
 
 async function getOAuthClient() {
   const consumerKey = await getSsmParameter(
-    "/NomadMatching/Dev/ConsumerKey",
+    `/NomadMatching/${process.env.ENV}/ConsumerKey`,
     true
   );
   console.log(consumerKey);
   const consumerSecret = await getSsmParameter(
-    "/NomadMatching/Dev/ConsumerSecret",
+    `/NomadMatching/${process.env.ENV}/ConsumerSecret`,
     true
   );
   console.log(consumerSecret);
-  const callbackURL = await getSsmParameter("/NomadMatching/Dev/CallbackUrl");
+  const callbackURL = await getSsmParameter(
+    `/NomadMatching/${process.env.ENV}/CallbackUrl`
+  );
   console.log(callbackURL);
 
   return new OAuth(
@@ -57,11 +59,11 @@ async function getOAuthClient() {
 
 async function getTwitterClient(access_token_key, access_token_secret) {
   const consumerKey = await getSsmParameter(
-    "/NomadMatching/Dev/ConsumerKey",
+    `/NomadMatching/${process.env.ENV}/ConsumerKey`,
     true
   );
   const consumerSecret = await getSsmParameter(
-    "/NomadMatching/Dev/ConsumerSecret",
+    `/NomadMatching/${process.env.ENV}/ConsumerSecret`,
     true
   );
 
@@ -75,6 +77,7 @@ async function getTwitterClient(access_token_key, access_token_secret) {
 
 app.post("/twitter-auth/request-token", async (req, res) => {
   try {
+    console.log(process.env);
     const oauth = await getOAuthClient();
     const responseBody = await new Promise((resolve, reject) => {
       oauth.getOAuthRequestToken(
@@ -101,6 +104,7 @@ app.post("/twitter-auth/request-token", async (req, res) => {
 
 app.post("/twitter-auth/access-token", async (req, res) => {
   try {
+    console.log(process.env);
     const oauth = await getOAuthClient();
     const responseBody = await new Promise((resolve, reject) => {
       oauth.getOAuthAccessToken(
@@ -136,6 +140,7 @@ app.post("/twitter-auth/access-token", async (req, res) => {
 
 app.get("/twitter-auth/get-user", async (req, res) => {
   try {
+    console.log(process.env);
     const client = await getTwitterClient(
       req.query.access_token_key,
       req.query.access_token_secret

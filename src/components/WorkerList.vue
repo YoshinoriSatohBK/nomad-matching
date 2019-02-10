@@ -18,7 +18,6 @@ export default {
     Worker
   },
   async mounted() {
-    console.log("worker list mounted");
     await this.$store.dispatch("user/fetchPublicUserList");
   },
   computed: {

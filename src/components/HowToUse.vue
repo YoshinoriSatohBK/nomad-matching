@@ -5,7 +5,7 @@
       :perPage="perPage"
       paginationColor="#FFFFFF"
       paginationActiveColor="#FF6666"
-      paginationSize="16"
+      :paginationSize="paginationSize"
     )
       slide(v-for="step in steps")
         img(:src="step.headImageSrc").step-image
@@ -24,6 +24,7 @@ export default {
   data() {
     return {
       perPage: 1,
+      paginationSize: 16,
       steps: [
         {
           headImageSrc: require("@/assets/images/step1.png"),

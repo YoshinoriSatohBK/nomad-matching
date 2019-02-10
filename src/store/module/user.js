@@ -1,5 +1,5 @@
 import AWS from "aws-sdk";
-import { API, graphqlOperation } from "aws-amplify";
+import { API, Storage, graphqlOperation } from "aws-amplify";
 import * as queries from "../../graphql/queries";
 import * as gqlMutations from "../../graphql/mutations";
 
@@ -20,12 +20,26 @@ const getIncomeRangeString = income => {
 const getNomadStatusString = nomadStatus => {
   if (nomadStatus === "nomad") {
     return "ノマド達成済み";
+  } else if (nomadStatus === "goingNomad") {
+    return "目指している";
+  }
+  if (nomadStatus === "notNomad") {
+    return "ノマドではない";
   } else {
     return "未設定";
   }
 };
 
+const profileImageKey = profileId => `${profileId}-profile`;
+
 const getDisplayUser = async user => {
+  const keys = await Storage.list("");
+  let imageUrl = require("@/assets/images/human.png");
+  const objectKeys = keys.map(item => item.key);
+  if (objectKeys.includes(profileImageKey(user.id))) {
+    imageUrl = await Storage.get(profileImageKey(user.id));
+  }
+
   return {
     name: user.name,
     email: user.email,
@@ -33,7 +47,7 @@ const getDisplayUser = async user => {
     skill: user.skill,
     incomeRange: getIncomeRangeString(user.income),
     nomadStatus: getNomadStatusString(user.nomadStatus),
-    imageUrl: require("@/assets/images/human.png")
+    imageUrl: imageUrl
   };
 };
 
@@ -94,19 +108,7 @@ const actions = {
       )
     );
     // 複数ユーザ表示ダミー
-    commit("setPublicUserList", [
-      publicUserList[0],
-      publicUserList[1],
-      publicUserList[2],
-      publicUserList[3],
-      publicUserList[4],
-      publicUserList[5],
-      publicUserList[6],
-      publicUserList[7],
-      publicUserList[8],
-      publicUserList[9]
-    ]);
-    commit("setList", publicUserList);
+    commit("setPublicUserList", publicUserList);
   }
 };
 
