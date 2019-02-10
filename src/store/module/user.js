@@ -1,5 +1,5 @@
 import AWS from "aws-sdk";
-import { API, graphqlOperation } from "aws-amplify";
+import { API, Storage, graphqlOperation } from "aws-amplify";
 import * as queries from "../../graphql/queries";
 import * as gqlMutations from "../../graphql/mutations";
 
@@ -25,7 +25,9 @@ const getNomadStatusString = nomadStatus => {
   }
 };
 
-const getDisplayUser = user => {
+const getDisplayUser = async user => {
+  const imageUrl = await Storage.get(user.id + "-profile");
+  console.log(imageUrl);
   return {
     name: user.name,
     email: user.email,
@@ -33,7 +35,7 @@ const getDisplayUser = user => {
     skill: user.skill,
     incomeRange: getIncomeRangeString(user.income),
     nomadStatus: getNomadStatusString(user.nomadStatus),
-    imageUrl: user.imageUrl
+    imageUrl: imageUrl || require("@/assets/images/human.png")
   };
 };
 
@@ -58,7 +60,7 @@ const actions = {
         id: AWS.config.credentials.identityId
       })
     );
-    commit("setAuthUserProfile", getDisplayUser(res.data.getUserProfile));
+    commit("setAuthUserProfile", res.data.getUserProfile);
   },
   async saveAuthUserProfile({ commit, state }, payload) {
     const profile = Object.assign(
@@ -67,28 +69,31 @@ const actions = {
       },
       payload.profile
     );
-    if (state.userProfile && state.userProfile.id) {
+    console.log(state.authUserProfile);
+    if (state.authUserProfile && state.authUserProfile.id) {
       const res = await API.graphql(
         graphqlOperation(gqlMutations.updateUserProfile, {
           input: profile
         })
       );
-      commit("setUserProfile", res.data.updateUserProfile);
+      commit("setAuthUserProfile", res.data.updateUserProfile);
     } else {
       const res = await API.graphql(
         graphqlOperation(gqlMutations.createUserProfile, {
           input: profile
         })
       );
-      commit("setUserProfile", res.data.createUserProfile);
+      commit("setAuthUserProfile", res.data.createUserProfile);
     }
   },
   async fetchPublicUserList({ commit }) {
     const res = await API.graphql(
       graphqlOperation(queries.searchUserProfiles, {})
     );
-    const publicUserList = res.data.searchUserProfiles.items.map(user =>
-      getDisplayUser(user)
+    const publicUserList = await Promise.all(
+      res.data.searchUserProfiles.items.map(
+        async user => await getDisplayUser(user)
+      )
     );
     // 複数ユーザ表示ダミー
     commit("setPublicUserList", [

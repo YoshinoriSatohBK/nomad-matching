@@ -1,0 +1,13 @@
+{
+    "bucketName": "nomad-matching8dc61bb9056f4bc3b495f3db9149cd68",
+    "authPolicyName": "s3_amplify_37f032f7",
+    "unauthPolicyName": "s3_amplify_37f032f7",
+    "authRoleName": {
+        "Ref": "AuthRoleName"
+    },
+    "unauthRoleName": {
+        "Ref": "UnauthRoleName"
+    },
+    "authPermissions": "rw",
+    "unauthPermissions": ""
+}

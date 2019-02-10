@@ -41,9 +41,10 @@ export default {
   left 10px
 
 .my-header
-  margin 0px 20px
+  padding 0px 20px
   height 63px
   line-height 63px
+  border 1px #EDEDED solid
 
 .my-title
   text-align center

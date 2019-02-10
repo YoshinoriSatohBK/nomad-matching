@@ -1,8 +1,7 @@
 <template lang="pug">
   div.user-item
     div.profile-image
-      img(src="@/assets/images/human.png")
-      // img(:src="user.imageUrl")
+      img(:src="user.imageUrl")
     div.user-info
       div.user-info-name {{ user.name }}
       div.user-info-attr
@@ -11,7 +10,7 @@
       div.user-info-attr
         span.user-info-attr-item {{ user.incomeRange }}
         span.user-info-attr-item {{ user.nomadStatus }}
-    ButtonMatching.worker-button
+    ButtonMatching.worker-button(:email="user.email")
     ButtonShowProfile.worker-button
 </template>
 
@@ -33,12 +32,16 @@ export default {
 
 <style scoped lang="stylus">
 .profile-image
-  width 150px
-  height 160px
+  margin-left auto
+  margin-right auto
+  img
+    max-width 150px
+    max-height 160px
 
 .user-item
   width 50%
   margin-bottom 40px
+
 
 .user-info
   color: #6C5A3F
@@ -48,6 +51,7 @@ export default {
   max-width 150px
   margin-left auto
   margin-right auto
+  padding-left 2px
   &-name
     font-size 12px
     display inline-block

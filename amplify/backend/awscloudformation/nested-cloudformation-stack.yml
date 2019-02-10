@@ -84,7 +84,7 @@
 				"TemplateURL": "https://s3.amazonaws.com/nomad-matching-20190208214544-deployment/amplify-cfn-templates/auth/cognito09b59faa-cloudformation-template.yml",
 				"Parameters": {
 					"identityPoolName": "nomad_matching09b59faa_identitypool_09b59faa",
-					"allowUnauthenticatedIdentities": true,
+					"allowUnauthenticatedIdentities": false,
 					"thirdPartyAuth": false,
 					"lambdaLogPolicy": "cognito09b59faa_lambda_log_policy",
 					"openIdLambdaRoleName": "cognito09b59faa_openid_lambda_role",
@@ -155,12 +155,12 @@
 							"Outputs.UserPoolId"
 						]
 					},
+					"schemaGraphql": "s3://nomad-matching-20190208214544-deployment/amplify-appsync-files/schema.graphql.1549788270012",
 					"ElasticSearchStreamingLambdaCodeS3Key": "amplify-appsync-files/python_streaming_function.zip",
 					"ElasticSearchStreamingLambdaCodeS3Bucket": "nomad-matching-20190208214544-deployment",
-					"schemaGraphql": "s3://nomad-matching-20190208214544-deployment/amplify-appsync-files/schema.graphql.1549631507496",
 					"ResolverBucket": "nomad-matching-20190208214544-deployment",
 					"ResolverRootKey": "amplify-appsync-files",
-					"DeploymentTimestamp": "1549631507496",
+					"DeploymentTimestamp": "1549788270012",
 					"env": "devys"
 				}
 			}
@@ -207,6 +207,26 @@
 				"TemplateURL": "https://s3.amazonaws.com/nomad-matching-20190208214544-deployment/amplify-cfn-templates/hosting/template.json",
 				"Parameters": {
 					"bucketName": "nomad-matching-20190131121910-hostingbucket",
+					"env": "devys"
+				}
+			}
+		},
+		"storages337f032f7": {
+			"Type": "AWS::CloudFormation::Stack",
+			"Properties": {
+				"TemplateURL": "https://s3.amazonaws.com/nomad-matching-20190208214544-deployment/amplify-cfn-templates/storage/s3-cloudformation-template.json",
+				"Parameters": {
+					"bucketName": "nomad-matching8dc61bb9056f4bc3b495f3db9149cd68",
+					"authPolicyName": "s3_amplify_37f032f7",
+					"unauthPolicyName": "s3_amplify_37f032f7",
+					"authRoleName": {
+						"Ref": "AuthRoleName"
+					},
+					"unauthRoleName": {
+						"Ref": "UnauthRoleName"
+					},
+					"authPermissions": "rw",
+					"unauthPermissions": "",
 					"env": "devys"
 				}
 			}

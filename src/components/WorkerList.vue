@@ -1,7 +1,7 @@
 <template lang="pug">
   div.nomad-list.section#nomad-list-scrollto
     div.mark-heart
-      img(src="../assets/images/mark_heart.png")
+      img(src="@/assets/images/mark_heart.png")
     SectionTitle(text="登録しているノマドワーカー")
     div.columns.is-mobile.is-multiline
       Worker(v-for="user in userList" :user="user").column
