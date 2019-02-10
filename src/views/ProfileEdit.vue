@@ -105,7 +105,7 @@ export default {
     } else if (this.twitterUser) {
       this.name = this.twitterUser.name;
       this.email = this.twitterUser.email;
-      // this.imageUrl = this.twitterUser.profile_image_url_https;
+      this.imageUrl = this.twitterUser.profile_image_url_https;
     } else {
       console.log("not exists");
     }
@@ -186,7 +186,7 @@ export default {
       const profile = {
         name: this.name,
         email: this.email,
-        // imageUrl: this.imageUrl,
+        imageUrl: this.imageUrl,
         location: this.location,
         income: this.income,
         skill: this.skill,
