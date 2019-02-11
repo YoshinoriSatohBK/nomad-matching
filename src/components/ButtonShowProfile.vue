@@ -13,7 +13,7 @@ export default {
   },
   methods: {
     async showProfile() {
-      this.$router.push("/");
+      this.$router.push(`/user/${this.userId}`);
     }
   }
 };

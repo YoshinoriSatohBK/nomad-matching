@@ -6,6 +6,8 @@ export const createUserProfile = `mutation CreateUserProfile($input: CreateUserP
     id
     name
     email
+    description
+    twitterScreenName
     imageUrl
     location
     income
@@ -21,6 +23,8 @@ export const updateUserProfile = `mutation UpdateUserProfile($input: UpdateUserP
     id
     name
     email
+    description
+    twitterScreenName
     imageUrl
     location
     income
@@ -36,6 +40,8 @@ export const deleteUserProfile = `mutation DeleteUserProfile($input: DeleteUserP
     id
     name
     email
+    description
+    twitterScreenName
     imageUrl
     location
     income

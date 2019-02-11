@@ -1,7 +1,8 @@
 <template lang="pug">
   div.user-item
-    div.profile-image
-      img(:src="user.imageUrl")
+    div.profile-image-area
+      div.profile-image
+        img(:src="user.imageUrl")
     div.user-info
       div.user-info-name {{ user.name }}
       div.user-info-attr
@@ -13,7 +14,7 @@
     ButtonMatching.worker-button(
       @matching="clickMatching"
     )
-    ButtonShowProfile.worker-button
+    ButtonShowProfile.worker-button(:userId="user.id")
 </template>
 
 <script>
@@ -38,6 +39,9 @@ export default {
 </script>
 
 <style scoped lang="stylus">
+.profile-image-area
+  height 165px
+
 .profile-image
   margin-left auto
   margin-right auto
@@ -48,7 +52,6 @@ export default {
 .user-item
   width 50%
   margin-bottom 40px
-
 
 .user-info
   color: #6C5A3F

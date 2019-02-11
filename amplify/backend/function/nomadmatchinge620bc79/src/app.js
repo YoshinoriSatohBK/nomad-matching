@@ -35,16 +35,13 @@ async function getOAuthClient() {
     `/NomadMatching/${process.env.ENV}/ConsumerKey`,
     true
   );
-  console.log(consumerKey);
   const consumerSecret = await getSsmParameter(
     `/NomadMatching/${process.env.ENV}/ConsumerSecret`,
     true
   );
-  console.log(consumerSecret);
   const callbackURL = await getSsmParameter(
     `/NomadMatching/${process.env.ENV}/CallbackUrl`
   );
-  console.log(callbackURL);
 
   return new OAuth(
     "https://api.twitter.com/oauth/request_token",
@@ -77,7 +74,6 @@ async function getTwitterClient(access_token_key, access_token_secret) {
 
 app.post("/twitter-auth/request-token", async (req, res) => {
   try {
-    console.log(process.env);
     const oauth = await getOAuthClient();
     const responseBody = await new Promise((resolve, reject) => {
       oauth.getOAuthRequestToken(
@@ -104,7 +100,6 @@ app.post("/twitter-auth/request-token", async (req, res) => {
 
 app.post("/twitter-auth/access-token", async (req, res) => {
   try {
-    console.log(process.env);
     const oauth = await getOAuthClient();
     const responseBody = await new Promise((resolve, reject) => {
       oauth.getOAuthAccessToken(
@@ -140,7 +135,6 @@ app.post("/twitter-auth/access-token", async (req, res) => {
 
 app.get("/twitter-auth/get-user", async (req, res) => {
   try {
-    console.log(process.env);
     const client = await getTwitterClient(
       req.query.access_token_key,
       req.query.access_token_secret

@@ -6,6 +6,8 @@ export const getUserProfile = `query GetUserProfile($id: ID!) {
     id
     name
     email
+    description
+    twitterScreenName
     imageUrl
     location
     income
@@ -26,6 +28,8 @@ export const listUserProfiles = `query ListUserProfiles(
       id
       name
       email
+      description
+      twitterScreenName
       imageUrl
       location
       income
@@ -54,6 +58,8 @@ export const searchUserProfiles = `query SearchUserProfiles(
       id
       name
       email
+      description
+      twitterScreenName
       imageUrl
       location
       income

@@ -2,7 +2,9 @@ type UserProfile {
   id: ID!
   name: String!
   email: String!
-  imageUrl: String!
+  description: String!
+  twitterScreenName: String!
+  imageUrl: String
   location: String!
   income: Int!
   skill: String!
@@ -80,6 +82,8 @@ input ModelUserProfileFilterInput {
   id: ModelIDFilterInput
   name: ModelStringFilterInput
   email: ModelStringFilterInput
+  description: ModelStringFilterInput
+  twitterScreenName: ModelStringFilterInput
   imageUrl: ModelStringFilterInput
   location: ModelStringFilterInput
   income: ModelIntFilterInput
@@ -102,7 +106,9 @@ input CreateUserProfileInput {
   id: ID
   name: String!
   email: String!
-  imageUrl: String!
+  description: String!
+  twitterScreenName: String!
+  imageUrl: String
   location: String!
   income: Int!
   skill: String!
@@ -115,6 +121,8 @@ input UpdateUserProfileInput {
   id: ID!
   name: String
   email: String
+  description: String
+  twitterScreenName: String
   imageUrl: String
   location: String
   income: Int
@@ -193,6 +201,8 @@ input SearchableUserProfileFilterInput {
   id: SearchableIDFilterInput
   name: SearchableStringFilterInput
   email: SearchableStringFilterInput
+  description: SearchableStringFilterInput
+  twitterScreenName: SearchableStringFilterInput
   imageUrl: SearchableStringFilterInput
   location: SearchableStringFilterInput
   income: SearchableIntFilterInput
@@ -214,6 +224,8 @@ enum SearchableUserProfileSortableFields {
   id
   name
   email
+  description
+  twitterScreenName
   imageUrl
   location
   income

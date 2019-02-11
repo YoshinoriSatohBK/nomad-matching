@@ -23,7 +23,7 @@ const router = new Router({
       component: TwitterAuthCallback
     },
     {
-      path: "/user",
+      path: "/user/:id",
       name: "user",
       component: ProfileShow
     },

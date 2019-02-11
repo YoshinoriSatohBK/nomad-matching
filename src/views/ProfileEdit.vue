@@ -6,6 +6,7 @@
       div.image-box
         img(:src="selectedImageData" v-if="selectedImageData")
         img(:src="imageUrl" v-else-if="imageUrl")
+        img(src="@/assets/images/human.png" v-else)
       b-field.upload-field
         b-upload(@input="uploadEvent")
           div.camera-icon-wrap
@@ -75,8 +76,7 @@ import FieldInput from "@/components/FieldInput";
 import FieldSelect from "@/components/FieldSelect";
 import BField from "buefy/src/components/field/Field";
 import BAutocomplete from "buefy/src/components/autocomplete/Autocomplete";
-
-import { Storage } from "aws-amplify";
+import libUser from "../lib/user";
 
 export default {
   name: "profile-edit",
@@ -91,21 +91,44 @@ export default {
   async mounted() {
     await this.$store.dispatch("user/fetchAuthUserProfile");
     if (this.userProfile && this.userProfile.id) {
-      const imageUrl = await Storage.get(this.userProfile.id + "-profile");
+      const imageUrl = await libUser.getUserImageUrl(this.userProfile);
+      console.log(imageUrl);
       this.name = this.userProfile.name;
       this.email = this.userProfile.email;
-      this.imageUrl = imageUrl || require("@/assets/images/human.png");
+      this.description = this.userProfile.description;
+      this.twitterScreenName = this.userProfile.twitterScreenName;
+      this.imageUrl = imageUrl;
       this.location = this.userProfile.location;
       this.income = parseInt(this.userProfile.income);
       this.skill = this.userProfile.skill;
       this.smoking = this.userProfile.smoking;
       this.drink = this.userProfile.drink;
       this.nomadStatus = this.userProfile.nomadStatus;
-      await this.$store.dispatch("twitter/clearUser");
+
+      // if (this.description !== this.twitterUser.description ||
+      //     this.twitterScreenName !== this.twitterUser.screen_name) {
+      //   const profile = {
+      //     name: this.name,
+      //     email: this.email,
+      //     description: this.twitterUser.description,
+      //     twitterScreenName: this.twitterUser.screen_name,
+      //     imageUrl: this.imageUrl,
+      //     location: this.location,
+      //     income: this.income,
+      //     skill: this.skill,
+      //     smoking: this.smoking,
+      //     drink: true,
+      //     nomadStatus: this.nomadStatus
+      //   };
+      //   await this.$store.dispatch("user/saveAuthUserProfile", {
+      //     profile: profile
+      //   });
+      // }
     } else if (this.twitterUser) {
       this.name = this.twitterUser.name;
       this.email = this.twitterUser.email;
-      this.imageUrl = this.twitterUser.profile_image_url_https;
+      this.description = this.twitterUser.description;
+      this.twitterScreenName = this.twitterUser.screen_name;
     } else {
       console.log("not exists");
     }
@@ -114,6 +137,7 @@ export default {
     return {
       name: "",
       email: "",
+      description: "",
       imageUrl: null,
       imageFile: null,
       selectedImageData: null,
@@ -157,10 +181,7 @@ export default {
           value: "notNomad",
           displayValue: "ノマドではない"
         }
-      ],
-      photoPickerConfig: {
-        path: "/"
-      }
+      ]
     };
   },
   computed: {
@@ -186,27 +207,26 @@ export default {
       const profile = {
         name: this.name,
         email: this.email,
+        description: this.description,
+        twitterScreenName: this.twitterScreenName,
         imageUrl: this.imageUrl,
         location: this.location,
         income: this.income,
         skill: this.skill,
         smoking: this.smoking,
-        drink: true,
+        drink: this.drink,
         nomadStatus: this.nomadStatus
       };
+      console.log(profile);
       await this.$store.dispatch("user/saveAuthUserProfile", {
         profile: profile
       });
       if (this.imageFile) {
-        await Storage.put(this.userProfile.id + "-profile", this.imageFile, {
-          contentType: "image/jpg"
-        });
+        await libUser.putUserImageFile(this.userProfile, this.imageFile);
       }
 
-      this.$toast.open("プロフィールを登録しました！");
-      setTimeout(() => {
-        this.$router.push("/");
-      }, 1750);
+      this.$toast.open("プロフィールを登録しました");
+      this.$router.push("/");
     },
     uploadEvent(file) {
       this.imageFile = file;

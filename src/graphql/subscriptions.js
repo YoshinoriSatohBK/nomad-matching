@@ -6,6 +6,8 @@ export const onCreateUserProfile = `subscription OnCreateUserProfile {
     id
     name
     email
+    description
+    twitterScreenName
     imageUrl
     location
     income
@@ -21,6 +23,8 @@ export const onUpdateUserProfile = `subscription OnUpdateUserProfile {
     id
     name
     email
+    description
+    twitterScreenName
     imageUrl
     location
     income
@@ -36,6 +40,8 @@ export const onDeleteUserProfile = `subscription OnDeleteUserProfile {
     id
     name
     email
+    description
+    twitterScreenName
     imageUrl
     location
     income

@@ -12,9 +12,6 @@ const mutations = {
   setUser(state, user) {
     state.user = user;
   },
-  clearUser(state) {
-    state.user = {};
-  },
   setOAuthToken(state, oAuthToken) {
     state.oAuthToken = oAuthToken;
   },
@@ -63,10 +60,6 @@ const actions = {
   async clearAuth({ commit }) {
     commit("clearAccessTokens");
     commit("clearOAuthTokens");
-    commit("clearUser");
-  },
-  async clearUser({ commit }) {
-    commit("clearUser");
   }
 };
 
