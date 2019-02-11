@@ -11,7 +11,6 @@
         span.user-info-attr-item {{ user.incomeRange }}
         span.user-info-attr-item {{ user.nomadStatus }}
     ButtonMatching.worker-button(
-      :email="user.email"
       @matching="clickMatching"
     )
     ButtonShowProfile.worker-button

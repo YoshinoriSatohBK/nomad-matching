@@ -42,7 +42,6 @@ const getDisplayUser = async user => {
 
   return {
     name: user.name,
-    email: user.email,
     location: user.location,
     skill: user.skill,
     incomeRange: getIncomeRangeString(user.income),

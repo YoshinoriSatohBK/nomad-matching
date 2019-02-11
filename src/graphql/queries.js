@@ -25,7 +25,6 @@ export const listUserProfiles = `query ListUserProfiles(
     items {
       id
       name
-      email
       imageUrl
       location
       income
@@ -53,7 +52,6 @@ export const searchUserProfiles = `query SearchUserProfiles(
     items {
       id
       name
-      email
       imageUrl
       location
       income

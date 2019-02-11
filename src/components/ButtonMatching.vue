@@ -8,9 +8,6 @@
 <script>
 export default {
   name: "ButtonMatching",
-  props: {
-    email: String
-  },
   methods: {
     matching() {
       this.$emit("matching");
