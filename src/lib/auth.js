@@ -24,6 +24,7 @@ const authenticate = async () => {
   if (authenticated()) {
     await setCredentials();
   } else {
+    await store.dispatch("route/enableLoading");
     await store.dispatch("twitter/fetchOAuthToken");
     window.location.href = `https://api.twitter.com/oauth/authenticate?oauth_token=${
       twitterState.oAuthToken
