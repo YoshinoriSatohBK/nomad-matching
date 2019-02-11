@@ -15,6 +15,9 @@ export default {
   name: "ButtonRegisterTwitter",
   methods: {
     async signin() {
+      if (await libAuth.authenticated()) {
+        this.$toast.open("ログインしています");
+      }
       await libAuth.authenticate();
     }
   }

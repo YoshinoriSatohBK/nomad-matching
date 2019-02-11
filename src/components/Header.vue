@@ -1,11 +1,18 @@
 <template lang="pug">
   div.my-header
-    b-dropdown(hoverable)
-      a(slot="trigger")
-        img(src="@/assets/images/menu.png").menu-image
-      b-dropdown-item(v-if="!authenticated" @click="signin()") Twitterでログイン
-      b-dropdown-item(v-if="authenticated" @click="$router.push('/mypage')") プロフィール
-      b-dropdown-item(v-if="authenticated" @click="signout()") ログアウト
+    transition(name="slide-fade")
+      div.menu(v-show="isShowMenu")
+        img(src="@/assets/images/menu_close.png" @click="hideMenu").menu-close-image
+        router-link(to="/").menu-item
+          span.menu-item-text ホーム
+        router-link(to="/mypage" v-if="authenticated").menu-item
+          span.menu-item-text プロフィール設定
+        div(v-if="authenticated").menu-item
+          span(@click="signout()").menu-item-text ログアウト
+        div(v-if="!authenticated").menu-item
+          span(@click="signin()").menu-item-text Twitterでログイン
+    div.menu-burger(@click="showMenu")
+      img(src="@/assets/images/menu.png").menu-image
     div.my-title
       div.logo
         img(src="@/assets/images/logo.png")
@@ -19,6 +26,9 @@ export default {
   computed: {
     authenticated: function() {
       return libAuth.authenticated();
+    },
+    isShowMenu: function() {
+      return this.$store.state.route.showMenu;
     }
   },
   methods: {
@@ -26,22 +36,61 @@ export default {
       await libAuth.authenticate();
     },
     async signout() {
+      await this.hideMenu();
       await libAuth.clearAuthentication();
+      this.$toast.open("ログアウトしました");
+    },
+    async showMenu() {
+      await this.$store.dispatch("route/showMenu");
+    },
+    async hideMenu() {
+      await this.$store.dispatch("route/hideMenu");
     }
   }
 };
 </script>
 
 <style scoped lang="stylus">
+.menu
+  display inline-block
+  position absolute
+  background white
+  width 231px
+  z-index 100
+  padding 4px 18px
+
+.menu-item
+  display block
+  text-align center
+  height 55px
+  border-bottom #AF9772 1px solid
+  &:last-child
+    border-bottom none
+
+.menu-item-text
+  font-family Hiragino Kaku Gothic ProN
+  font-size 16px
+  color #FF6666
+  position relative
+  top -2px
+
 .menu-image
   width 24.33px
   height 21.57px
-  position relative
-  top 9px
-  left 10px
+  position absolute
+  top 20px
+  left 23px
+
+.menu-close-image
+  width 24.33px
+  height 21.57px
+  position absolute
+  top 20px
+  left 23px
+  z-index 500
 
 .my-header
-  padding 0px 20px
+  padding 0px 0px
   height 63px
   line-height 63px
   border 1px #EDEDED solid
@@ -59,4 +108,11 @@ export default {
   vertical-align middle
   position relative
   top -4px
+
+.slide-fade-enter-active, .slide-fade-leave-active
+  transition: all .3s ease-out;
+
+.slide-fade-enter, .slide-fade-leave-to
+  transform: translateX(-40px);
+  opacity: 0;
 </style>

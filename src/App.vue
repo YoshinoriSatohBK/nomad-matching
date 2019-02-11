@@ -1,5 +1,8 @@
 <template lang="pug">
   div
+    b-loading(
+      :active.sync="loading"
+    )
     Header(v-if="showHeaderFooter")
     router-view
     Footer(v-if="showHeaderFooter")
@@ -19,6 +22,9 @@ export default {
   computed: {
     showHeaderFooter: function() {
       return this.$store.state.route.showHeaderFooter;
+    },
+    loading: function() {
+      return this.$store.state.route.loading;
     }
   },
   head: {
