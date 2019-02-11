@@ -10,7 +10,10 @@
       div.user-info-attr
         span.user-info-attr-item {{ user.incomeRange }}
         span.user-info-attr-item {{ user.nomadStatus }}
-    ButtonMatching.worker-button(:email="user.email")
+    ButtonMatching.worker-button(
+      :email="user.email"
+      @matching="clickMatching"
+    )
     ButtonShowProfile.worker-button
 </template>
 
@@ -26,6 +29,11 @@ export default {
   },
   props: {
     user: Object
+  },
+  methods: {
+    clickMatching() {
+      this.$emit("matching");
+    }
   }
 };
 </script>

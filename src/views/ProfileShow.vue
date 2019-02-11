@@ -108,7 +108,7 @@ export default {
       await this.$store.dispatch("user/saveAuthUserProfile", {
         profile: profile
       });
-      this.$toast.open("プロフィールを登録しました！");
+      this.$toast.open("プロフィールを登録しました");
       setTimeout(() => {
         this.$router.push("/");
       }, 1750);

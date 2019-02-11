@@ -12,12 +12,8 @@ export default {
     email: String
   },
   methods: {
-    async matching() {
-      location.href =
-        "mailto:" +
-        this.email +
-        "?subject=お茶しませんか" +
-        "&body=お茶しませんか";
+    matching() {
+      this.$emit("matching");
     }
   }
 };
