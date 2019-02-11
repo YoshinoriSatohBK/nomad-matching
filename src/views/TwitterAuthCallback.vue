@@ -24,7 +24,7 @@ export default {
     if (this.userProfile) {
       this.$router.replace("/");
     } else {
-      this.$router.push("/user");
+      this.$router.push("/mypage");
     }
   }
 };
