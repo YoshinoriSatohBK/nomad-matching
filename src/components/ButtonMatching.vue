@@ -1,13 +1,58 @@
 <template lang="pug">
-  div.button-parent-sm
-    div.matching-button-border
-      div(@click="matching()").matching-button
+  div.button-parent(
+   :style="{ 'line-height': borderLineHeight }"
+  )
+    div.matching-button-border(
+      :style="{ width: borderWidth, height: borderHeight }"
+    )
+      div(
+        @click="matching()"
+        :style="{ width: buttonWidth, height: buttonHeight, 'font-size': fontSize, 'margin-top': buttonMarginTop }"
+      ).matching-button
+        div.heart-icon(v-if="icon")
+          img(:src="iconSrc")
         div.matching-text お茶したい
 </template>
 
 <script>
 export default {
   name: "ButtonMatching",
+  props: {
+    size: {
+      type: String,
+      default: "medium"
+    },
+    icon: {
+      type: String,
+      default: null
+    }
+  },
+  computed: {
+    borderLineHeight: function() {
+      return this.size === "large" ? "53px" : "30px";
+    },
+    borderWidth: function() {
+      return this.size === "large" ? "234px" : "150px";
+    },
+    borderHeight: function() {
+      return this.size === "large" ? "53px" : "30px";
+    },
+    buttonWidth: function() {
+      return this.size === "large" ? "228px" : "146px";
+    },
+    buttonHeight: function() {
+      return this.size === "large" ? "47px" : "26px";
+    },
+    fontSize: function() {
+      return this.size === "large" ? "14px" : "10px";
+    },
+    iconSrc: function() {
+      return require(`@/assets/images/${this.icon}.png`);
+    },
+    buttonMarginTop: function() {
+      return this.size === "large" ? "3px" : "2px";
+    }
+  },
   methods: {
     matching() {
       this.$emit("matching");
@@ -17,25 +62,20 @@ export default {
 </script>
 
 <style scoped lang="stylus">
-.button-parent-sm
-  line-height 30px
+.button-parent
+  width 100%
   text-align center
 
 .matching-button-border
   display inline-block
-  height 30px
-  width 150px
   background #FF6666
 
 .matching-button
   display inline-block
   text-align center
-  margin-top 2px
-  height 26px
-  width 146px
+  margin-top 3px
   background #FF6666
   color white
-  font-size 10px
   font-weight bold
   font-family Hiragino Kaku Gothic ProN
   padding 0

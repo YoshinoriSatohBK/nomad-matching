@@ -11,10 +11,10 @@
       div.user-info-attr
         span.user-info-attr-item {{ user.incomeRange }}
         span.user-info-attr-item {{ user.nomadStatus }}
+    ButtonShowProfile.worker-button(:userId="user.id")
     ButtonMatching.worker-button(
       @matching="clickMatching"
     )
-    ButtonShowProfile.worker-button(:userId="user.id")
 </template>
 
 <script>

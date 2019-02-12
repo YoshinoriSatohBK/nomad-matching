@@ -1,48 +1,55 @@
 <template lang="pug">
-  div
-    div.profile-image
-      div.image-box
-        img(:src="userProfile.imageUrl" v-if="userProfile.imageUrl")
-        img(src="@/assets/images/human.png" v-else)
-      div {{ name }}
+  div.page
+    div.profile-head
+      div.profile-image
+        div.image-box
+          img(:src="userProfile.imageUrl" v-if="userProfile.imageUrl")
+          img(src="@/assets/images/human.png" v-else)
+      div.profile-name {{ userProfile.name }}
       ButtonMatching.worker-button(
-        @matching="clickMatching"
+        size="large"
+        @matching="openMatchingModal"
       )
 
     div.profile-body
-      img(src="@/assets/images/tit_profile.png")
+      div.profile-icon
+        img(src="@/assets/images/tit_profile.png").profile-icon-img
       div.profile-text {{ userProfile.description }}
       div.twitter-account
-        span Twitterアカウント：{{ userProfile.twitterScreenName }}
+        span Twitterアカウント：@{{ userProfile.twitterScreenName }}
 
     div.attributes
-      div.item
-        div.item-name 移住地
-        div.item-value {{ userProfile.location }}
-      div.item
-        div.item-name 職業
-        div.item-value {{ userProfile.skill }}
-      div.item
-        div.item-name 年収
-        div.item-value {{ userProfile.incomeRange }}
-      div.item
-        div.item-name ノマド
-        div.item-value {{ userProfile.nomadStatus }}
-      div.item
-        div.item-name タバコ
-        div.item-value {{ userProfile.smoking }}
-      div.item
-        div.item-name アルコール
-        div.item-value {{ userProfile.drink }}
+      div(v-for="item in attributes").item.columns.is-mobile.is-multiline
+        div.item-name.column.is-two-fifths {{ item.name }}
+        div.item-value.column {{ item.value }}
 
     ButtonMatching.worker-button(
-      @matching="sendMessage()"
-    )
-    b-loading(
-      :active.sync="sendMessageLoading"
-      :is-full-page="messageLoadingOption.isFullPage"
+      size="large"
+      @matching="openMatchingModal"
     )
 
+    div.modal(:class="{ 'is-active': isMatchingModalActive}")
+      div.modal-background
+      div.modal-content
+        header.modal-card-head
+          p.modal-card-title ユーザーへメール送信
+          button.delete(@click.stop="closeMatchingModal" aria-label="close")
+        section.modal-card-body.section.body-modal
+          b-field(label="メッセージ内容")
+            b-input(type="textarea" v-model="mailMessage" placeholder="お茶しませんか？")
+        footer.modal-card-foot
+          button.button.is-info(@click.stop="sendMessage()") メールを送信する
+          button.button(@click.stop="closeMatchingModal") Cancel
+      b-loading(
+        :active.sync="sendMessageLoading"
+        :is-full-page="messageLoadingOption.isFullPage"
+      )
+
+    router-link(to="/").back
+      span.back-icon
+        img(src="@/assets/images/arrow_l.png").back-icon-img
+      span.back-text
+        span 前のページにもどる
 </template>
 
 <script>
@@ -53,7 +60,7 @@ import libUser from "../lib/user";
 import * as queries from "../graphql/queries";
 
 export default {
-  name: "profile-edit",
+  name: "profile-show",
   components: {
     SectionTitle,
     ButtonMatching
@@ -67,6 +74,18 @@ export default {
         isFullPage: false
       }
     };
+  },
+  computed: {
+    attributes: function() {
+      return [
+        { name: "移住地", value: this.userProfile.location },
+        { name: "職業", value: this.userProfile.skill },
+        { name: "年収", value: this.userProfile.incomeRange },
+        { name: "ノマド", value: this.userProfile.nomadStatus },
+        { name: "タバコ", value: this.userProfile.smoking },
+        { name: "アルコール", value: this.userProfile.drink }
+      ];
+    }
   },
   async mounted() {
     console.log("ProfileShow mounted");
@@ -103,84 +122,90 @@ export default {
 </script>
 
 <style scoped lang="stylus">
+.page
+  margin 20px 0px 40px
+
 .profile-edit-title
   text-align center
 
-.profile-image
+.profile-head
+  background-image url("../assets/images/stripe_bg.png")
+  padding-bottom 40px
   text-align center
-  padding-top 20px
-  padding-bottom 35px
+  border-bottom #6C5A3F 2px solid
+
+.profile-image
   margin-bottom #6C5A3F 1px solid
+
+.profile-body
+  padding 30px
+
+.profile-icon
+  text-align center
+
+.profile-icon-img
+  height 50px
 
 .image-box
   display inline-block
-  text-align center
-  margin 14px
+  margin 20px 20px 3px
   height 250px
   img
     max-width 234px
     max-height 250px
 
-.upload-field
-  height 0px
+.profile-name
+  font-family Hiragino Kaku Gothic ProN
+  font-size 20px
+  color #6C5A3F
+  margin-bottom 15px
 
-.camera-icon-wrap
-  display inline-block
-  position relative
-  top -75px
-  left 105px
-  width 73px
-  height 73px
-  border-radius 100%
-  background #AF9772
-  opacity 0.6
+.profile-text
+  margin 20px 0px
+  font-family Hiragino Kaku Gothic ProN
+  font-size 16px
+  color #6C5A3F
+  line-height 28px
 
-.camera-icon
-  width 73px
-  height 73px
-  display inline-block
-
-
-.register-button
-  margin 40px auto 60px
+.twitter-account
+  font-family Hiragino Kaku Gothic ProN
+  font-size 16px
+  color #FF6666
 
 .attributes
   text-align center
   background #F5F5F5
-  padding 42px 25px
+  padding 23px 50px
+  margin-bottom 30px
 
-.field-autocomplete
-  border #AF9772 1px solid
-  border-radius 0%
-  background white
-  width 324px !important
-  height 43.68px
+.item
+  border-top white 1px solid
+  &:last-child
+    border-bottom white 1px solid
 
-.auto-wrap
-  margin 0 0 0.7rem 0
-  text-align center !important
-</style>
+.item-name
+  text-align left
+  padding-left 0px
 
-<style lang="stylus">
-.profile-edit--camera-icon
-  width 42.2px
-  height 32.25px
-  font-size 37px
+.item-value
+  text-align left
+  padding-left 0px
+
+.back
+  margin 22px 0px 10px
+  text-align center
+  display block
+
+.back-icon-img
+  width 19px
+  vertical-align middle
+
+.back-text
   position relative
-  top calc(50% - 19px)
-  left calc(50% - 17px)
-
-.autocomplete
-  .control
-    text-align center !important
-    input.input
-      border-radius 0% !important
-      border #AF9772 1px solid !important
-      padding-left 1rem
-      width 324px
-      height 43.68px
-      &::placeholder
-        color: #AF9772
-        font-family Hiragino Kaku Gothic ProN
-        font-size 16px
+  top -1px
+  left 10px
+  vertical-align middle
+  font-family Hiragino Kaku Gothic ProN
+  font-size 12px
+  color #6C5A3F
 </style>
