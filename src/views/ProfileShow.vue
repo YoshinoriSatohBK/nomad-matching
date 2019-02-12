@@ -68,7 +68,7 @@ export default {
   data() {
     return {
       isMatchingModalActive: false,
-      userProfile: null,
+      userProfile: {},
       sendMessageLoading: false,
       messageLoadingOption: {
         isFullPage: false
@@ -130,6 +130,7 @@ export default {
 
 .profile-head
   background-image url("../assets/images/stripe_bg.png")
+  background-size 6%
   padding-bottom 40px
   text-align center
   border-bottom #6C5A3F 2px solid
