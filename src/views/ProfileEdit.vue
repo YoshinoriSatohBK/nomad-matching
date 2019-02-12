@@ -21,18 +21,18 @@
       FieldInput(
         type="text"
         placeholder="お名前"
-        v-model="name"
+        v-model="profile.name"
       )
       FieldInput(
         type="email"
         placeholder="メールアドレス"
-        v-model="email"
+        v-model="profile.email"
       )
 
       div.auto-wrap
         b-field
           b-autocomplete(
-            v-model="location"
+            v-model="profile.location"
             :data="filteredLocations"
             placeholder="移住地"
             @select="option => location = option"
@@ -41,26 +41,26 @@
       FieldInput(
         type="text"
         placeholder="職業"
-        v-model="skill"
+        v-model="profile.skill"
       )
       FieldInput(
         type="text"
         placeholder="年収"
-        v-model="income"
+        v-model="profile.income"
       )
       FieldSelect(
         placeholder="ノマド達成度"
-        v-model="nomadStatus"
+        v-model="profile.nomadStatus"
         :options="nomadStatusOptions"
       )
       FieldSelect(
         placeholder="タバコ"
-        v-model="smoking"
+        v-model="profile.smoking"
         :options="smokingOptions"
       )
       FieldSelect(
         placeholder="アルコール"
-        v-model="drink"
+        v-model="profile.drink"
         :options="drinkOptions"
       )
     ButtonRegisterProfile.register-button(
@@ -91,62 +91,49 @@ export default {
   async mounted() {
     await this.$store.dispatch("user/fetchAuthUserProfile");
     if (this.userProfile && this.userProfile.id) {
-      const imageUrl = await libUser.getUserImageUrl(this.userProfile);
-      console.log(imageUrl);
-      this.name = this.userProfile.name;
-      this.email = this.userProfile.email;
-      this.description = this.userProfile.description;
-      this.twitterScreenName = this.userProfile.twitterScreenName;
-      this.imageUrl = imageUrl;
-      this.location = this.userProfile.location;
-      this.income = parseInt(this.userProfile.income);
-      this.skill = this.userProfile.skill;
-      this.smoking = this.userProfile.smoking;
-      this.drink = this.userProfile.drink;
-      this.nomadStatus = this.userProfile.nomadStatus;
+      this.imageUrl = await libUser.getUserImageUrl(this.userProfile);
+      this.profile = Object.assign({}, this.userProfile);
 
-      // if (this.description !== this.twitterUser.description ||
-      //     this.twitterScreenName !== this.twitterUser.screen_name) {
-      //   const profile = {
-      //     name: this.name,
-      //     email: this.email,
-      //     description: this.twitterUser.description,
-      //     twitterScreenName: this.twitterUser.screen_name,
-      //     imageUrl: this.imageUrl,
-      //     location: this.location,
-      //     income: this.income,
-      //     skill: this.skill,
-      //     smoking: this.smoking,
-      //     drink: true,
-      //     nomadStatus: this.nomadStatus
-      //   };
-      //   await this.$store.dispatch("user/saveAuthUserProfile", {
-      //     profile: profile
-      //   });
-      // }
+      if (
+        this.profile.description !== this.twitterUser.description ||
+        this.profile.twitterScreenName !== this.twitterUser.screen_name
+      ) {
+        if (this.twitterUser.description !== "") {
+          this.profile.description = this.twitterUser.description;
+        }
+        this.profile.twitterScreenName = this.twitterUser.screen_name;
+        await this.$store.dispatch("user/saveAuthUserProfile", {
+          profile: this.profile
+        });
+      }
     } else if (this.twitterUser) {
-      this.name = this.twitterUser.name;
-      this.email = this.twitterUser.email;
-      this.description = this.twitterUser.description;
-      this.twitterScreenName = this.twitterUser.screen_name;
+      this.profile.name = this.twitterUser.name;
+      this.profile.email = this.twitterUser.email;
+      if (this.twitterUser.description !== "") {
+        this.profile.description = this.twitterUser.description;
+      }
+      this.profile.twitterScreenName = this.twitterUser.screen_name;
     } else {
       console.log("not exists");
     }
   },
   data() {
     return {
-      name: "",
-      email: "",
-      description: "",
+      profile: {
+        name: null,
+        email: null,
+        description: null,
+        twitterScreenName: null,
+        location: null,
+        income: null,
+        skill: null,
+        smoking: null,
+        drink: null,
+        nomadStatus: null
+      },
       imageUrl: null,
-      imageFile: null,
       selectedImageData: null,
-      location: "",
-      income: 0,
-      skill: "",
-      smoking: false,
-      drink: false,
-      nomadStatus: "",
+      imageFile: null,
       locations: ["日本", "バンコク", "アメリカ", "オーストラリア"],
       smokingOptions: [
         {
@@ -204,29 +191,18 @@ export default {
   },
   methods: {
     async saveProfile() {
-      const profile = {
-        name: this.name,
-        email: this.email,
-        description: this.description,
-        twitterScreenName: this.twitterScreenName,
-        imageUrl: this.imageUrl,
-        location: this.location,
-        income: this.income,
-        skill: this.skill,
-        smoking: this.smoking,
-        drink: this.drink,
-        nomadStatus: this.nomadStatus
-      };
-      console.log(profile);
+      console.log(this.profile);
       await this.$store.dispatch("user/saveAuthUserProfile", {
-        profile: profile
+        profile: this.profile
       });
       if (this.imageFile) {
         await libUser.putUserImageFile(this.userProfile, this.imageFile);
       }
 
       this.$toast.open("プロフィールを登録しました");
-      this.$router.push("/");
+      setTimeout(() => {
+        this.$router.push("/");
+      }, 1000);
     },
     uploadEvent(file) {
       this.imageFile = file;

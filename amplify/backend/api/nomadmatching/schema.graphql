@@ -6,7 +6,7 @@ type UserProfile
   id: ID!
   name: String!
   email: String!
-  description: String!
+  description: String
   twitterScreenName: String!
   imageUrl: String
   location: String!

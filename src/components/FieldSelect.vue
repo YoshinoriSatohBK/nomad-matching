@@ -6,7 +6,7 @@
       :class="{ placeholder: isInitialValue }"
     )
       option.option-placeholder(
-        value=""
+        value="null"
       ) {{ placeholder }}
       option.option(
         v-for="option in options"
@@ -37,7 +37,7 @@ export default {
   },
   computed: {
     isInitialValue: function() {
-      return this.value === "";
+      return this.value === null;
     },
     inputListeners: function() {
       const vm = this;
