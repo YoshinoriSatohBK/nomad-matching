@@ -1,9 +1,11 @@
+<script src="../store/module/user.js"></script>
 <template lang="pug">
   div.field
-    select.select(
+    select(
       v-model="value"
       v-on="inputListeners"
-      :class="{ placeholder: isInitialValue }"
+      :class="{ select: size !== 'small', 'select-sm': size === 'small' }"
+      :style="{ color: color }"
     )
       option.option-placeholder(
         value="null"
@@ -27,7 +29,11 @@ export default {
     type: String,
     placeholder: String,
     value: String,
-    options: Array
+    options: Array,
+    size: {
+      type: String,
+      default: "medium"
+    }
   },
   data() {
     return {
@@ -37,8 +43,15 @@ export default {
     };
   },
   computed: {
-    isInitialValue: function() {
-      return this.value === null;
+    color: function() {
+      if (this.value === null) {
+        if (this.size === "small") {
+          return "#6C5A3F";
+        } else {
+          return "#AF9772";
+        }
+      }
+      return "initial";
     },
     inputListeners: function() {
       const vm = this;
@@ -58,7 +71,7 @@ export default {
 
 .select
   width 100%
-  height 43.68px !important
+  height 43.68px
   padding-left 0.7rem
   background white
   border #AF9772 1px solid
@@ -66,8 +79,15 @@ export default {
   font-family Hiragino Kaku Gothic ProN
   font-size 16px
 
-.placeholder
-  color: #AF9772
+.select-sm
+  width 127px
+  height 28.53px
+  padding-left 0.7rem
+  background white
+  border #AF9772 1px solid
+  border-radius 0%
+  font-family Hiragino Kaku Gothic ProN
+  font-size 12px
 
 .option-placeholder
   display none

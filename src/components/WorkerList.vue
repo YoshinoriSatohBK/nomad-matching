@@ -3,6 +3,11 @@
     div.mark-heart
       img(src="@/assets/images/mark_heart.png")
     SectionTitle(text="登録しているノマドワーカー")
+
+    div.search-area.columns.is-mobile
+      WorkerSort.column.worker-sort
+      WorkerSearch.column.worker-search
+
     div.columns.is-mobile.is-multiline
       Worker(
         v-for="user in userList"
@@ -30,13 +35,17 @@
 
 <script>
 import SectionTitle from "@/components/SectionTitle";
+import WorkerSort from "@/components/WorkerSort";
+import WorkerSearch from "@/components/WorkerSearch";
 import Worker from "@/components/Worker";
 
 export default {
   name: "WorkerList",
   components: {
     SectionTitle,
-    Worker
+    Worker,
+    WorkerSort,
+    WorkerSearch
   },
   async mounted() {
     await this.$store.dispatch("user/fetchPublicUserList");

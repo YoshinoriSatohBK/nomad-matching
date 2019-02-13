@@ -50,16 +50,21 @@ const actions = {
       commit("setAuthUserProfile", res.data.createUserProfile);
     }
   },
-  async fetchPublicUserList({ commit }) {
+  async fetchPublicUserList({ commit }, payload) {
+    console.log(payload);
+    const searchConditions = payload.searchConditions;
     const res = await API.graphql(
-      graphqlOperation(queries.searchUserProfiles, {})
+      graphqlOperation(queries.searchUserProfiles, {
+        filter: {
+          skill: searchConditions.text
+        }
+      })
     );
     const publicUserList = await Promise.all(
       res.data.searchUserProfiles.items.map(
         async user => await libUser.getDisplayUser(user)
       )
     );
-    // 複数ユーザ表示ダミー
     commit("setPublicUserList", publicUserList);
   }
 };

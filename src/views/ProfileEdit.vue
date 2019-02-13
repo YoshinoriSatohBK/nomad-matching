@@ -274,7 +274,7 @@ export default {
       setTimeout(() => {
         this.$toast.open("プロフィールを登録しました");
         this.$router.push("/");
-      }, 1000);
+      }, 1700);
     },
     uploadEvent(file) {
       this.imageFile = file;

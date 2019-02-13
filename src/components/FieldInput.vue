@@ -1,6 +1,7 @@
 <template lang="pug">
   div.field
     input.field--input(
+      :class="{'field--input': size !== 'small', 'field--input-sm': size === 'small' }"
       :type="type"
       :placeholder="placeholder"
       v-model="value"
@@ -15,7 +16,11 @@ export default {
   props: {
     type: String,
     placeholder: String,
-    value: String
+    value: String,
+    size: {
+      type: String,
+      default: "medium"
+    }
   },
   computed: {
     inputListeners: function() {
@@ -45,4 +50,16 @@ export default {
       color: #AF9772
       font-family Hiragino Kaku Gothic ProN
       font-size 16px
+  &--input-sm
+    width 127px
+    height 28.53px
+    padding-left 1rem
+    border #AF9772 1px solid
+    border-radius 0%
+    font-family Hiragino Kaku Gothic ProN
+    font-size 12px
+    &::placeholder
+      color: #6C5A3F
+      font-family Hiragino Kaku Gothic ProN
+      font-size 12px
 </style>
