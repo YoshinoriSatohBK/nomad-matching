@@ -78,7 +78,7 @@
         type="text"
         placeholder="年収"
         v-model="profile.income"
-        v-validate="'required'"
+        v-validate="'required|integer'"
         data-vv-as="年収"
       )
         ErrorMessage(
