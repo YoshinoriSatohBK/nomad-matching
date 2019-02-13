@@ -262,6 +262,8 @@ export default {
       if (this.hasValidationError) {
         return;
       }
+
+      await this.$store.dispatch("route/enableLoading");
       await this.$store.dispatch("user/saveAuthUserProfile", {
         profile: this.profile
       });
@@ -269,8 +271,8 @@ export default {
         await libUser.putUserImageFile(this.userProfile, this.imageFile);
       }
 
-      this.$toast.open("プロフィールを登録しました");
       setTimeout(() => {
+        this.$toast.open("プロフィールを登録しました");
         this.$router.push("/");
       }, 1000);
     },
