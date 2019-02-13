@@ -9,5 +9,5 @@
         "Ref": "UnauthRoleName"
     },
     "authPermissions": "rw",
-    "unauthPermissions": ""
+    "unauthPermissions": "r"
 }

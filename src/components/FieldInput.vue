@@ -6,6 +6,7 @@
       v-model="value"
       v-on="inputListeners"
     )
+    slot
 </template>
 
 <script>
@@ -33,7 +34,7 @@ export default {
 .field
   margin 0 0 1rem 0
   &--input
-    width 324px
+    width 100%
     height 43.68px
     padding-left 1rem
     border #AF9772 1px solid

@@ -32,7 +32,10 @@ const router = new Router({
       name: "mypage",
       component: ProfileEdit
     }
-  ]
+  ],
+  scrollBehavior() {
+    return { x: 0, y: 0 };
+  }
 });
 
 router.beforeEach(middleware.auth);

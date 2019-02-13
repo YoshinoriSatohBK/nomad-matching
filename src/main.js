@@ -30,6 +30,12 @@ Vue.use(VueCarousel);
 import VueScrollTo from "vue-scrollto";
 Vue.use(VueScrollTo);
 
+// VeeValidate
+import VeeValidate, { Validator } from "vee-validate";
+Vue.use(VeeValidate);
+import ja from "vee-validate/dist/locale/ja";
+Validator.localize("ja", ja);
+
 // Vue.config.productionTip = false;
 
 new Vue({

@@ -13,10 +13,11 @@
         :key="option.value"
         :value="option.value"
       ) {{ option.displayValue }}
-    b-icon.angle-icon(
-      pack="fas"
-      icon="angle-down"
-    )
+    <!--b-icon.angle-icon(-->
+      <!--pack="fas"-->
+      <!--icon="angle-down"-->
+    <!--)-->
+    slot
 </template>
 
 <script>
@@ -56,7 +57,7 @@ export default {
   margin 0 0 1rem 0
 
 .select
-  width 324px
+  width 100%
   height 43.68px !important
   padding-left 0.7rem
   background white
