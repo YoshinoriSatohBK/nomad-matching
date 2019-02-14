@@ -126,6 +126,10 @@
       v-if="hasValidationError && errors.items.length > 0"
       text="入力にエラーがあります"
     )
+    ErrorMessage.all-error-message(
+      v-if="hasApiError"
+      text="登録時にエラーが発生しました"
+    )
     ButtonRegisterProfile.register-button(
       @save-profile="saveProfile"
     )
@@ -235,7 +239,8 @@ export default {
           displayValue: "ノマドではない"
         }
       ],
-      hasValidationError: false
+      hasValidationError: false,
+      hasApiError: false
     };
   },
   computed: {
@@ -263,12 +268,19 @@ export default {
         return;
       }
 
-      await this.$store.dispatch("route/enableLoading");
-      await this.$store.dispatch("user/saveAuthUserProfile", {
-        profile: this.profile
-      });
-      if (this.imageFile) {
-        await libUser.putUserImageFile(this.userProfile, this.imageFile);
+      try {
+        await this.$store.dispatch("route/enableLoading");
+        await this.$store.dispatch("user/saveAuthUserProfile", {
+          profile: this.profile
+        });
+        if (this.imageFile) {
+          await libUser.putUserImageFile(this.userProfile, this.imageFile);
+        }
+      } catch (err) {
+        console.log(err);
+        this.hasApiError = true;
+        await this.$store.dispatch("route/disableLoading");
+        return;
       }
 
       setTimeout(() => {

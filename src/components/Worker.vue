@@ -59,6 +59,7 @@ export default {
   text-align left
   margin-bottom 10px
   max-width 150px
+  height 80px
   margin-left auto
   margin-right auto
   padding-left 2px

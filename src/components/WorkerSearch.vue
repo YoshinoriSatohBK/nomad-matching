@@ -4,7 +4,7 @@
       type="text"
       placeholder="検索条件"
       v-model="conditions.text"
-      v-on="changeCondition()"
+      v-on:input="changeCondition()"
       size="small"
     )
 </template>
@@ -24,12 +24,12 @@ export default {
     };
   },
   methods: {
-    changeCondition() {
-      this.$store.dispatch("user/fetchPublicUserList", {
-        searchConditions: {
-          text: this.conditions.text
-        }
+    async changeCondition() {
+      await this.$store.dispatch("user/clearFilter");
+      await this.$store.dispatch("user/saveFilter", {
+        text: this.conditions.text
       });
+      await this.$store.dispatch("user/fetchPublicUserList");
     }
   }
 };

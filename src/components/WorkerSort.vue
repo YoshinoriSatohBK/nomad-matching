@@ -3,7 +3,7 @@
     FieldSelect.field(
       v-model="sort"
       :options="sortOptions"
-      v-on="changeSort"
+      v-on:input="changeSort()"
       size="small"
     )
 </template>
@@ -31,8 +31,22 @@ export default {
     };
   },
   methods: {
-    changeSort() {
-      this.$store.dispatch("user/fetchPublicUserList");
+    async changeSort() {
+      let sortConditions = {};
+      if (this.sort === "recommended") {
+        sortConditions = {
+          type: "recommended"
+        };
+      } else {
+        const optionArray = this.sort.split("--");
+        sortConditions = {
+          field: optionArray[0],
+          direction: optionArray[1]
+        };
+      }
+      await this.$store.dispatch("user/clearSort");
+      await this.$store.dispatch("user/saveSort", sortConditions);
+      await this.$store.dispatch("user/fetchPublicUserList");
     }
   }
 };

@@ -6,7 +6,9 @@ import * as gqlMutations from "../../graphql/mutations";
 
 const state = {
   authUserProfile: {},
-  publicUserList: []
+  publicUserList: [],
+  filter: {},
+  sort: {}
 };
 
 const mutations = {
@@ -15,6 +17,18 @@ const mutations = {
   },
   setPublicUserList(state, publicUserList) {
     state.publicUserList = publicUserList;
+  },
+  setFilter(state, filter) {
+    state.filter = filter;
+  },
+  clearFilter(state) {
+    state.filter = {};
+  },
+  setSort(state, sort) {
+    state.sort = sort;
+  },
+  clearSort(state) {
+    state.sort = {};
   }
 };
 
@@ -50,16 +64,66 @@ const actions = {
       commit("setAuthUserProfile", res.data.createUserProfile);
     }
   },
-  async fetchPublicUserList({ commit }, payload) {
+  async saveFilter({ commit }, payload) {
+    let filter = {};
+    if (payload.text && payload.text !== "") {
+      filter = {
+        or: [
+          {
+            name: {
+              match: payload.text
+            }
+          },
+          {
+            skill: {
+              match: payload.text
+            }
+          },
+          {
+            location: {
+              match: payload.text
+            }
+          }
+        ]
+      };
+    }
+    commit("setFilter", filter);
+  },
+  async clearFilter({ commit }) {
+    commit("clearFilter");
+  },
+  async saveSort({ commit }, payload) {
     console.log(payload);
-    const searchConditions = payload.searchConditions;
+    let sort = {};
+    if (payload && payload.type === "recommended") {
+      console.log("recommended");
+    }
+    if (payload && payload.field) {
+      sort = {
+        field: payload.field,
+        direction: payload.direction || "asc"
+      };
+    }
+    console.log(sort);
+    commit("setSort", sort);
+  },
+  async clearSort({ commit }) {
+    commit("clearSort");
+  },
+  async fetchPublicUserList({ commit, state }) {
+    let params = {};
+    if (Object.keys(state.filter).length > 0) {
+      params.filter = state.filter;
+    }
+    if (Object.keys(state.sort).length > 0) {
+      params.sort = state.sort;
+    }
+
+    console.log(params);
     const res = await API.graphql(
-      graphqlOperation(queries.searchUserProfiles, {
-        filter: {
-          skill: searchConditions.text
-        }
-      })
+      graphqlOperation(queries.searchUserProfiles, params)
     );
+    console.log(res);
     const publicUserList = await Promise.all(
       res.data.searchUserProfiles.items.map(
         async user => await libUser.getDisplayUser(user)
