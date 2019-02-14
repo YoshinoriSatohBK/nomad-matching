@@ -71,17 +71,17 @@ const actions = {
         or: [
           {
             name: {
-              match: payload.text
+              wildcard: `*${payload.text}*`
             }
           },
           {
             skill: {
-              match: payload.text
+              wildcard: `*${payload.text}*`
             }
           },
           {
             location: {
-              match: payload.text
+              wildcard: `*${payload.text}*`
             }
           }
         ]
