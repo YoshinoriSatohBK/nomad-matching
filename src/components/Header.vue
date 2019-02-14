@@ -14,7 +14,7 @@
     div.menu-burger(@click="showMenu")
       img(src="@/assets/images/menu.png").menu-image
     div.my-title
-      div.logo
+      router-link(to="/").logo
         img(src="@/assets/images/logo.png")
 </template>
 
