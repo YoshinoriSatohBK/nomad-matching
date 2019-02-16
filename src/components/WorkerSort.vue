@@ -46,7 +46,9 @@ export default {
       }
       await this.$store.dispatch("user/clearSort");
       await this.$store.dispatch("user/saveSort", sortConditions);
-      await this.$store.dispatch("user/fetchPublicUserList");
+      await this.$store.dispatch("user/fetchPublicUserList", {
+        mode: "update-condition"
+      });
     }
   }
 };

@@ -4,11 +4,15 @@ import libUser from "../../lib/user";
 import * as queries from "../../graphql/queries";
 import * as gqlMutations from "../../graphql/mutations";
 
+const LIMIT = 10;
+
 const state = {
   authUserProfile: {},
   publicUserList: [],
   filter: {},
-  sort: {}
+  sort: {},
+  nextToken: 0,
+  hasMoreUsers: true
 };
 
 const mutations = {
@@ -29,8 +33,32 @@ const mutations = {
   },
   clearSort(state) {
     state.sort = {};
+  },
+  setNextToken(state, nextToken) {
+    state.nextToken = nextToken;
+  },
+  clearNextToken(state) {
+    state.nextToken = 0;
+  },
+  setHasMoreUsers(state, hasMoreUsers) {
+    state.hasMoreUsers = hasMoreUsers;
   }
 };
+
+function getSearchUserListParams(filter, sort, limit, nextToken) {
+  let params = {
+    limit: LIMIT,
+    nextToken: nextToken
+  };
+  if (Object.keys(filter).length > 0) {
+    params.filter = filter;
+  }
+  if (Object.keys(sort).length > 0) {
+    params.sort = sort;
+  }
+  console.log(params);
+  return params;
+}
 
 const actions = {
   async fetchAuthUserProfile({ commit }) {
@@ -88,6 +116,8 @@ const actions = {
       };
     }
     commit("setFilter", filter);
+    commit("clearNextToken");
+    commit("setHasMoreUsers", true);
   },
   async clearFilter({ commit }) {
     commit("clearFilter");
@@ -96,7 +126,10 @@ const actions = {
     console.log(payload);
     let sort = {};
     if (payload && payload.type === "recommended") {
-      console.log("recommended");
+      // sort = {
+      //   field: "id",
+      //   direction: "asc"
+      // };
     }
     if (payload && payload.field) {
       sort = {
@@ -106,30 +139,58 @@ const actions = {
     }
     console.log(sort);
     commit("setSort", sort);
+    commit("clearNextToken");
+    commit("setHasMoreUsers", true);
   },
   async clearSort({ commit }) {
     commit("clearSort");
+    commit("setHasMoreUsers", true);
   },
-  async fetchPublicUserList({ commit, state }) {
-    let params = {};
-    if (Object.keys(state.filter).length > 0) {
-      params.filter = state.filter;
-    }
-    if (Object.keys(state.sort).length > 0) {
-      params.sort = state.sort;
-    }
+  async clearNextToken({ commit }) {
+    commit("clearNextToken");
+    commit("setHasMoreUsers", true);
+  },
+  async clearHasMoreUsers({ commit }) {
+    commit("setHasMoreUsers", true);
+  },
+  async fetchPublicUserList({ commit, state }, payload) {
+    console.log("--------- fetchPublicUserList ---------");
+    console.log(state.nextToken);
 
-    console.log(params);
+    const params = getSearchUserListParams(
+      state.filter,
+      state.sort,
+      LIMIT,
+      state.nextToken
+    );
     const res = await API.graphql(
       graphqlOperation(queries.searchUserProfiles, params)
     );
+    const fetchedUsersProfiles = res.data.searchUserProfiles;
+    if (fetchedUsersProfiles.nextToken === null) {
+      commit("setHasMoreUsers", false);
+    }
     console.log(res);
     const publicUserList = await Promise.all(
-      res.data.searchUserProfiles.items.map(
+      fetchedUsersProfiles.items.map(
         async user => await libUser.getDisplayUser(user)
       )
     );
-    commit("setPublicUserList", publicUserList);
+
+    if (!payload) {
+      commit("setPublicUserList", publicUserList);
+      commit(
+        "setNextToken",
+        state.nextToken + fetchedUsersProfiles.items.length
+      );
+    }
+    if (payload.mode === "read-more") {
+      commit("setPublicUserList", state.publicUserList.concat(publicUserList));
+    } else {
+      commit("setPublicUserList", publicUserList);
+    }
+    commit("setNextToken", state.nextToken + fetchedUsersProfiles.items.length);
+    console.log(state.nextToken);
   }
 };
 
