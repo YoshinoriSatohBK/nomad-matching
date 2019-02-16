@@ -15,6 +15,13 @@
         @matching="openMatchingModal"
       ).column
 
+    div
+      button.button(v-if="hasMoreUsers" @click="readMore") もっと見る
+        b-loading(
+          :active.sync="processingReadMore"
+          :is-full-page="processingReadMoreOptions.isFullPage"
+        )
+
     div.modal(:class="{ 'is-active': isMatchingModalActive}")
       div.modal-background
       div.modal-content
@@ -57,15 +64,29 @@ export default {
       sendMessageLoading: false,
       messageLoadingOption: {
         isFullPage: false
+      },
+      processingReadMore: false,
+      processingReadMoreOptions: {
+        isFullPage: false
       }
     };
   },
   computed: {
     userList: function() {
       return this.$store.state.user.publicUserList;
+    },
+    hasMoreUsers: function() {
+      return this.$store.state.user.hasMoreUsers;
     }
   },
   methods: {
+    async readMore() {
+      this.processingReadMore = true;
+      await this.$store.dispatch("user/fetchPublicUserList", {
+        mode: "read-more"
+      });
+      this.processingReadMore = false;
+    },
     openMatchingModal() {
       this.isMatchingModalActive = true;
     },

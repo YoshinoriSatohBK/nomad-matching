@@ -29,7 +29,9 @@ export default {
       await this.$store.dispatch("user/saveFilter", {
         text: this.conditions.text
       });
-      await this.$store.dispatch("user/fetchPublicUserList");
+      await this.$store.dispatch("user/fetchPublicUserList", {
+        mode: "update-condition"
+      });
     }
   }
 };
