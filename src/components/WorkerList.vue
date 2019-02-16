@@ -21,23 +21,13 @@
           :active.sync="processingReadMore"
           :is-full-page="processingReadMoreOptions.isFullPage"
         )
-
-    div.modal(:class="{ 'is-active': isMatchingModalActive}")
-      div.modal-background
-      div.modal-content
-        header.modal-card-head
-          p.modal-card-title ユーザーへメール送信
-          button.delete(@click.stop="closeMatchingModal" aria-label="close")
-        section.modal-card-body.section.body-modal
-          b-field(label="メッセージ内容")
-            b-input(type="textarea" v-model="mailMessage" placeholder="お茶しませんか？")
-        footer.modal-card-foot
-          button.button.is-info(@click.stop="sendMessage()") メールを送信する
-          button.button(@click.stop="closeMatchingModal") Cancel
-      b-loading(
-        :active.sync="sendMessageLoading"
-        :is-full-page="messageLoadingOption.isFullPage"
-      )
+    SendMessageModal(
+      :active="isMatchingModalActive"
+      :loading="sendMessageLoading"
+      :userProfile="modalUser"
+      @close="closeMatchingModal"
+      @sendMessage="sendMessage"
+    )
 </template>
 
 <script>
@@ -45,6 +35,7 @@ import SectionTitle from "@/components/SectionTitle";
 import WorkerSort from "@/components/WorkerSort";
 import WorkerSearch from "@/components/WorkerSearch";
 import Worker from "@/components/Worker";
+import SendMessageModal from "@/components/SendMessageModal";
 
 export default {
   name: "WorkerList",
@@ -52,7 +43,8 @@ export default {
     SectionTitle,
     Worker,
     WorkerSort,
-    WorkerSearch
+    WorkerSearch,
+    SendMessageModal
   },
   async mounted() {
     await this.$store.dispatch("user/fetchPublicUserList");
@@ -62,13 +54,11 @@ export default {
       isMatchingModalActive: false,
       mailMessage: "",
       sendMessageLoading: false,
-      messageLoadingOption: {
-        isFullPage: false
-      },
       processingReadMore: false,
       processingReadMoreOptions: {
         isFullPage: false
-      }
+      },
+      modalUser: {}
     };
   },
   computed: {
@@ -87,10 +77,13 @@ export default {
       });
       this.processingReadMore = false;
     },
-    openMatchingModal() {
+    openMatchingModal(event) {
+      console.log(event.user);
+      this.modalUser = event.user;
       this.isMatchingModalActive = true;
     },
     closeMatchingModal() {
+      this.modalUser = {};
       this.isMatchingModalActive = false;
     },
     sendMessage() {

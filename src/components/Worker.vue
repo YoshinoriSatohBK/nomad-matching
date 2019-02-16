@@ -32,7 +32,7 @@ export default {
   },
   methods: {
     clickMatching() {
-      this.$emit("matching");
+      this.$emit("matching", { user: this.user });
     }
   }
 };

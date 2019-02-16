@@ -183,11 +183,15 @@ const actions = {
         "setNextToken",
         state.nextToken + fetchedUsersProfiles.items.length
       );
-    }
-    if (payload.mode === "read-more") {
-      commit("setPublicUserList", state.publicUserList.concat(publicUserList));
     } else {
-      commit("setPublicUserList", publicUserList);
+      if (payload.mode === "read-more") {
+        commit(
+          "setPublicUserList",
+          state.publicUserList.concat(publicUserList)
+        );
+      } else {
+        commit("setPublicUserList", publicUserList);
+      }
     }
     commit("setNextToken", state.nextToken + fetchedUsersProfiles.items.length);
     console.log(state.nextToken);
