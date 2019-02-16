@@ -14,10 +14,15 @@ div.modal(:class="{ 'is-active': active}")
         div.profile-name {{ userProfile.name }}
         div.message-guide メッセージを送ってみましょう！
       div.profile-message
-        // img.message-icon(src="@/assets/images/tit_profile.png")
+        img.message-icon(src="@/assets/images/tit_message.png")
         b-field
-          b-input(type="textarea" v-model="mailMessage" :placeholder="placeholder")
-        ButtonMatching(
+          b-input.message-editor(
+            type="textarea"
+            v-model="mailMessage"
+            :placeholder="placeholder"
+          )
+        img.coffee-icon(src="@/assets/images/mark_cup.png")
+        ButtonMatching.send-button(
           @matching="sendMessage"
           text="送信する"
           size="large"
@@ -117,10 +122,28 @@ export default {
 
 .profile-message
   background #F5F5F5
-  padding 2rem
+  padding 0.5rem 2rem 2rem 2rem
 
 .message-editor
   font-family Hiragino Kaku Gothic ProN
   font-size 16px
   color #6C5A3F
+
+.message-icon
+  width 103px
+  position relative
+  left 10px
+  margin-bottom 0.3rem
+
+.coffee-icon
+  width 48px
+
+.send-button
+  margin-top 0.7rem
+</style>
+
+<style lang="stylus">
+.message-editor
+  textarea
+    min-height 170px !important
 </style>
