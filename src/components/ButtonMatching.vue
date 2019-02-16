@@ -11,7 +11,7 @@
       ).matching-button
         div.heart-icon(v-if="icon")
           img(:src="iconSrc")
-        div.matching-text お茶したい
+        div.matching-text {{ text }}
 </template>
 
 <script>
@@ -25,6 +25,10 @@ export default {
     icon: {
       type: String,
       default: null
+    },
+    text: {
+      type: String,
+      default: "お茶したい"
     }
   },
   computed: {
@@ -87,4 +91,14 @@ export default {
   display inline-block
   position relative
   top -3px
+
+.heart-icon
+  display inline-block
+  img
+    position relative
+    vertical-align middle
+    width 50%
+    height 50%
+    top -5px
+    left -10px
 </style>

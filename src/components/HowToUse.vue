@@ -30,7 +30,7 @@ export default {
           headImageSrc: require("@/assets/images/step1.png"),
           headText: "気になるノマドを探す",
           bodyImageSrc: require("@/assets/images/step1_pic.png"),
-          width: "219.33px",
+          width: "265px",
           left: "0px"
         },
         {
@@ -44,7 +44,7 @@ export default {
           headImageSrc: require("@/assets/images/step3.png"),
           headText: "相手にメールが届きます。",
           bodyImageSrc: require("@/assets/images/step3_pic.png"),
-          width: "219.33px",
+          width: "265px",
           left: "0px"
         }
       ]

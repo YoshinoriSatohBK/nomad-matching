@@ -8,7 +8,7 @@
     Footer(v-if="showHeaderFooter")
 </template>
 
-<style lang="stylus"></style>
+<style lang="scss"></style>
 
 <script>
 import Header from "@/components/Header";
