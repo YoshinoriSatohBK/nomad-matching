@@ -179,10 +179,6 @@ const actions = {
 
     if (!payload) {
       commit("setPublicUserList", publicUserList);
-      commit(
-        "setNextToken",
-        state.nextToken + fetchedUsersProfiles.items.length
-      );
     } else {
       if (payload.mode === "read-more") {
         commit(
