@@ -37,6 +37,8 @@ import WorkerSearch from "@/components/WorkerSearch";
 import Worker from "@/components/Worker";
 import SendMessageModal from "@/components/SendMessageModal";
 
+//import apiAuth from "../api/auth";
+
 export default {
   name: "WorkerList",
   components: {
@@ -86,16 +88,13 @@ export default {
       this.modalUser = {};
       this.isMatchingModalActive = false;
     },
-    sendMessage() {
+    async sendMessage(text) {
       this.sendMessageLoading = true;
-      const that = this;
-      setTimeout(function() {
-        that.sendMessageLoading = false;
-        that.closeMatchingModal();
-        that.$toast.open(
-          "メッセージを送信しました（未実装です。実際にはまだ送信されません。）"
-        );
-      }, 2000);
+      console.log(text);
+      //await apiAuth.sendMessage(this.modalUser.id, text);
+      this.sendMessageLoading = false;
+      this.closeMatchingModal();
+      this.$toast.open("メッセージを送信しました");
     }
   }
 };

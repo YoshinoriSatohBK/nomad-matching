@@ -7,6 +7,11 @@
       v-on:input="changeCondition()"
       size="small"
     )
+      img.search-icon(
+        v-if="conditions.text.length <= 0"
+        src="@/assets/images/zoom.png"
+      )
+      div(v-else).search-icon
 </template>
 
 <script>
@@ -37,4 +42,11 @@ export default {
 };
 </script>
 
-<style scoped lang="stylus"></style>
+<style scoped lang="stylus">
+.search-icon
+  display inline-block
+  position relative
+  top 3px
+  left -1.4rem
+  width 15.9px
+</style>
