@@ -56,7 +56,6 @@ function getSearchUserListParams(filter, sort, limit, nextToken) {
   if (Object.keys(sort).length > 0) {
     params.sort = sort;
   }
-  console.log(params);
   return params;
 }
 

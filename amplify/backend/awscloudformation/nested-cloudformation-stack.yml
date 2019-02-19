@@ -155,12 +155,12 @@
 							"Outputs.UserPoolId"
 						]
 					},
-					"schemaGraphql": "s3://nomad-matching-20190208214544-deployment/amplify-appsync-files/schema.graphql.1550281145450",
+					"schemaGraphql": "s3://nomad-matching-20190208214544-deployment/amplify-appsync-files/schema.graphql.1550584874788",
 					"ElasticSearchStreamingLambdaCodeS3Key": "amplify-appsync-files/python_streaming_function.zip",
 					"ElasticSearchStreamingLambdaCodeS3Bucket": "nomad-matching-20190208214544-deployment",
 					"ResolverBucket": "nomad-matching-20190208214544-deployment",
 					"ResolverRootKey": "amplify-appsync-files",
-					"DeploymentTimestamp": "1550281145450",
+					"DeploymentTimestamp": "1550584874788",
 					"env": "devys"
 				}
 			}
@@ -192,10 +192,46 @@
 				}
 			}
 		},
+		"apiapi9f77a9d3": {
+			"Type": "AWS::CloudFormation::Stack",
+			"Properties": {
+				"TemplateURL": "https://s3.amazonaws.com/nomad-matching-20190208214544-deployment/amplify-cfn-templates/api/api9f77a9d3-cloudformation-template.json",
+				"Parameters": {
+					"authRoleName": {
+						"Ref": "AuthRoleName"
+					},
+					"unauthRoleName": {
+						"Ref": "UnauthRoleName"
+					},
+					"functionnomadmatching990fe297Name": {
+						"Fn::GetAtt": [
+							"functionnomadmatching990fe297",
+							"Outputs.Name"
+						]
+					},
+					"functionnomadmatching990fe297Arn": {
+						"Fn::GetAtt": [
+							"functionnomadmatching990fe297",
+							"Outputs.Arn"
+						]
+					},
+					"env": "devys"
+				}
+			}
+		},
 		"functionnomadmatchinge620bc79": {
 			"Type": "AWS::CloudFormation::Stack",
 			"Properties": {
 				"TemplateURL": "https://s3.amazonaws.com/nomad-matching-20190208214544-deployment/amplify-cfn-templates/function/nomadmatchinge620bc79-cloudformation-template.json",
+				"Parameters": {
+					"env": "devys"
+				}
+			}
+		},
+		"functionnomadmatching990fe297": {
+			"Type": "AWS::CloudFormation::Stack",
+			"Properties": {
+				"TemplateURL": "https://s3.amazonaws.com/nomad-matching-20190208214544-deployment/amplify-cfn-templates/function/nomadmatching990fe297-cloudformation-template.json",
 				"Parameters": {
 					"env": "devys"
 				}

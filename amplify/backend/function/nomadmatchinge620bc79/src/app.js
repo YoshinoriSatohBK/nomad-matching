@@ -30,18 +30,33 @@ async function getSsmParameter(name, withDecryption = false) {
   return ret.Parameter.Value;
 }
 
+async function getTwitterConsumerKey() {
+  return getSsmParameter(
+    `/NomadMatching/${process.env.ENV}/Twitter/ConsumerKey`,
+    true
+  );
+}
+
+async function getTwitterConsumerSecret() {
+  return getSsmParameter(
+    `/NomadMatching/${process.env.ENV}/Twitter/ConsumerSecret`,
+    true
+  );
+}
+
+async function getTwitterCallbackUrl() {
+  return getSsmParameter(
+    `/NomadMatching/${process.env.ENV}/Twitter/CallbackUrl`
+  );
+}
+
 async function getOAuthClient() {
-  const consumerKey = await getSsmParameter(
-    `/NomadMatching/${process.env.ENV}/ConsumerKey`,
-    true
-  );
-  const consumerSecret = await getSsmParameter(
-    `/NomadMatching/${process.env.ENV}/ConsumerSecret`,
-    true
-  );
-  const callbackURL = await getSsmParameter(
-    `/NomadMatching/${process.env.ENV}/CallbackUrl`
-  );
+  const consumerKey = await getTwitterConsumerKey();
+  const consumerSecret = await getTwitterConsumerSecret();
+  const callbackURL = await getTwitterCallbackUrl();
+  console.log(consumerKey);
+  console.log(consumerSecret);
+  console.log(callbackURL);
 
   return new OAuth(
     "https://api.twitter.com/oauth/request_token",
@@ -55,14 +70,10 @@ async function getOAuthClient() {
 }
 
 async function getTwitterClient(access_token_key, access_token_secret) {
-  const consumerKey = await getSsmParameter(
-    `/NomadMatching/${process.env.ENV}/ConsumerKey`,
-    true
-  );
-  const consumerSecret = await getSsmParameter(
-    `/NomadMatching/${process.env.ENV}/ConsumerSecret`,
-    true
-  );
+  const consumerKey = await getTwitterConsumerKey();
+  const consumerSecret = await getTwitterConsumerSecret();
+  console.log(consumerKey);
+  console.log(consumerSecret);
 
   return new Twitter({
     consumer_key: consumerKey,

@@ -43,7 +43,8 @@ export default {
         isFullPage: false
       },
       placeholder:
-        "例：こんにちは、現在バンコクでノマド生活をしているマナブと申します。\n\n○○さんのプロフィールを見て、職種が同じで興味を持ちました。バンコクでお茶などいかがでしょうか？"
+        "例：こんにちは、現在バンコクでノマド生活をしているマナブと申します。\n\n○○さんのプロフィールを見て、職種が同じで興味を持ちました。バンコクでお茶などいかがでしょうか？",
+      mailMessage: ""
     };
   },
   components: {
@@ -59,7 +60,7 @@ export default {
       this.$emit("close");
     },
     sendMessage() {
-      this.$emit("sendMessage");
+      this.$emit("sendMessage", this.mailMessage);
     }
   }
 };
@@ -123,6 +124,7 @@ export default {
 .profile-message
   background #F5F5F5
   padding 0.5rem 2rem 2rem 2rem
+  text-align center
 
 .message-editor
   font-family Hiragino Kaku Gothic ProN

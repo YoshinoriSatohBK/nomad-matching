@@ -26,10 +26,30 @@
 					]
 				}
 			]
+		},
+		"api9f77a9d3": {
+			"service": "API Gateway",
+			"providerPlugin": "awscloudformation",
+			"dependsOn": [
+				{
+					"category": "function",
+					"resourceName": "nomadmatching990fe297",
+					"attributes": [
+						"Name",
+						"Arn"
+					]
+				}
+			]
 		}
 	},
 	"function": {
 		"nomadmatchinge620bc79": {
+			"service": "Lambda",
+			"providerPlugin": "awscloudformation",
+			"build": true,
+			"dependsOn": []
+		},
+		"nomadmatching990fe297": {
 			"service": "Lambda",
 			"providerPlugin": "awscloudformation",
 			"build": true,
@@ -45,6 +65,12 @@
 	"storage": {
 		"s337f032f7": {
 			"service": "S3",
+			"providerPlugin": "awscloudformation"
+		}
+	},
+	"analytics": {
+		"nomadmatching": {
+			"service": "Pinpoint",
 			"providerPlugin": "awscloudformation"
 		}
 	}

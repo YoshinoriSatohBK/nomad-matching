@@ -37,6 +37,7 @@ const mutations = {
 const actions = {
   async fetchOAuthToken({ commit }) {
     const res = await apiTwitterAuth.getOAuthToken();
+    console.log(res);
     commit("setOAuthToken", res.oauth_token);
     commit("setOAuthTokenSecret", res.oauth_token_secret);
   },

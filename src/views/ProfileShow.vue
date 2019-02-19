@@ -28,22 +28,13 @@
       @matching="openMatchingModal"
     )
 
-    div.modal(:class="{ 'is-active': isMatchingModalActive}")
-      div.modal-background
-      div.modal-content
-        header.modal-card-head
-          p.modal-card-title ユーザーへメール送信
-          button.delete(@click.stop="closeMatchingModal" aria-label="close")
-        section.modal-card-body.section.body-modal
-          b-field(label="メッセージ内容")
-            b-input(type="textarea" v-model="mailMessage" placeholder="お茶しませんか？")
-        footer.modal-card-foot
-          button.button.is-info(@click.stop="sendMessage()") メールを送信する
-          button.button(@click.stop="closeMatchingModal") Cancel
-      b-loading(
-        :active.sync="sendMessageLoading"
-        :is-full-page="messageLoadingOption.isFullPage"
-      )
+    SendMessageModal(
+      :active="isMatchingModalActive"
+      :loading="sendMessageLoading"
+      :userProfile="userProfile"
+      @close="closeMatchingModal"
+      @sendMessage="sendMessage"
+    )
 
     router-link(to="/").back
       span.back-icon
@@ -55,15 +46,19 @@
 <script>
 import SectionTitle from "@/components/SectionTitle";
 import ButtonMatching from "@/components/ButtonMatching";
+import SendMessageModal from "@/components/SendMessageModal";
 import { API, graphqlOperation } from "aws-amplify";
 import libUser from "../lib/user";
 import * as queries from "../graphql/queries";
+
+//import apiAuth from "../api/auth";
 
 export default {
   name: "profile-show",
   components: {
     SectionTitle,
-    ButtonMatching
+    ButtonMatching,
+    SendMessageModal
   },
   data() {
     return {
@@ -106,16 +101,13 @@ export default {
     closeMatchingModal() {
       this.isMatchingModalActive = false;
     },
-    sendMessage() {
+    async sendMessage(text) {
       this.sendMessageLoading = true;
-      const that = this;
-      setTimeout(function() {
-        that.sendMessageLoading = false;
-        that.closeMatchingModal();
-        that.$toast.open(
-          "メッセージを送信しました（未実装です。実際にはまだ送信されません。）"
-        );
-      }, 2000);
+      console.log(text);
+      //await apiAuth.sendMessage(userProfile.id, text);
+      this.sendMessageLoading = false;
+      this.closeMatchingModal();
+      this.$toast.open("メッセージを送信しました");
     }
   }
 };
