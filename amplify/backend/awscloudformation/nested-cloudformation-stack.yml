@@ -157,10 +157,10 @@
 					},
 					"ElasticSearchStreamingLambdaCodeS3Key": "amplify-appsync-files/python_streaming_function.zip",
 					"ElasticSearchStreamingLambdaCodeS3Bucket": "nomad-matching-20190131143015-deployment",
-					"schemaGraphql": "s3://nomad-matching-20190131143015-deployment/amplify-appsync-files/schema.graphql.1550363354282",
+					"schemaGraphql": "s3://nomad-matching-20190131143015-deployment/amplify-appsync-files/schema.graphql.1550590023610",
 					"ResolverBucket": "nomad-matching-20190131143015-deployment",
 					"ResolverRootKey": "amplify-appsync-files",
-					"DeploymentTimestamp": "1550363354282",
+					"DeploymentTimestamp": "1550590023610",
 					"env": "dev"
 				}
 			}
@@ -192,10 +192,46 @@
 				}
 			}
 		},
+		"apiapi9f77a9d3": {
+			"Type": "AWS::CloudFormation::Stack",
+			"Properties": {
+				"TemplateURL": "https://s3.amazonaws.com/nomad-matching-20190131143015-deployment/amplify-cfn-templates/api/api9f77a9d3-cloudformation-template.json",
+				"Parameters": {
+					"authRoleName": {
+						"Ref": "AuthRoleName"
+					},
+					"unauthRoleName": {
+						"Ref": "UnauthRoleName"
+					},
+					"functionnomadmatching990fe297Name": {
+						"Fn::GetAtt": [
+							"functionnomadmatching990fe297",
+							"Outputs.Name"
+						]
+					},
+					"functionnomadmatching990fe297Arn": {
+						"Fn::GetAtt": [
+							"functionnomadmatching990fe297",
+							"Outputs.Arn"
+						]
+					},
+					"env": "dev"
+				}
+			}
+		},
 		"functionnomadmatchinge620bc79": {
 			"Type": "AWS::CloudFormation::Stack",
 			"Properties": {
 				"TemplateURL": "https://s3.amazonaws.com/nomad-matching-20190131143015-deployment/amplify-cfn-templates/function/nomadmatchinge620bc79-cloudformation-template.json",
+				"Parameters": {
+					"env": "dev"
+				}
+			}
+		},
+		"functionnomadmatching990fe297": {
+			"Type": "AWS::CloudFormation::Stack",
+			"Properties": {
+				"TemplateURL": "https://s3.amazonaws.com/nomad-matching-20190131143015-deployment/amplify-cfn-templates/function/nomadmatching990fe297-cloudformation-template.json",
 				"Parameters": {
 					"env": "dev"
 				}
@@ -227,6 +263,33 @@
 					},
 					"authPermissions": "rw",
 					"unauthPermissions": "r",
+					"env": "dev"
+				}
+			}
+		},
+		"analyticsnomadmatching": {
+			"Type": "AWS::CloudFormation::Stack",
+			"Properties": {
+				"TemplateURL": "https://s3.amazonaws.com/nomad-matching-20190131143015-deployment/amplify-cfn-templates/analytics/pinpoint-cloudformation-template.json",
+				"Parameters": {
+					"appName": "nomadmatching",
+					"roleName": "pinpointLambdaRolec437914b",
+					"cloudWatchPolicyName": "cloudWatchPolicyc437914b",
+					"pinpointPolicyName": "pinpointPolicyc437914b",
+					"authPolicyName": "pinpoint_amplify_c437914b",
+					"unauthPolicyName": "pinpoint_amplify_c437914b",
+					"authRoleName": {
+						"Ref": "AuthRoleName"
+					},
+					"unauthRoleName": {
+						"Ref": "UnauthRoleName"
+					},
+					"authRoleArn": {
+						"Fn::GetAtt": [
+							"AuthRole",
+							"Arn"
+						]
+					},
 					"env": "dev"
 				}
 			}
