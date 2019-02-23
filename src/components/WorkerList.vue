@@ -23,7 +23,7 @@
       ).column
 
     div
-      button.button(v-if="hasMoreUsers" @click="readMore") もっと見る
+      ButtonReadMore(v-if="hasMoreUsers" @click="readMore") もっと見る
         b-loading(
           :active.sync="processingReadMore"
           :is-full-page="processingReadMoreOptions.isFullPage"
@@ -43,8 +43,9 @@ import FieldSelectSort from "@/components/FieldSelectSort";
 import FieldInputSearch from "@/components/FieldInputSearch";
 import Worker from "@/components/Worker";
 import SendMessageModal from "@/components/SendMessageModal";
+import ButtonReadMore from "@/components/ButtonReadMore";
 
-//import apiAuth from "../api/auth";
+// import apiMatching from "../api/auth";
 
 export default {
   name: "WorkerList",
@@ -53,7 +54,8 @@ export default {
     Worker,
     FieldSelectSort,
     FieldInputSearch,
-    SendMessageModal
+    SendMessageModal,
+    ButtonReadMore
   },
   async mounted() {
     await this.$store.dispatch("user/fetchPublicUserList");
@@ -132,7 +134,7 @@ export default {
     async sendMessage(text) {
       this.sendMessageLoading = true;
       console.log(text);
-      //await apiAuth.sendMessage(this.modalUser.id, text);
+      // await apiMatching.sendMessage(this.modalUser.id, text);
       this.sendMessageLoading = false;
       this.closeMatchingModal();
       this.$toast.open("メッセージを送信しました");

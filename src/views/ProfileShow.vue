@@ -49,7 +49,7 @@ import { API, graphqlOperation } from "aws-amplify";
 import libUser from "../lib/user";
 import * as queries from "../graphql/queries";
 
-//import apiAuth from "../api/auth";
+// import apiMatching from "../api/matching";
 
 export default {
   name: "profile-show",
@@ -102,7 +102,7 @@ export default {
     async sendMessage(text) {
       this.sendMessageLoading = true;
       console.log(text);
-      //await apiAuth.sendMessage(userProfile.id, text);
+      //await apiMatching.sendMessage(this.userProfile.id, text);
       this.sendMessageLoading = false;
       this.closeMatchingModal();
       this.$toast.open("メッセージを送信しました");
