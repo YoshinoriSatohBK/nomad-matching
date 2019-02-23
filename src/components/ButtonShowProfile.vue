@@ -1,20 +1,47 @@
 <template lang="pug">
-  div.button-parent-sm
-    div.profile-button-border
-      div(@click="showProfile()").profile-button
-        div.profile-text プロフィールを見る
+  ButtonBase(
+    text="プロフィールを見る"
+    :componentStyle="componentStyle"
+    :boxOuterStyle="boxOuterStyle"
+    :boxInnerStyle="boxInnerStyle"
+    :textStyle="textStyle"
+    @click="click"
+  )
 </template>
 
 <script>
+import ButtonBase from "@/components/ButtonBase";
+
 export default {
-  name: "Buttonprofile",
-  props: {
-    userId: String
+  name: "ButtonShowProfile",
+  components: {
+    ButtonBase
   },
   methods: {
-    async showProfile() {
-      this.$router.push(`/user/${this.userId}`);
+    click() {
+      this.$emit("click");
     }
+  },
+  data() {
+    return {
+      componentStyle: {
+        "line-height": "30px"
+      },
+      boxOuterStyle: {
+        background: "#A68C67",
+        width: "150px",
+        height: "30px"
+      },
+      boxInnerStyle: {
+        width: "146px",
+        height: "26px",
+        "margin-top": "2px"
+      },
+      textStyle: {
+        "font-size": "10px",
+        left: "0px"
+      }
+    };
   }
 };
 </script>

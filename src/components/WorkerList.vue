@@ -1,12 +1,19 @@
 <template lang="pug">
-  div.nomad-list.section#nomad-list-scrollto
+  div.nomad-list.section
     div.mark-heart
       img(src="@/assets/images/mark_heart.png")
     SectionTitle(text="登録しているノマドワーカー")
 
     div.search-area.columns.is-mobile
-      WorkerSort.column.worker-sort
-      WorkerSearch.column.worker-search
+      FieldSelectSort.column.worker-sort(
+        :value="sort"
+        @input="changeSort"
+      )
+      FieldInputSearch.column.worker-search(
+        placeholder="検索条件"
+        :value="searchConditions.text"
+        @input="changeCondition"
+      )
 
     div.columns.is-mobile.is-multiline
       Worker(
@@ -32,8 +39,8 @@
 
 <script>
 import SectionTitle from "@/components/SectionTitle";
-import WorkerSort from "@/components/WorkerSort";
-import WorkerSearch from "@/components/WorkerSearch";
+import FieldSelectSort from "@/components/FieldSelectSort";
+import FieldInputSearch from "@/components/FieldInputSearch";
 import Worker from "@/components/Worker";
 import SendMessageModal from "@/components/SendMessageModal";
 
@@ -44,8 +51,8 @@ export default {
   components: {
     SectionTitle,
     Worker,
-    WorkerSort,
-    WorkerSearch,
+    FieldSelectSort,
+    FieldInputSearch,
     SendMessageModal
   },
   async mounted() {
@@ -54,6 +61,10 @@ export default {
   data() {
     return {
       isMatchingModalActive: false,
+      searchConditions: {
+        text: ""
+      },
+      sort: "recommended",
       mailMessage: "",
       sendMessageLoading: false,
       processingReadMore: false,
@@ -87,6 +98,36 @@ export default {
     closeMatchingModal() {
       this.modalUser = {};
       this.isMatchingModalActive = false;
+    },
+    async changeCondition(value) {
+      this.searchConditions.text = value;
+      await this.$store.dispatch("user/clearFilter");
+      await this.$store.dispatch("user/saveFilter", {
+        text: value
+      });
+      await this.$store.dispatch("user/fetchPublicUserList", {
+        mode: "update-condition"
+      });
+    },
+    async changeSort(value) {
+      this.sort = value;
+      let sortConditions = {};
+      if (value === "recommended") {
+        sortConditions = {
+          type: "recommended"
+        };
+      } else {
+        const optionArray = value.split("--");
+        sortConditions = {
+          field: optionArray[0],
+          direction: optionArray[1]
+        };
+      }
+      await this.$store.dispatch("user/clearSort");
+      await this.$store.dispatch("user/saveSort", sortConditions);
+      await this.$store.dispatch("user/fetchPublicUserList", {
+        mode: "update-condition"
+      });
     },
     async sendMessage(text) {
       this.sendMessageLoading = true;

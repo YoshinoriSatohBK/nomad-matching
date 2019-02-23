@@ -1,17 +1,47 @@
 <template lang="pug">
-  div.button-parent
-    div.profile-button-border
-      div(@click="saveProfile()").profile-button
-        div.profile-text 登録する
+  ButtonBase(
+    text="登録する"
+    :componentStyle="componentStyle"
+    :boxOuterStyle="boxOuterStyle"
+    :boxInnerStyle="boxInnerStyle"
+    :textStyle="textStyle"
+    @click="click"
+  )
 </template>
 
 <script>
+import ButtonBase from "@/components/ButtonBase";
+
 export default {
   name: "ButtonRegisterProfile",
+  components: {
+    ButtonBase
+  },
   methods: {
-    async saveProfile() {
-      this.$emit("save-profile");
+    click() {
+      this.$emit("click");
     }
+  },
+  data() {
+    return {
+      componentStyle: {
+        "line-height": "53px"
+      },
+      boxOuterStyle: {
+        background: "#A68C67",
+        width: "234px",
+        height: "53px"
+      },
+      boxInnerStyle: {
+        width: "228px",
+        height: "47px",
+        "margin-top": "3px"
+      },
+      textStyle: {
+        "font-size": "14px",
+        left: "0px"
+      }
+    };
   }
 };
 </script>

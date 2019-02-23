@@ -22,11 +22,8 @@ div.modal(:class="{ 'is-active': active}")
             :placeholder="placeholder"
           )
         img.coffee-icon(src="@/assets/images/mark_cup.png")
-        ButtonMatching.send-button(
-          @matching="sendMessage"
-          text="送信する"
-          size="large"
-          icon="heart"
+        ButtonSendMessage.send-button(
+          @click="sendMessage"
         )
   b-loading(
     :active.sync="loading"
@@ -35,7 +32,7 @@ div.modal(:class="{ 'is-active': active}")
 </template>
 
 <script>
-import ButtonMatching from "@/components/ButtonMatching";
+import ButtonSendMessage from "@/components/ButtonSendMessage";
 export default {
   data() {
     return {
@@ -48,7 +45,7 @@ export default {
     };
   },
   components: {
-    ButtonMatching
+    ButtonSendMessage
   },
   props: {
     active: Boolean,

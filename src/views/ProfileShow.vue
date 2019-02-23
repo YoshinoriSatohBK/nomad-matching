@@ -6,9 +6,8 @@
           img(:src="userProfile.imageUrl" v-if="userProfile.imageUrl")
           img(src="@/assets/images/human.png" v-else)
       div.profile-name {{ userProfile.name }}
-      ButtonMatching.worker-button(
-        size="large"
-        @matching="openMatchingModal"
+      ButtonMatchingLarge.worker-button(
+        @click="openMatchingModal"
       )
 
     div.profile-body
@@ -23,9 +22,8 @@
         div.item-name.column.is-two-fifths {{ item.name }}
         div.item-value.column {{ item.value }}
 
-    ButtonMatching.worker-button(
-      size="large"
-      @matching="openMatchingModal"
+    ButtonMatchingLarge.worker-button(
+      @click="openMatchingModal"
     )
 
     SendMessageModal(
@@ -45,7 +43,7 @@
 
 <script>
 import SectionTitle from "@/components/SectionTitle";
-import ButtonMatching from "@/components/ButtonMatching";
+import ButtonMatchingLarge from "@/components/ButtonMatchingLarge";
 import SendMessageModal from "@/components/SendMessageModal";
 import { API, graphqlOperation } from "aws-amplify";
 import libUser from "../lib/user";
@@ -57,7 +55,7 @@ export default {
   name: "profile-show",
   components: {
     SectionTitle,
-    ButtonMatching,
+    ButtonMatchingLarge,
     SendMessageModal
   },
   data() {

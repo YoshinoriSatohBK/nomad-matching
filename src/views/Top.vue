@@ -2,13 +2,21 @@
   div
     Title
 
-    ButtonRegisterTwitter
-    ButtonToSearch(scrollToId="#worker-list")
+    ButtonRegisterTwitter.button-wrap(
+      @click="signin"
+    )
+    ButtonToSearch.button-wrap(
+      @click="scrollTo('#worker-list')"
+    )
 
     HowToUse
 
-    ButtonRegisterTwitter
-    ButtonToSearch(scrollToId="#worker-list")
+    ButtonRegisterTwitter.button-wrap(
+      @click="signin"
+    )
+    ButtonToSearch(
+      @click="scrollTo('#worker-list')"
+    )
 
     WorkerList#worker-list
 
@@ -18,6 +26,9 @@
 </template>
 
 <script>
+import libAuth from "../lib/auth";
+import VueScrollTo from "vue-scrollto";
+
 import BDropdown from "buefy/src/components/dropdown/Dropdown";
 import { Carousel, Slide } from "vue-carousel";
 import Title from "@/components/Title";
@@ -43,8 +54,24 @@ export default {
     HowToUse,
     WorkerList,
     Catchcopy
+  },
+  methods: {
+    async signin() {
+      if (await libAuth.authenticated()) {
+        this.$toast.open("ログインしています");
+      }
+      await libAuth.authenticate();
+    },
+    scrollTo(scrollToId) {
+      VueScrollTo.scrollTo(scrollToId, 1000, {
+        easing: "ease"
+      });
+    }
   }
 };
 </script>
 
-<style lang="stylus"></style>
+<style scope lang="stylus">
+.button-wrap
+  margin-bottom 1rem
+</style>

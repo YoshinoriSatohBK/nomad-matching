@@ -1,0 +1,189 @@
+{
+	"AWSTemplateFormatVersion": "2010-09-09",
+	"Description": "Lambda resource stack creation using Amplify CLI",
+	"Parameters": {
+		"env": {
+			"Type": "String"
+		}
+	},
+	"Conditions": {
+		"ShouldNotCreateEnvResources": {
+			"Fn::Equals": [
+				{
+					"Ref": "env"
+				},
+				"NONE"
+			]
+		}
+	},
+	"Resources": {
+		"LambdaFunction": {
+			"Type": "AWS::Lambda::Function",
+			"Metadata": {
+				"aws:asset:path": "./src",
+				"aws:asset:property": "Code"
+			},
+			"Properties": {
+				"Handler": "index.handler",
+				"FunctionName": {
+					"Fn::If": [
+						"ShouldNotCreateEnvResources",
+						"nomadmatching990fe297",
+						{
+							"Fn::Join": [
+								"",
+								[
+									"nomadmatching990fe297",
+									"-",
+									{
+										"Ref": "env"
+									}
+								]
+							]
+						}
+					]
+				},
+				"Environment": {
+					"Variables": {
+						"ENV": {
+							"Ref": "env"
+						}
+					}
+				},
+				"Role": {
+					"Fn::GetAtt": [
+						"LambdaExecutionRole",
+						"Arn"
+					]
+				},
+				"Runtime": "nodejs8.10",
+				"Timeout": "25",
+				"Code": {
+					"S3Bucket": "nomadlinks-20190223142259-deployment",
+					"S3Key": "amplify-builds/nomadmatching990fe297-1550899747-latest-build.zip"
+				}
+			}
+		},
+		"LambdaExecutionRole": {
+			"Type": "AWS::IAM::Role",
+			"Properties": {
+				"RoleName": {
+					"Fn::If": [
+						"ShouldNotCreateEnvResources",
+						"nomadmatchingLambdaRole3ee80ee8",
+						{
+							"Fn::Join": [
+								"",
+								[
+									"nomadmatchingLambdaRole3ee80ee8",
+									"-",
+									{
+										"Ref": "env"
+									}
+								]
+							]
+						}
+					]
+				},
+				"AssumeRolePolicyDocument": {
+					"Version": "2012-10-17",
+					"Statement": [
+						{
+							"Effect": "Allow",
+							"Principal": {
+								"Service": [
+									"lambda.amazonaws.com"
+								]
+							},
+							"Action": [
+								"sts:AssumeRole"
+							]
+						}
+					]
+				}
+			}
+		},
+		"lambdaexecutionpolicy": {
+			"DependsOn": [
+				"LambdaExecutionRole"
+			],
+			"Type": "AWS::IAM::Policy",
+			"Properties": {
+				"PolicyName": "lambda-execution-policy",
+				"Roles": [
+					{
+						"Ref": "LambdaExecutionRole"
+					}
+				],
+				"PolicyDocument": {
+					"Version": "2012-10-17",
+					"Statement": [
+						{
+							"Effect": "Allow",
+							"Action": [
+								"logs:CreateLogGroup",
+								"logs:CreateLogStream",
+								"logs:PutLogEvents"
+							],
+							"Resource": {
+								"Fn::Sub": [
+									"arn:aws:logs:${region}:${account}:log-group:/aws/lambda/${lambda}:log-stream:*",
+									{
+										"region": {
+											"Ref": "AWS::Region"
+										},
+										"account": {
+											"Ref": "AWS::AccountId"
+										},
+										"lambda": {
+											"Ref": "LambdaFunction"
+										}
+									}
+								]
+							}
+						},
+						{
+							"Effect": "Allow",
+							"Action": [
+								"ssm:GetParameter"
+							],
+							"Resource": {
+								"Fn::Sub": [
+									"arn:aws:ssm:${region}:${account}:parameter/*",
+									{
+										"region": {
+											"Ref": "AWS::Region"
+										},
+										"account": {
+											"Ref": "AWS::AccountId"
+										}
+									}
+								]
+							}
+						}
+					]
+				}
+			}
+		}
+	},
+	"Outputs": {
+		"Name": {
+			"Value": {
+				"Ref": "LambdaFunction"
+			}
+		},
+		"Arn": {
+			"Value": {
+				"Fn::GetAtt": [
+					"LambdaFunction",
+					"Arn"
+				]
+			}
+		},
+		"Region": {
+			"Value": {
+				"Ref": "AWS::Region"
+			}
+		}
+	}
+}

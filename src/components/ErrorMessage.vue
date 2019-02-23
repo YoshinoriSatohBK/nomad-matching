@@ -15,4 +15,5 @@ export default {
 <style scoped lang="stylus">
 .error-message
   text-align left
+  font-size 0.85rem
 </style>

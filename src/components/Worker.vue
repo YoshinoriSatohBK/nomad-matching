@@ -11,20 +11,22 @@
       div.user-info-attr
         span.user-info-attr-item {{ user.incomeRange }}
         span.user-info-attr-item {{ user.nomadStatus }}
-    ButtonShowProfile.worker-button(:userId="user.id")
-    ButtonMatching.worker-button(
-      @matching="clickMatching"
+    ButtonShowProfile.worker-button(
+      @click="showProfile"
+    )
+    ButtonMatchingSmall.worker-button(
+      @click="clickMatching"
     )
 </template>
 
 <script>
-import ButtonMatching from "@/components/ButtonMatching";
+import ButtonMatchingSmall from "@/components/ButtonMatchingSmall";
 import ButtonShowProfile from "@/components/ButtonShowProfile";
 
 export default {
   name: "Worker",
   components: {
-    ButtonMatching,
+    ButtonMatchingSmall,
     ButtonShowProfile
   },
   props: {
@@ -33,6 +35,9 @@ export default {
   methods: {
     clickMatching() {
       this.$emit("matching", { user: this.user });
+    },
+    async showProfile() {
+      this.$router.push(`/user/${this.user.id}`);
     }
   }
 };

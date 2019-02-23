@@ -1,0 +1,20 @@
+{
+    "appName": "nomadmatching",
+    "roleName": "pinpointLambdaRolec437914b",
+    "cloudWatchPolicyName": "cloudWatchPolicyc437914b",
+    "pinpointPolicyName": "pinpointPolicyc437914b",
+    "authPolicyName": "pinpoint_amplify_c437914b",
+    "unauthPolicyName": "pinpoint_amplify_c437914b",
+    "authRoleName": {
+        "Ref": "AuthRoleName"
+    },
+    "unauthRoleName": {
+        "Ref": "UnauthRoleName"
+    },
+    "authRoleArn": {
+        "Fn::GetAtt": [
+            "AuthRole",
+            "Arn"
+        ]
+    }
+}

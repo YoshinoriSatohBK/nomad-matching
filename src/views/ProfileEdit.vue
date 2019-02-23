@@ -19,31 +19,27 @@
             )
 
     div.attributes
-      FieldInput(
+      FieldInputEdit.attributes-field(
         name="name"
         type="text"
         placeholder="お名前"
         v-model="profile.name"
         v-validate="'required'"
         data-vv-as="お名前"
+        :hasValidationError="hasValidationError"
+        :errors="errors"
       )
-        ErrorMessage(
-          v-if="hasValidationError && errors.has('name')"
-          :text="errors.first('name')"
-        )
 
-      FieldInput(
+      FieldInputEdit.attributes-field(
         name="email"
         type="email"
         placeholder="メールアドレス"
         v-model="profile.email"
         v-validate="'required|email'"
         data-vv-as="メールアドレス"
+        :hasValidationError="hasValidationError"
+        :errors="errors"
       )
-        ErrorMessage(
-          v-if="hasValidationError && errors.has('email')"
-          :text="errors.first('email')"
-        )
 
       div.auto-wrap
         b-field
@@ -61,66 +57,60 @@
           :text="errors.first('location')"
         )
 
-      FieldInput(
+      FieldInputEdit.attributes-field(
         name="skill"
         type="text"
         placeholder="職業"
         v-model="profile.skill"
         v-validate="'required'"
         data-vv-as="職業"
+        :hasValidationError="hasValidationError"
+        :errors="errors"
       )
-        ErrorMessage(
-          v-if="hasValidationError && errors.has('skill')"
-          :text="errors.first('skill')"
-        )
-      FieldInput(
+
+      FieldInputEdit.attributes-field(
         name="income"
         type="text"
         placeholder="年収"
         v-model="profile.income"
         v-validate="'required|integer'"
         data-vv-as="年収"
+        :hasValidationError="hasValidationError"
+        :errors="errors"
       )
-        ErrorMessage(
-          v-if="hasValidationError && errors.has('income')"
-          :text="errors.first('income')"
-        )
-      FieldSelect(
+
+      FieldSelectEdit.attributes-field(
         name="nomadStatus"
         placeholder="ノマド達成度"
         v-model="profile.nomadStatus"
         :options="nomadStatusOptions"
         v-validate="'required'"
         data-vv-as="ノマド達成度"
+        :hasValidationError="hasValidationError"
+        :errors="errors"
       )
-        ErrorMessage(
-          v-if="hasValidationError && errors.has('nomadStatus')"
-          :text="errors.first('nomadStatus')"
-        )
-      FieldSelect(
+
+      FieldSelectEdit.attributes-field(
         name="smoking"
         placeholder="タバコ"
         v-model="profile.smoking"
         :options="smokingOptions"
         v-validate="'required'"
         data-vv-as="タバコ"
+        :hasValidationError="hasValidationError"
+        :errors="errors"
       )
-        ErrorMessage(
-          v-if="hasValidationError && errors.has('smoking')"
-          :text="errors.first('smoking')"
-        )
-      FieldSelect(
+
+      FieldSelectEdit(
         name="drink"
         placeholder="アルコール"
         v-model="profile.drink"
         :options="drinkOptions"
         v-validate="'required'"
         data-vv-as="アルコール"
+        :hasValidationError="hasValidationError"
+        :errors="errors"
       )
-        ErrorMessage(
-          v-if="hasValidationError && errors.has('drink')"
-          :text="errors.first('drink')"
-        )
 
     ErrorMessage.all-error-message(
       v-if="hasValidationError && errors.items.length > 0"
@@ -131,17 +121,15 @@
       text="登録時にエラーが発生しました"
     )
     ButtonRegisterProfile.register-button(
-      @save-profile="saveProfile"
+      @click="saveProfile"
     )
-
-
 </template>
 
 <script>
 import SectionTitle from "@/components/SectionTitle";
 import ButtonRegisterProfile from "@/components/ButtonRegisterProfile";
-import FieldInput from "@/components/FieldInput";
-import FieldSelect from "@/components/FieldSelect";
+import FieldInputEdit from "@/components/FieldInputEdit";
+import FieldSelectEdit from "@/components/FieldSelectEdit";
 import BField from "buefy/src/components/field/Field";
 import BAutocomplete from "buefy/src/components/autocomplete/Autocomplete";
 import libUser from "../lib/user";
@@ -155,8 +143,8 @@ export default {
     BField,
     SectionTitle,
     ButtonRegisterProfile,
-    FieldInput,
-    FieldSelect
+    FieldInputEdit,
+    FieldSelectEdit
   },
   async mounted() {
     await this.$store.dispatch("user/fetchAuthUserProfile");
@@ -301,6 +289,7 @@ export default {
 </script>
 
 <style scoped lang="stylus">
+
 .profile-edit-title
   text-align center
 
@@ -344,6 +333,9 @@ export default {
   text-align center
   background #F5F5F5
   padding 42px 25px
+
+.attributes-field
+  margin-bottom 1rem
 
 .field-autocomplete
   border #AF9772 1px solid

@@ -1,0 +1,35 @@
+{
+    "paths": [
+        {
+            "name": "/auth",
+            "lambdaFunction": "nomadmatching990fe297",
+            "privacy": {
+                "private": true,
+                "auth": "rw"
+            }
+        }
+    ],
+    "resourceName": "api9f77a9d3",
+    "apiName": "api9f77a9d3",
+    "functionArns": [
+        {
+            "lambdaFunction": "nomadmatching990fe297"
+        }
+    ],
+    "privacy": {
+        "auth": 1,
+        "unauth": 0,
+        "authRoleName": "nomad-matching-20190208214544-authRole",
+        "unAuthRoleName": "nomad-matching-20190208214544-unauthRole"
+    },
+    "dependsOn": [
+        {
+            "category": "function",
+            "resourceName": "nomadmatching990fe297",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        }
+    ]
+}
