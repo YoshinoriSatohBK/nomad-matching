@@ -27,5 +27,7 @@ yarn-error.log*
 amplify/\#current-cloud-backend
 amplify/.config/local-*
 amplify/backend/amplify-meta.json
+amplify/backend/function/nomadmatching990fe297/dist/
+amplify/backend/function/nomadmatchinge620bc79/dist/
 aws-exports.js
 awsconfiguration.json
