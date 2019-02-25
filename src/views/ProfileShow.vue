@@ -26,7 +26,7 @@
       @click="openMatchingModal"
     )
 
-    SendMessageModal(
+    ModalSendMessage(
       :active="isMatchingModalActive"
       :loading="sendMessageLoading"
       :userProfile="userProfile"
@@ -44,19 +44,19 @@
 <script>
 import SectionTitle from "@/components/SectionTitle";
 import ButtonMatchingLarge from "@/components/ButtonMatchingLarge";
-import SendMessageModal from "@/components/SendMessageModal";
+import ModalSendMessage from "@/components/ModalSendMessage";
 import { API, graphqlOperation } from "aws-amplify";
 import libUser from "../lib/user";
 import * as queries from "../graphql/queries";
 
-// import apiMatching from "../api/matching";
+import apiMatching from "../api/matching";
 
 export default {
   name: "profile-show",
   components: {
     SectionTitle,
     ButtonMatchingLarge,
-    SendMessageModal
+    ModalSendMessage
   },
   data() {
     return {
@@ -81,16 +81,12 @@ export default {
     }
   },
   async mounted() {
-    console.log("ProfileShow mounted");
-    console.log(this.$route.params.id);
     const userProfile = await API.graphql(
       graphqlOperation(queries.getUserProfile, { id: this.$route.params.id })
     );
-    console.log(userProfile);
     this.userProfile = await libUser.getDisplayUser(
       userProfile.data.getUserProfile
     );
-    console.log(this.userProfile);
   },
   methods: {
     openMatchingModal() {
@@ -101,8 +97,7 @@ export default {
     },
     async sendMessage(text) {
       this.sendMessageLoading = true;
-      console.log(text);
-      //await apiMatching.sendMessage(this.userProfile.id, text);
+      await apiMatching.sendMessage(this.userProfile.id, text);
       this.sendMessageLoading = false;
       this.closeMatchingModal();
       this.$toast.open("メッセージを送信しました");

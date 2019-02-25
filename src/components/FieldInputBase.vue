@@ -1,12 +1,14 @@
 <template lang="pug">
   div
-    input.field-input(
-      :type="type"
-      :placeholder="placeholder"
-      :value="value"
-      :style="inputStyle"
-      @input="input"
-    )
+    div.field-wrap
+      input.field-input(
+        :type="type"
+        :placeholder="placeholder"
+        :value="value"
+        :style="inputStyle"
+        @input="input"
+      )
+      slot(name="unit")
     slot
 </template>
 
@@ -29,6 +31,9 @@ export default {
 
 <style scoped lang="stylus">
 @import "../assets/styles/global.styl";
+
+.field-wrap
+  display flex
 
 .field-input
   padding-left 1rem

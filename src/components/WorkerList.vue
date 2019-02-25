@@ -28,7 +28,7 @@
           :active.sync="processingReadMore"
           :is-full-page="processingReadMoreOptions.isFullPage"
         )
-    SendMessageModal(
+    ModalSendMessage(
       :active="isMatchingModalActive"
       :loading="sendMessageLoading"
       :userProfile="modalUser"
@@ -42,10 +42,10 @@ import SectionTitle from "@/components/SectionTitle";
 import FieldSelectSort from "@/components/FieldSelectSort";
 import FieldInputSearch from "@/components/FieldInputSearch";
 import Worker from "@/components/Worker";
-import SendMessageModal from "@/components/SendMessageModal";
+import ModalSendMessage from "@/components/ModalSendMessage";
 import ButtonReadMore from "@/components/ButtonReadMore";
 
-// import apiMatching from "../api/auth";
+import apiMatching from "../api/matching";
 
 export default {
   name: "WorkerList",
@@ -54,7 +54,7 @@ export default {
     Worker,
     FieldSelectSort,
     FieldInputSearch,
-    SendMessageModal,
+    ModalSendMessage,
     ButtonReadMore
   },
   async mounted() {
@@ -133,8 +133,7 @@ export default {
     },
     async sendMessage(text) {
       this.sendMessageLoading = true;
-      console.log(text);
-      // await apiMatching.sendMessage(this.modalUser.id, text);
+      await apiMatching.sendMessage(this.modalUser.id, text);
       this.sendMessageLoading = false;
       this.closeMatchingModal();
       this.$toast.open("メッセージを送信しました");
