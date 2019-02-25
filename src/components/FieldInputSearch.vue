@@ -9,9 +9,13 @@
     )
       img.search-icon(
         v-if="value.length <= 0"
+        slot="icon"
         src="@/assets/images/zoom.png"
       )
-      div(v-else).search-icon
+      div.search-icon(
+        v-else
+        slot="icon"
+      )
 </template>
 
 <script>
@@ -28,7 +32,7 @@ export default {
   data() {
     return {
       inputStyle: {
-        width: "127px",
+        width: "140px",
         height: "28.53px",
         "line-height": "100%",
         "font-size": "12px",
@@ -48,9 +52,10 @@ export default {
 
 <style scoped lang="stylus">
 .search-icon
-  display inline-block
+  display inline
   position relative
-  top 3px
+  top 6px
   left -1.4rem
   width 15.9px
+  height 15.9px
 </style>

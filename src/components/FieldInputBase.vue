@@ -9,6 +9,7 @@
         @input="input"
       )
       slot(name="unit")
+      slot(name="icon")
     slot
 </template>
 

@@ -5,11 +5,11 @@
     SectionTitle(text="登録しているノマドワーカー")
 
     div.search-area.columns.is-mobile
-      FieldSelectSort.column.worker-sort(
+      FieldSelectSort.column.is-half.worker-sort(
         :value="sort"
         @input="changeSort"
       )
-      FieldInputSearch.column.worker-search(
+      FieldInputSearch.column.is-half.worker-search(
         placeholder="検索条件"
         :value="searchConditions.text"
         @input="changeCondition"

@@ -21,7 +21,7 @@ export default {
   data() {
     return {
       selectStyle: {
-        width: "127px",
+        width: "140px",
         height: "28.53px",
         "line-height": "100%",
         "font-size": "12px"
