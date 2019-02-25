@@ -204,12 +204,12 @@ export default {
       return this.$store.state.user.authUserProfile;
     },
     filteredLocations() {
-      return this.$store.state.userOptions.nomadStatus.filter(option => {
+      return this.$store.state.userOptions.locations.filter(option => {
         return (
           option
             .toString()
             .toLowerCase()
-            .indexOf(this.location) >= 0
+            .indexOf(this.profile.location) >= 0
         );
       });
     }

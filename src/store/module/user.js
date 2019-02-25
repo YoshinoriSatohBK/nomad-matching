@@ -153,9 +153,6 @@ const actions = {
     commit("setHasMoreUsers", true);
   },
   async fetchPublicUserList({ commit, state }, payload) {
-    console.log("--------- fetchPublicUserList ---------");
-    console.log(state.nextToken);
-
     const params = getSearchUserListParams(
       state.filter,
       state.sort,

@@ -33,7 +33,7 @@ export default {
   },
   computed: {
     style: function() {
-      if (this.value === undefined) {
+      if (this.value === null) {
         return Object.assign({}, this.selectStyle, this.selectPlaceholderStyle);
       } else {
         return this.selectStyle;

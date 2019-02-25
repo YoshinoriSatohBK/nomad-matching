@@ -25,8 +25,7 @@
     div
       ButtonReadMore(v-if="hasMoreUsers" @click="readMore") もっと見る
         b-loading(
-          :active.sync="processingReadMore"
-          :is-full-page="processingReadMoreOptions.isFullPage"
+          :processingReadMore="processingReadMore"
         )
     ModalSendMessage(
       :active="isMatchingModalActive"
@@ -70,9 +69,6 @@ export default {
       mailMessage: "",
       sendMessageLoading: false,
       processingReadMore: false,
-      processingReadMoreOptions: {
-        isFullPage: false
-      },
       modalUser: {}
     };
   },
@@ -90,7 +86,7 @@ export default {
       await this.$store.dispatch("user/fetchPublicUserList", {
         mode: "read-more"
       });
-      this.processingReadMore = false;
+      this.processingReadMore = true;
     },
     openMatchingModal(event) {
       console.log(event.user);

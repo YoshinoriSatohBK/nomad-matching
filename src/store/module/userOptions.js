@@ -1,5 +1,7 @@
+const countries = require("./countries");
+
 const state = {
-  locations: ["日本", "バンコク", "アメリカ", "オーストラリア"],
+  locations: countries,
   nomadStatus: [
     {
       value: "nomad",

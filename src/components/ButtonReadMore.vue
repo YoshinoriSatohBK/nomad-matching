@@ -1,8 +1,9 @@
 <template lang="pug">
   div.component(@click="click")
     div.box
-      slot(
-        name="icon"
+      b-loading.loading(
+        :active.sync="processingReadMore"
+        :is-full-page="processingReadMoreOptions.isFullPage"
       )
       div.text もっと見る
 </template>
@@ -14,6 +15,16 @@ export default {
     click() {
       this.$emit("click");
     }
+  },
+  props: {
+    processingReadMore: Boolean
+  },
+  data() {
+    return {
+      processingReadMoreOptions: {
+        isFullPage: false
+      }
+    };
   }
 };
 </script>
@@ -44,4 +55,8 @@ export default {
   font-weight button-font-weight
   font-family font-family
   font-size 10px
+
+.loading
+  width 20px
+  height 20px
 </style>
