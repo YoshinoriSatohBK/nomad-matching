@@ -153,20 +153,22 @@ const actions = {
     commit("setHasMoreUsers", true);
   },
   async fetchPublicUserList({ commit, state }, payload) {
+    console.log("fetchPublicUserList");
     const params = getSearchUserListParams(
       state.filter,
       state.sort,
       LIMIT,
       state.nextToken
     );
+    console.log(params);
     const res = await API.graphql(
       graphqlOperation(queries.searchUserProfiles, params)
     );
+    console.log(res);
     const fetchedUsersProfiles = res.data.searchUserProfiles;
     if (fetchedUsersProfiles.nextToken === null) {
       commit("setHasMoreUsers", false);
     }
-    console.log(res);
     const publicUserList = await Promise.all(
       fetchedUsersProfiles.items.map(
         async user => await libUser.getDisplayUser(user)

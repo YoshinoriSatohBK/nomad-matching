@@ -23,10 +23,11 @@
       ).column
 
     div
-      ButtonReadMore(v-if="hasMoreUsers" @click="readMore") もっと見る
-        b-loading(
-          :processingReadMore="processingReadMore"
-        )
+      ButtonReadMore(
+        :processingReadMore="processingReadMore"
+        v-if="hasMoreUsers"
+        @click="readMore"
+      )
     ModalSendMessage(
       :active="isMatchingModalActive"
       :loading="sendMessageLoading"
@@ -69,6 +70,9 @@ export default {
       mailMessage: "",
       sendMessageLoading: false,
       processingReadMore: false,
+      processingReadMoreOptions: {
+        isFullPage: false
+      },
       modalUser: {}
     };
   },
@@ -86,7 +90,7 @@ export default {
       await this.$store.dispatch("user/fetchPublicUserList", {
         mode: "read-more"
       });
-      this.processingReadMore = true;
+      this.processingReadMore = false;
     },
     openMatchingModal(event) {
       console.log(event.user);

@@ -1,11 +1,12 @@
 <template lang="pug">
-  div.component(@click="click")
-    div.box
-      b-loading.loading(
-        :active.sync="processingReadMore"
-        :is-full-page="processingReadMoreOptions.isFullPage"
-      )
-      div.text もっと見る
+  div
+    b-loading.loading(
+      :active.sync="processingReadMore"
+      :is-full-page="processingReadMoreOptions.isFullPage"
+    )
+    div.component(v-if="!processingReadMore" @click="click")
+      div.box
+        div.text もっと見る
 </template>
 
 <script>
@@ -57,6 +58,6 @@ export default {
   font-size 10px
 
 .loading
-  width 20px
-  height 20px
+  position relative
+  height 50px
 </style>
