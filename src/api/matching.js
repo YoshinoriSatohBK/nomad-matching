@@ -4,6 +4,7 @@ import store from "../store";
 
 const API_AUTH = "api9f77a9d3";
 
+const getMailSubject = () => "Nomad links - メッセージが届きました";
 const getMailText = (fromUser, message) => {
   return `${fromUser.name} さんからメッセージが届きました！
   
@@ -25,7 +26,7 @@ Nomad-links
 
 const sendMessage = async (toUserId, message) => {
   const fromUser = store.state.user.authUserProfile;
-  const subject = "Nomad links - メッセージが届きました";
+  const subject = getMailSubject();
   const text = getMailText(fromUser, message);
   const toUserResult = await API.graphql(
     graphqlOperation(queries.getUserProfile, {

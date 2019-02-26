@@ -1,22 +1,10 @@
 <template lang="pug">
   div
-    div.profile-image
-      div.profile-edit-title
-        SectionTitle(text="プロフィール設定")
-      div.image-box
-        img(:src="selectedImageData" v-if="selectedImageData")
-        img(:src="imageUrl" v-else-if="imageUrl")
-        img(src="@/assets/images/human.png" v-else)
-
-      b-field.upload-field
-        b-upload(@input="uploadEvent")
-          div.camera-icon-wrap
-            b-icon.camera-icon(
-              pack="fas"
-              icon="camera"
-              type="is-white"
-              custom-size="profile-edit--camera-icon"
-            )
+    ProfileEditImage(
+      :selectedImageData="selectedImageData"
+      :imageUrl="imageUrl"
+      @input="uploadEvent"
+    )
 
     div.attributes
       FieldInputEdit.attributes-field(
@@ -72,6 +60,7 @@
         name="income"
         type="text"
         placeholder="年収"
+        unit="万円"
         v-model="profile.income"
         v-validate="'required|integer'"
         data-vv-as="年収"
@@ -126,6 +115,7 @@
 </template>
 
 <script>
+import ProfileEditImage from "@/components/ProfileEditImage";
 import SectionTitle from "@/components/SectionTitle";
 import ButtonRegisterProfile from "@/components/ButtonRegisterProfile";
 import FieldInputEdit from "@/components/FieldInputEdit";
@@ -138,6 +128,7 @@ import ErrorMessage from "../components/ErrorMessage";
 export default {
   name: "profile-edit",
   components: {
+    ProfileEditImage,
     ErrorMessage,
     BAutocomplete,
     BField,
@@ -192,46 +183,20 @@ export default {
       imageUrl: null,
       selectedImageData: null,
       imageFile: null,
-      locations: ["日本", "バンコク", "アメリカ", "オーストラリア"],
-      smokingOptions: [
-        {
-          value: true,
-          displayValue: "吸う"
-        },
-        {
-          value: false,
-          displayValue: "吸わない"
-        }
-      ],
-      drinkOptions: [
-        {
-          value: true,
-          displayValue: "飲む"
-        },
-        {
-          value: false,
-          displayValue: "飲まない"
-        }
-      ],
-      nomadStatusOptions: [
-        {
-          value: "nomad",
-          displayValue: "ノマド達成済み"
-        },
-        {
-          value: "goingNomad",
-          displayValue: "目指している"
-        },
-        {
-          value: "notNomad",
-          displayValue: "ノマドではない"
-        }
-      ],
       hasValidationError: false,
       hasApiError: false
     };
   },
   computed: {
+    nomadStatusOptions: function() {
+      return this.$store.state.userOptions.nomadStatus;
+    },
+    smokingOptions: function() {
+      return this.$store.state.userOptions.smoking;
+    },
+    drinkOptions: function() {
+      return this.$store.state.userOptions.drink;
+    },
     twitterUser: function() {
       return this.$store.state.twitter.user;
     },
@@ -239,12 +204,12 @@ export default {
       return this.$store.state.user.authUserProfile;
     },
     filteredLocations() {
-      return this.locations.filter(option => {
+      return this.$store.state.userOptions.locations.filter(option => {
         return (
           option
             .toString()
             .toLowerCase()
-            .indexOf(this.location) >= 0
+            .indexOf(this.profile.location) >= 0
         );
       });
     }
@@ -289,43 +254,6 @@ export default {
 </script>
 
 <style scoped lang="stylus">
-
-.profile-edit-title
-  text-align center
-
-.profile-image
-  text-align center
-  padding-top 20px
-  padding-bottom 35px
-
-.image-box
-  display inline-block
-  text-align center
-  margin 14px
-  height 250px
-  img
-    max-width 234px
-    max-height 250px
-
-.upload-field
-  height 0px
-
-.camera-icon-wrap
-  display inline-block
-  position relative
-  top -75px
-  left 105px
-  width 73px
-  height 73px
-  border-radius 100%
-  background #AF9772
-  opacity 0.6
-
-.camera-icon
-  width 73px
-  height 73px
-  display inline-block
-
 .register-button
   margin 20px auto 60px
 
@@ -356,14 +284,6 @@ export default {
 </style>
 
 <style lang="stylus">
-.profile-edit--camera-icon
-  width 42.2px
-  height 32.25px
-  font-size 37px
-  position relative
-  top calc(50% - 19px)
-  left calc(50% - 17px)
-
 .autocomplete
   .control
     text-align center !important

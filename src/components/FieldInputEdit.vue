@@ -1,6 +1,6 @@
 <template lang="pug">
   div
-    FieldInputBase(
+    FieldInputBase.input-wrap(
       :name="name"
       :type="type"
       :placeholder="placeholder"
@@ -8,6 +8,7 @@
       :inputStyle="inputStyle"
       @input="input"
     )
+      div(v-if="unit" slot="unit").unit {{ unit }}
       ErrorMessage(
         v-if="hasValidationError && errors.has(name)"
         :text="errors.first(name)"
@@ -29,6 +30,7 @@ export default {
     placeholder: String,
     name: String,
     value: String,
+    unit: String,
     errors: Object,
     hasValidationError: Boolean
   },
@@ -53,4 +55,11 @@ export default {
 };
 </script>
 
-<style scoped lang="stylus"></style>
+<style scoped lang="stylus">
+.input-wrap
+  width 100%
+.unit
+  display inline-block
+  width 100px
+  margin auto
+</style>
