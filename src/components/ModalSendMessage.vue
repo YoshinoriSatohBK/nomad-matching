@@ -17,10 +17,17 @@ div.modal(:class="{ 'is-active': active}")
         img.message-icon(src="@/assets/images/tit_message.png")
         b-field
           b-input.message-editor(
+            name="message"
             type="textarea"
             v-model="mailMessage"
             :placeholder="placeholder"
+            v-validate="'required|min:20'"
+            data-vv-as="メッセージ"
           )
+        ErrorMessage(
+          v-if="hasValidationError && errors.has('message')"
+          :text="errors.first('message')"
+        )
         img.coffee-icon(src="@/assets/images/mark_cup.png")
         ButtonSendMessage.send-button(
           @click="sendMessage"
@@ -33,6 +40,8 @@ div.modal(:class="{ 'is-active': active}")
 
 <script>
 import ButtonSendMessage from "@/components/ButtonSendMessage";
+import ErrorMessage from "@/components/ErrorMessage";
+
 export default {
   data() {
     return {
@@ -41,11 +50,13 @@ export default {
       },
       placeholder:
         "例：こんにちは、現在バンコクでノマド生活をしているマナブと申します。\n\n○○さんのプロフィールを見て、職種が同じで興味を持ちました。バンコクでお茶などいかがでしょうか？",
-      mailMessage: ""
+      mailMessage: "",
+      hasValidationError: false
     };
   },
   components: {
-    ButtonSendMessage
+    ButtonSendMessage,
+    ErrorMessage
   },
   props: {
     active: Boolean,
@@ -56,7 +67,11 @@ export default {
     closeModal() {
       this.$emit("close");
     },
-    sendMessage() {
+    async sendMessage() {
+      this.hasValidationError = !(await this.$validator.validate());
+      if (this.hasValidationError) {
+        return;
+      }
       this.$emit("sendMessage", this.mailMessage);
     }
   }

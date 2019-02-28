@@ -4,7 +4,9 @@ const needAuthRouteNames = ["mypage"];
 
 export default async (to, from, next) => {
   console.log("auth middleware");
-  if (needAuthRouteNames.includes(to.name)) {
+  if (libAuth.authenticated()) {
+    await libAuth.setCredentials();
+  } else if (needAuthRouteNames.includes(to.name)) {
     await libAuth.authenticate();
   }
   next();

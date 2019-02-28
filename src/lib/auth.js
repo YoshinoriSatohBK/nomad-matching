@@ -5,15 +5,19 @@ import store from "../store";
 const twitterState = store.state.twitter;
 
 const setCredentials = async () => {
-  AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-    IdentityPoolId: awsExports.aws_cognito_identity_pool_id,
-    Logins: {
-      "api.twitter.com": String(
-        `${twitterState.accessToken};${twitterState.accessTokenSecret}`
-      )
-    }
-  });
-  await AWS.config.credentials.getPromise();
+  try {
+    AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+      IdentityPoolId: awsExports.aws_cognito_identity_pool_id,
+      Logins: {
+        "api.twitter.com": String(
+          `${twitterState.accessToken};${twitterState.accessTokenSecret}`
+        )
+      }
+    });
+    await AWS.config.credentials.refreshPromise();
+  } catch (err) {
+    await store.dispatch("twitter/clearAuth");
+  }
 };
 
 const authenticated = () => {
@@ -48,6 +52,7 @@ const authenticateCallback = async oAuthVerifier => {
 };
 
 export default {
+  setCredentials,
   authenticated,
   authenticate,
   authenticateCallback,

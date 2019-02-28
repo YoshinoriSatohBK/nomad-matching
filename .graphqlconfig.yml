@@ -1,6 +1,6 @@
 projects:
   nomadmatching:
-    schemaPath: src/graphql/schema.json
+    schemaPath: misc/scripts/src/graphql/schema.json
     includes:
       - src/graphql/**/*.js
     excludes:

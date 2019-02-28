@@ -1,11 +1,10 @@
 {
     "paths": [
         {
-            "name": "/auth",
+            "name": "/matching",
             "lambdaFunction": "nomadmatching990fe297",
             "privacy": {
-                "private": true,
-                "auth": "rw"
+                "open": true
             }
         }
     ],
@@ -17,10 +16,10 @@
         }
     ],
     "privacy": {
-        "auth": 1,
+        "auth": 0,
         "unauth": 0,
-        "authRoleName": "nomad-matching-20190208214544-authRole",
-        "unAuthRoleName": "nomad-matching-20190208214544-unauthRole"
+        "authRoleName": "nomadlinks-20190223133412-authRole",
+        "unAuthRoleName": "nomadlinks-20190223133412-unauthRole"
     },
     "dependsOn": [
         {
@@ -31,5 +30,6 @@
                 "Arn"
             ]
         }
-    ]
+    ],
+    "uuid": "1248cadf"
 }

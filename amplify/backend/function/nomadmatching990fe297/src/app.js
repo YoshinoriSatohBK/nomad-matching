@@ -74,7 +74,7 @@ async function createTransport() {
   });
 }
 
-app.post("/auth/message", async (req, res) => {
+app.post("/matching/message", async (req, res) => {
   try {
     const from = await getMailFromAddress();
     const transporter = await createTransport();
