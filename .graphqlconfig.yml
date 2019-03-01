@@ -1,6 +1,6 @@
 projects:
   nomadmatching:
-    schemaPath: misc/scripts/src/graphql/schema.json
+    schemaPath: src/graphql/schema.json
     includes:
       - src/graphql/**/*.js
     excludes:
@@ -10,7 +10,7 @@ projects:
         codeGenTarget: javascript
         generatedFileName: ''
         docsFilePath: src/graphql
-        graphQLApiId: hib2c747pncy7nqf2egwse62iq
+        graphQLApiId: bb6rzxenpjgmlk6zc4xgoeh73e
       endpoints:
         prod: >-
-          https://2j5i6qdpvzgm7h7m7ijtfgxspq.appsync-api.ap-northeast-1.amazonaws.com/graphql
+          https://j4v3fj47hnch5bgstk6zmxvx4m.appsync-api.ap-northeast-1.amazonaws.com/graphql

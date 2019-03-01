@@ -59,8 +59,8 @@
 				"Runtime": "nodejs8.10",
 				"Timeout": "25",
 				"Code": {
-					"S3Bucket": "nomadlinks-20190223133412-deployment",
-					"S3Key": "amplify-builds/nomadmatchinge620bc79-1551348722-latest-build.zip"
+					"S3Bucket": "nomadlinks-20190301174844-deployment",
+					"S3Key": "amplify-builds/nomadmatchinge620bc79-1551430517-latest-build.zip"
 				}
 			}
 		},

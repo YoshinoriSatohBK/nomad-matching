@@ -15,5 +15,22 @@
                 "cognito09b59faa": {}
             }
         }
+    },
+    "devs": {
+        "awscloudformation": {
+            "AuthRoleName": "nomadlinks-20190301174844-authRole",
+            "UnauthRoleArn": "arn:aws:iam::167514038708:role/nomadlinks-20190301174844-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::167514038708:role/nomadlinks-20190301174844-authRole",
+            "Region": "ap-northeast-1",
+            "DeploymentBucketName": "nomadlinks-20190301174844-deployment",
+            "UnauthRoleName": "nomadlinks-20190301174844-unauthRole",
+            "StackName": "nomadlinks-20190301174844",
+            "StackId": "arn:aws:cloudformation:ap-northeast-1:167514038708:stack/nomadlinks-20190301174844/d2337370-3bfe-11e9-bb90-0a56b21e2412"
+        },
+        "categories": {
+            "auth": {
+                "cognito09b59faa": {}
+            }
+        }
     }
 }
