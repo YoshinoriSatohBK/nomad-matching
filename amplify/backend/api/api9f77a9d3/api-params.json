@@ -18,8 +18,8 @@
     "privacy": {
         "auth": 0,
         "unauth": 0,
-        "authRoleName": "nomadlinks-20190223133412-authRole",
-        "unAuthRoleName": "nomadlinks-20190223133412-unauthRole"
+        "authRoleName": "nomadlinks-20190301174844-authRole",
+        "unAuthRoleName": "nomadlinks-20190301174844-unauthRole"
     },
     "dependsOn": [
         {
@@ -31,5 +31,5 @@
             ]
         }
     ],
-    "uuid": "1248cadf"
+    "uuid": "69a8078b"
 }
