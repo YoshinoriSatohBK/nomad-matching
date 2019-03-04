@@ -1,7 +1,7 @@
 import { Storage } from "aws-amplify";
 import Jimp from "jimp/es";
 
-const path = "/profile-images";
+const path = "profile-images";
 const profileImageKey = profileId => `${path}/${profileId}`;
 
 const getUserImageUrl = async userProfile => {

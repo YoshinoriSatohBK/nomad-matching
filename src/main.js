@@ -12,7 +12,7 @@ import awsExports from "./aws-exports";
 Amplify.configure(awsExports);
 AWS.config.region = awsExports.aws_project_region;
 Vue.use(AmplifyPlugin, AmplifyModules);
-window.LOG_LEVEL = "DEBUG";
+
 // Buefy
 import Buefy from "buefy";
 import "buefy/dist/buefy.css";
