@@ -41,6 +41,7 @@ div.modal(:class="{ 'is-active': active}")
 <script>
 import ButtonSendMessage from "@/components/ButtonSendMessage";
 import ErrorMessage from "@/components/ErrorMessage";
+import libAuth from "../lib/auth";
 
 export default {
   data() {
@@ -68,6 +69,11 @@ export default {
       this.$emit("close");
     },
     async sendMessage() {
+      if (!libAuth.authenticated()) {
+        this.$toast.open("ログインが必要です");
+        return;
+      }
+
       this.hasValidationError = !(await this.$validator.validate());
       if (this.hasValidationError) {
         return;

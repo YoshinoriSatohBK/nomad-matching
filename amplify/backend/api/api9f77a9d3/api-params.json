@@ -4,7 +4,8 @@
             "name": "/matching",
             "lambdaFunction": "nomadmatching990fe297",
             "privacy": {
-                "open": true
+                "private": true,
+                "auth": "rw"
             }
         }
     ],
@@ -16,7 +17,7 @@
         }
     ],
     "privacy": {
-        "auth": 0,
+        "auth": 1,
         "unauth": 0,
         "authRoleName": "nomadlinks-20190301174844-authRole",
         "unAuthRoleName": "nomadlinks-20190301174844-unauthRole"
@@ -31,5 +32,5 @@
             ]
         }
     ],
-    "uuid": "69a8078b"
+    "uuid": "af2e44aa"
 }
