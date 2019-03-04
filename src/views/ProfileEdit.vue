@@ -227,7 +227,10 @@ export default {
           profile: this.profile
         });
         if (this.imageFile) {
-          await libUser.putUserImageFile(this.userProfile, this.imageFile);
+          await libUser.putUserImageFile(
+            this.userProfile,
+            this.selectedImageData
+          );
         }
       } catch (err) {
         console.log(err);

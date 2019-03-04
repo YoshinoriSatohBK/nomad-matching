@@ -1,4 +1,5 @@
 import { Storage } from "aws-amplify";
+import Jimp from "jimp/es";
 
 const path = "/profile-images";
 const profileImageKey = profileId => `${path}/${profileId}`;
@@ -13,8 +14,13 @@ const getUserImageUrl = async userProfile => {
   return imageUrl;
 };
 
-const putUserImageFile = async (userProfile, imageFile) => {
-  await Storage.put(profileImageKey(userProfile.id), imageFile, {
+const putUserImageFile = async (userProfile, imageBuffer) => {
+  const image = await Jimp.read(imageBuffer);
+  const resizedBuffer = await image
+    .resize(250, Jimp.AUTO)
+    .quality(90)
+    .getBufferAsync(Jimp.MIME_JPEG);
+  await Storage.put(profileImageKey(userProfile.id), resizedBuffer, {
     contentType: "image/jpg"
   });
 };
