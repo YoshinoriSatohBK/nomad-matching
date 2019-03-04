@@ -1,7 +1,7 @@
 {
     "paths": [
         {
-            "name": "/auth",
+            "name": "/matching",
             "lambdaFunction": "nomadmatching990fe297",
             "privacy": {
                 "private": true,
@@ -19,8 +19,8 @@
     "privacy": {
         "auth": 1,
         "unauth": 0,
-        "authRoleName": "nomad-matching-20190208214544-authRole",
-        "unAuthRoleName": "nomad-matching-20190208214544-unauthRole"
+        "authRoleName": "nomadlinks-20190301174844-authRole",
+        "unAuthRoleName": "nomadlinks-20190301174844-unauthRole"
     },
     "dependsOn": [
         {
@@ -31,5 +31,6 @@
                 "Arn"
             ]
         }
-    ]
+    ],
+    "uuid": "af2e44aa"
 }

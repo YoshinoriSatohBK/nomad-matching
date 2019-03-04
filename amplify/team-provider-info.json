@@ -1,31 +1,31 @@
 {
-    "devp": {
-        "awscloudformation": {
-            "AuthRoleName": "nomadlinks-20190223133412-authRole",
-            "UnauthRoleArn": "arn:aws:iam::550341989113:role/nomadlinks-20190223133412-unauthRole",
-            "AuthRoleArn": "arn:aws:iam::550341989113:role/nomadlinks-20190223133412-authRole",
-            "Region": "ap-northeast-1",
-            "DeploymentBucketName": "nomadlinks-20190223133412-deployment",
-            "UnauthRoleName": "nomadlinks-20190223133412-unauthRole",
-            "StackName": "nomadlinks-20190223133412",
-            "StackId": "arn:aws:cloudformation:ap-northeast-1:550341989113:stack/nomadlinks-20190223133412/44cf08c0-3724-11e9-8010-0aa20f14f06e"
-        },
-        "categories": {
-            "auth": {
-                "cognito09b59faa": {}
-            }
+    "devs": {
+      "awscloudformation": {
+        "AuthRoleName": "nomadlinks-20190301174844-authRole",
+        "UnauthRoleArn": "arn:aws:iam::167514038708:role/nomadlinks-20190301174844-unauthRole",
+        "AuthRoleArn": "arn:aws:iam::167514038708:role/nomadlinks-20190301174844-authRole",
+        "Region": "ap-northeast-1",
+        "DeploymentBucketName": "nomadlinks-20190301174844-deployment",
+        "UnauthRoleName": "nomadlinks-20190301174844-unauthRole",
+        "StackName": "nomadlinks-20190301174844",
+        "StackId": "arn:aws:cloudformation:ap-northeast-1:167514038708:stack/nomadlinks-20190301174844/d2337370-3bfe-11e9-bb90-0a56b21e2412"
+      },
+      "categories": {
+        "auth": {
+          "cognito09b59faa": {}
         }
+      }
     },
     "masterp": {
-        "awscloudformation": {
-            "AuthRoleName": "nomadlinks-20190223211205-authRole",
-            "UnauthRoleArn": "arn:aws:iam::550341989113:role/nomadlinks-20190223211205-unauthRole",
-            "AuthRoleArn": "arn:aws:iam::550341989113:role/nomadlinks-20190223211205-authRole",
-            "Region": "ap-northeast-1",
-            "DeploymentBucketName": "nomadlinks-20190223211205-deployment",
-            "UnauthRoleName": "nomadlinks-20190223211205-unauthRole",
-            "StackName": "nomadlinks-20190223211205",
-            "StackId": "arn:aws:cloudformation:ap-northeast-1:550341989113:stack/nomadlinks-20190223211205/3c62dc80-3764-11e9-8578-068e2b92c6b0"
-        }
+      "awscloudformation": {
+        "AuthRoleName": "nomadlinks-20190223211205-authRole",
+        "UnauthRoleArn": "arn:aws:iam::550341989113:role/nomadlinks-20190223211205-unauthRole",
+        "AuthRoleArn": "arn:aws:iam::550341989113:role/nomadlinks-20190223211205-authRole",
+        "Region": "ap-northeast-1",
+        "DeploymentBucketName": "nomadlinks-20190223211205-deployment",
+        "UnauthRoleName": "nomadlinks-20190223211205-unauthRole",
+        "StackName": "nomadlinks-20190223211205",
+        "StackId": "arn:aws:cloudformation:ap-northeast-1:550341989113:stack/nomadlinks-20190223211205/3c62dc80-3764-11e9-8578-068e2b92c6b0"
+      }
     }
 }

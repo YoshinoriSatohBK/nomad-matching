@@ -3,7 +3,7 @@ AWS.config.update({
   region: "ap-northeast-1"
 });
 const credentials = new AWS.SharedIniFileCredentials({
-  profile: "amplify-nomadlinks"
+  profile: "amplify-user"
 });
 AWS.config.credentials = credentials;
 
@@ -48,7 +48,7 @@ const docClient = new AWS.DynamoDB.DocumentClient();
 for (let i = 0; i < 100; i++) {
   const numString = ("00000" + i).slice(-5);
   const params = {
-    TableName: "UserProfile-hib2c747pncy7nqf2egwse62iq-devp",
+    TableName: "UserProfile-bb6rzxenpjgmlk6zc4xgoeh73e-devs",
     Item: {
       id: "ap-northeast-1:00000000-0000-0000-0000-000000000000-" + numString,
       twitterScreenName: "dummy" + numString,

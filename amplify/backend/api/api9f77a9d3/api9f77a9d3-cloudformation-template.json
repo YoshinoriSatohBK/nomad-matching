@@ -92,7 +92,7 @@
                               ]
                             },
                             "/*",
-                            "/auth/*"
+                            "/matching/*"
                           ]
                         ]
                       },
@@ -123,7 +123,7 @@
                               ]
                             },
                             "/*",
-                            "/auth"
+                            "/matching"
                           ]
                         ]
                       }
@@ -186,7 +186,7 @@
             ],
             "paths": {
               
-              "/auth": {
+              "/matching": {
                 "options": {
                   "consumes": [
                     "application/json"
@@ -291,7 +291,7 @@
                   }
                 }
               },
-              "/auth/{proxy+}": {
+              "/matching/{proxy+}": {
                 "options": {
                   "consumes": [
                     "application/json"
@@ -475,7 +475,7 @@
         
         
         
-      "DeploymentAPIGWapi9f77a9d3": {
+      "DeploymentAPIGWapi9f77a9d3af2e44aa": {
         "Type": "AWS::ApiGateway::Deployment",
         "Properties": {
           "Description": "The Development stage deployment of your API.",
