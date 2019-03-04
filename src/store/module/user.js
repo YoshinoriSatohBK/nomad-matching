@@ -1,4 +1,4 @@
-import AWS from "aws-sdk";
+import { AWS } from "@aws-amplify/core";
 import { API, graphqlOperation } from "aws-amplify";
 import libUser from "../../lib/user";
 import * as queries from "../../graphql/queries";

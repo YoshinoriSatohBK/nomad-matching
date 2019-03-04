@@ -1,4 +1,4 @@
-import AWS from "aws-sdk";
+import { AWS } from "@aws-amplify/core";
 import awsExports from "../aws-exports";
 import store from "../store";
 
@@ -16,6 +16,7 @@ const setCredentials = async () => {
     });
     await AWS.config.credentials.refreshPromise();
   } catch (err) {
+    console.error(err);
     await store.dispatch("twitter/clearAuth");
   }
 };
