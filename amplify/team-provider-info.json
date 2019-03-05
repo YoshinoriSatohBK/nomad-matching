@@ -2,7 +2,7 @@
     "devs": {
       "awscloudformation": {
         "AuthRoleName": "nomadlinks-20190301174844-authRole",
-        "UnauthRoleArn": "arn:aws:iam::167514038708:role/nomadlinks-20190301174844-unauthRolampe",
+        "UnauthRoleArn": "arn:aws:iam::167514038708:role/nomadlinks-20190301174844-unauthRole",
         "AuthRoleArn": "arn:aws:iam::167514038708:role/nomadlinks-20190301174844-authRole",
         "Region": "ap-northeast-1",
         "DeploymentBucketName": "nomadlinks-20190301174844-deployment",
