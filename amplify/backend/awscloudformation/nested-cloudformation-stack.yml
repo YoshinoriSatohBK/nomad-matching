@@ -81,7 +81,7 @@
 		"authcognito09b59faa": {
 			"Type": "AWS::CloudFormation::Stack",
 			"Properties": {
-				"TemplateURL": "https://s3.amazonaws.com/nomadlinks-20190223211205-deployment/amplify-cfn-templates/auth/cognito09b59faa-cloudformation-template.yml",
+				"TemplateURL": "https://s3.amazonaws.com/nomadlinks-20190301174844-deployment/amplify-cfn-templates/auth/cognito09b59faa-cloudformation-template.yml",
 				"Parameters": {
 					"identityPoolName": "nomad_matching09b59faa_identitypool_09b59faa",
 					"allowUnauthenticatedIdentities": true,
@@ -139,14 +139,14 @@
 							"Arn"
 						]
 					},
-					"env": "masterp"
+					"env": "devs"
 				}
 			}
 		},
 		"apinomadmatching": {
 			"Type": "AWS::CloudFormation::Stack",
 			"Properties": {
-				"TemplateURL": "https://s3.amazonaws.com/nomadlinks-20190223211205-deployment/amplify-cfn-templates/api/cloudformation-template.json",
+				"TemplateURL": "https://s3.amazonaws.com/nomadlinks-20190301174844-deployment/amplify-cfn-templates/api/cloudformation-template.json",
 				"Parameters": {
 					"AppSyncApiName": "nomadmatching",
 					"AuthCognitoUserPoolId": {
@@ -155,20 +155,20 @@
 							"Outputs.UserPoolId"
 						]
 					},
+					"schemaGraphql": "s3://nomadlinks-20190301174844-deployment/amplify-appsync-files/schema.graphql.1551759801247",
 					"ElasticSearchStreamingLambdaCodeS3Key": "amplify-appsync-files/python_streaming_function.zip",
-					"ElasticSearchStreamingLambdaCodeS3Bucket": "nomadlinks-20190223211205-deployment",
-					"schemaGraphql": "s3://nomadlinks-20190223211205-deployment/amplify-appsync-files/schema.graphql.1551680299074",
-					"ResolverBucket": "nomadlinks-20190223211205-deployment",
+					"ElasticSearchStreamingLambdaCodeS3Bucket": "nomadlinks-20190301174844-deployment",
+					"ResolverBucket": "nomadlinks-20190301174844-deployment",
 					"ResolverRootKey": "amplify-appsync-files",
-					"DeploymentTimestamp": "1551680299074",
-					"env": "masterp"
+					"DeploymentTimestamp": "1551759801247",
+					"env": "devs"
 				}
 			}
 		},
 		"apiapi9ca178e8": {
 			"Type": "AWS::CloudFormation::Stack",
 			"Properties": {
-				"TemplateURL": "https://s3.amazonaws.com/nomadlinks-20190223211205-deployment/amplify-cfn-templates/api/api9ca178e8-cloudformation-template.json",
+				"TemplateURL": "https://s3.amazonaws.com/nomadlinks-20190301174844-deployment/amplify-cfn-templates/api/api9ca178e8-cloudformation-template.json",
 				"Parameters": {
 					"authRoleName": {
 						"Ref": "AuthRoleName"
@@ -188,14 +188,14 @@
 							"Outputs.Arn"
 						]
 					},
-					"env": "masterp"
+					"env": "devs"
 				}
 			}
 		},
 		"apiapi9f77a9d3": {
 			"Type": "AWS::CloudFormation::Stack",
 			"Properties": {
-				"TemplateURL": "https://s3.amazonaws.com/nomadlinks-20190223211205-deployment/amplify-cfn-templates/api/api9f77a9d3-cloudformation-template.json",
+				"TemplateURL": "https://s3.amazonaws.com/nomadlinks-20190301174844-deployment/amplify-cfn-templates/api/api9f77a9d3-cloudformation-template.json",
 				"Parameters": {
 					"authRoleName": {
 						"Ref": "AuthRoleName"
@@ -215,42 +215,42 @@
 							"Outputs.Arn"
 						]
 					},
-					"env": "masterp"
+					"env": "devs"
 				}
 			}
 		},
 		"functionnomadmatchinge620bc79": {
 			"Type": "AWS::CloudFormation::Stack",
 			"Properties": {
-				"TemplateURL": "https://s3.amazonaws.com/nomadlinks-20190223211205-deployment/amplify-cfn-templates/function/nomadmatchinge620bc79-cloudformation-template.json",
+				"TemplateURL": "https://s3.amazonaws.com/nomadlinks-20190301174844-deployment/amplify-cfn-templates/function/nomadmatchinge620bc79-cloudformation-template.json",
 				"Parameters": {
-					"env": "masterp"
+					"env": "devs"
 				}
 			}
 		},
 		"functionnomadmatching990fe297": {
 			"Type": "AWS::CloudFormation::Stack",
 			"Properties": {
-				"TemplateURL": "https://s3.amazonaws.com/nomadlinks-20190223211205-deployment/amplify-cfn-templates/function/nomadmatching990fe297-cloudformation-template.json",
+				"TemplateURL": "https://s3.amazonaws.com/nomadlinks-20190301174844-deployment/amplify-cfn-templates/function/nomadmatching990fe297-cloudformation-template.json",
 				"Parameters": {
-					"env": "masterp"
+					"env": "devs"
 				}
 			}
 		},
 		"hostingS3AndCloudFront": {
 			"Type": "AWS::CloudFormation::Stack",
 			"Properties": {
-				"TemplateURL": "https://s3.amazonaws.com/nomadlinks-20190223211205-deployment/amplify-cfn-templates/hosting/template.json",
+				"TemplateURL": "https://s3.amazonaws.com/nomadlinks-20190301174844-deployment/amplify-cfn-templates/hosting/template.json",
 				"Parameters": {
 					"bucketName": "nomad-matching-20190131121910-hostingbucket",
-					"env": "masterp"
+					"env": "devs"
 				}
 			}
 		},
 		"storages337f032f7": {
 			"Type": "AWS::CloudFormation::Stack",
 			"Properties": {
-				"TemplateURL": "https://s3.amazonaws.com/nomadlinks-20190223211205-deployment/amplify-cfn-templates/storage/s3-cloudformation-template.json",
+				"TemplateURL": "https://s3.amazonaws.com/nomadlinks-20190301174844-deployment/amplify-cfn-templates/storage/s3-cloudformation-template.json",
 				"Parameters": {
 					"bucketName": "nomad-matching8dc61bb9056f4bc3b495f3db9149cd68",
 					"authPolicyName": "s3_amplify_37f032f7",
@@ -263,14 +263,14 @@
 					},
 					"authPermissions": "rw",
 					"unauthPermissions": "r",
-					"env": "masterp"
+					"env": "devs"
 				}
 			}
 		},
 		"analyticsnomadmatching": {
 			"Type": "AWS::CloudFormation::Stack",
 			"Properties": {
-				"TemplateURL": "https://s3.amazonaws.com/nomadlinks-20190223211205-deployment/amplify-cfn-templates/analytics/pinpoint-cloudformation-template.json",
+				"TemplateURL": "https://s3.amazonaws.com/nomadlinks-20190301174844-deployment/amplify-cfn-templates/analytics/pinpoint-cloudformation-template.json",
 				"Parameters": {
 					"appName": "nomadmatching",
 					"roleName": "pinpointLambdaRolec437914b",
@@ -290,7 +290,7 @@
 							"Arn"
 						]
 					},
-					"env": "masterp"
+					"env": "devs"
 				}
 			}
 		}
