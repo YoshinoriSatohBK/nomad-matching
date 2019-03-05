@@ -1,47 +1,37 @@
 <template lang="pug">
   div
-    FieldInputBase.input-wrap(
+    FieldCheckboxBase(
       :name="name"
-      :type="type"
-      :placeholder="placeholder"
-      :value="value"
+      :label="label"
       :inputStyle="inputStyle"
       @input="input"
     )
-      div(v-if="unit" slot="unit").unit {{ unit }}
-      span(v-if="label" slot="label").label {{ label }}
       ErrorMessage(
         v-if="hasValidationError && errors.has(name)"
-        :text="errors.first(name)"
+        :text="errorMessage"
       )
 </template>
 
 <script>
-import FieldInputBase from "@/components/FieldInputBase";
+import FieldCheckboxBase from "@/components/FieldCheckboxBase";
 import ErrorMessage from "@/components/ErrorMessage";
 
 export default {
-  name: "FieldInputEdit",
+  name: "FieldCheckboxEdit",
   components: {
-    FieldInputBase,
+    FieldCheckboxBase,
     ErrorMessage
   },
   props: {
-    type: String,
-    placeholder: String,
     name: String,
-    value: String,
-    unit: String,
     label: String,
     errors: Object,
+    errorMessage: String,
     hasValidationError: Boolean
   },
   data() {
     return {
       inputStyle: {
-        width: "100%",
-        height: "43.68px",
-        "line-height": "100%",
         "font-size": "16px",
         ":placeholder": {
           "font-size": "16px"
@@ -57,12 +47,4 @@ export default {
 };
 </script>
 
-<style scoped lang="stylus">
-.input-wrap
-  width 100%
-.unit
-  display inline-block
-  width 100px
-  margin auto
-  text-align center
-</style>
+<style scoped lang="stylus"></style>

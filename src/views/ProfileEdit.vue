@@ -91,6 +91,7 @@
       )
 
       FieldSelectEdit(
+        :class="{'attributes-field': !userRegisted()}"
         name="drink"
         placeholder="アルコール"
         v-model="profile.drink"
@@ -99,6 +100,19 @@
         data-vv-as="アルコール"
         :hasValidationError="hasValidationError"
         :errors="errors"
+      )
+
+      FieldCheckboxEdit(
+        v-if="!userRegisted()"
+        name="mailApproved"
+        type="checkbox"
+        label="ユーザーからのメールの受信に同意します"
+        v-model="mailApproved"
+        v-validate="'required:invalidateFalse'"
+        data-vv-as="メール受信の同意"
+        :hasValidationError="hasValidationError"
+        :errors="errors"
+        errorMessage="メール受信の同意は必須です"
       )
 
     ErrorMessage.all-error-message(
@@ -120,6 +134,7 @@ import SectionTitle from "@/components/SectionTitle";
 import ButtonRegisterProfile from "@/components/ButtonRegisterProfile";
 import FieldInputEdit from "@/components/FieldInputEdit";
 import FieldSelectEdit from "@/components/FieldSelectEdit";
+import FieldCheckboxEdit from "@/components/FieldCheckboxEdit";
 import BField from "buefy/src/components/field/Field";
 import BAutocomplete from "buefy/src/components/autocomplete/Autocomplete";
 import libUser from "../lib/user";
@@ -135,11 +150,12 @@ export default {
     SectionTitle,
     ButtonRegisterProfile,
     FieldInputEdit,
-    FieldSelectEdit
+    FieldSelectEdit,
+    FieldCheckboxEdit
   },
   async mounted() {
     await this.$store.dispatch("user/fetchAuthUserProfile");
-    if (this.userProfile && this.userProfile.id) {
+    if (this.userRegisted()) {
       this.imageUrl = await libUser.getUserImageUrl(this.userProfile);
       this.profile = Object.assign({}, this.userProfile);
 
@@ -184,7 +200,8 @@ export default {
       selectedImageData: null,
       imageFile: null,
       hasValidationError: false,
-      hasApiError: false
+      hasApiError: false,
+      mailApproved: false
     };
   },
   computed: {
@@ -215,6 +232,9 @@ export default {
     }
   },
   methods: {
+    userRegisted() {
+      return this.userProfile && this.userProfile.id;
+    },
     async saveProfile() {
       this.hasValidationError = !(await this.$validator.validate());
       if (this.hasValidationError) {
@@ -261,7 +281,6 @@ export default {
   margin 20px auto 60px
 
 .attributes
-  text-align center
   background #F5F5F5
   padding 42px 25px
 
