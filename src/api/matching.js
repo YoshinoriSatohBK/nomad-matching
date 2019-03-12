@@ -21,8 +21,8 @@ ${message}
 
 ----------------------------
 Nomad-links
-サービスサイト: https://nomad-links.com/
-お問い合わせ: xxxxxxxx@gmail.com
+サービスサイト: https://nomad-links.net/
+お問い合わせ: nomadlinks.japan@gmail.com
 `;
 };
 

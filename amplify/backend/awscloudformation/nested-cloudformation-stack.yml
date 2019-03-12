@@ -155,12 +155,12 @@
 							"Outputs.UserPoolId"
 						]
 					},
-					"schemaGraphql": "s3://nomadlinks-20190223211205-deployment/amplify-appsync-files/schema.graphql.1552385666072",
 					"ElasticSearchStreamingLambdaCodeS3Key": "amplify-appsync-files/python_streaming_function.zip",
 					"ElasticSearchStreamingLambdaCodeS3Bucket": "nomadlinks-20190223211205-deployment",
+					"schemaGraphql": "s3://nomadlinks-20190223211205-deployment/amplify-appsync-files/schema.graphql.1552393238680",
 					"ResolverBucket": "nomadlinks-20190223211205-deployment",
 					"ResolverRootKey": "amplify-appsync-files",
-					"DeploymentTimestamp": "1552385666072",
+					"DeploymentTimestamp": "1552393238680",
 					"env": "masterp"
 				}
 			}
