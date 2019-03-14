@@ -2,7 +2,7 @@
   div
     FullWidthImage(
       :imageSrc="require('@/assets/images/main_photo.jpg')",
-      innerText="次は、2人ででどこへ行こう"
+      innerText="次は、2人でどこへ行こう"
     )
     div.text-title
       p ノマドワーカー専用のマッチングサイト

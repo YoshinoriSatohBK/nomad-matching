@@ -9,15 +9,18 @@
         b-icon(pack="fas" icon="blog" type="is-white" size="is-small").sns-icon
     div.footer-links
       div.columns.is-mobile
-        div.column.is-narrow.footer-link 会社概要
-        div.column.is-narrow.footer-link 利用規約
-        div.column.is-narrow.footer-link 安心・安全の取り組みとガイド
-      div.columns.is-mobile
-        div.column.is-narrow.footer-link プライバシーポリシー
-        div.column.is-narrow.footer-link 特定商取引法に基づく表示
-      div.columns.is-mobile
-        div.column.is-narrow.footer-link ヘルプ
-        div.column.is-narrow.footer-link 記事提供元一覧
+        div.column.is-narrow.footer-link
+          a(href="https://manablog.org/profile/" target="_blank") 運営者情報
+        div.column.is-narrow.footer-link
+          router-link(to="terms-of-service") 利用規約
+        div.column.is-narrow.footer-link
+          router-link(to="privacy-policy") プライバシーポリシー
+        // div.column.is-narrow.footer-link 安心・安全の取り組みとガイド
+      //div.columns.is-mobile
+        // div.column.is-narrow.footer-link 特定商取引法に基づく表示
+      //div.columns.is-mobile
+        // div.column.is-narrow.footer-link ヘルプ
+        // div.column.is-narrow.footer-link 記事提供元一覧
     div.credit
       div Produced by マナブ /Developed by Yoshinori /Designed by BEACH CAT
 </template>
@@ -48,6 +51,8 @@ export default {
 .footer-link
   padding-top 0px !important
   padding-bottom 2px !important
+  a
+    color white
 
 .credit
   color white

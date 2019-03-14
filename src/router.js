@@ -5,6 +5,8 @@ import Top from "./views/Top.vue";
 import TwitterAuthCallback from "./views/TwitterAuthCallback.vue";
 import ProfileEdit from "./views/ProfileEdit.vue";
 import ProfileShow from "./views/ProfileShow.vue";
+import TermsOfService from "./views/TermsOfService.vue";
+import PrivacyPolicy from "./views/PrivacyPolicy.vue";
 
 Vue.use(Router);
 
@@ -31,6 +33,16 @@ const router = new Router({
       path: "/mypage",
       name: "mypage",
       component: ProfileEdit
+    },
+    {
+      path: "/terms-of-service",
+      name: "terms-of-service",
+      component: TermsOfService
+    },
+    {
+      path: "/privacy-policy",
+      name: "privacy-policy",
+      component: PrivacyPolicy
     }
   ],
   scrollBehavior() {
