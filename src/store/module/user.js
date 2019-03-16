@@ -122,7 +122,6 @@ const actions = {
     commit("clearFilter");
   },
   async saveSort({ commit }, payload) {
-    console.log(payload);
     let sort = {};
     if (payload && payload.type === "recommended") {
       // sort = {
@@ -136,7 +135,6 @@ const actions = {
         direction: payload.direction || "asc"
       };
     }
-    console.log(sort);
     commit("setSort", sort);
     commit("clearNextToken");
     commit("setHasMoreUsers", true);
@@ -153,18 +151,15 @@ const actions = {
     commit("setHasMoreUsers", true);
   },
   async fetchPublicUserList({ commit, state }, payload) {
-    console.log("fetchPublicUserList");
     const params = getSearchUserListParams(
       state.filter,
       state.sort,
       LIMIT,
       state.nextToken
     );
-    console.log(params);
     const res = await API.graphql(
       graphqlOperation(queries.searchUserProfiles, params)
     );
-    console.log(res);
     const fetchedUsersProfiles = res.data.searchUserProfiles;
     if (fetchedUsersProfiles.nextToken === null) {
       commit("setHasMoreUsers", false);
@@ -188,7 +183,6 @@ const actions = {
       }
     }
     commit("setNextToken", state.nextToken + fetchedUsersProfiles.items.length);
-    console.log(state.nextToken);
   }
 };
 
