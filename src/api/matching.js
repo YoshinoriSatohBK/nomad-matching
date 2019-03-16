@@ -11,7 +11,7 @@ ${fromUser.name} さんへ返信のメッセージを送ってみましょう。
 （本メールへの返信ではなく、以下のメールアドレス宛にお願い致します。）
   
 【${fromUser.name} さんのプロフィール】
-https://nomad-links.com/user/${fromUser.id}
+https://nomad-links.net/user/${fromUser.id}
   
 【${fromUser.name} さんのメールアドレス】
 ${fromUser.email}

@@ -22,7 +22,7 @@
 
     Catchcopy
 
-    MediaPublished
+    // MediaPublished
 </template>
 
 <script>

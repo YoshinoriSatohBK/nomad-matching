@@ -6,8 +6,13 @@
     FullWidthImage(
       :imageSrc="require('@/assets/images/nomad_photo.jpg')"
     )
-    p.copy-text Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit, vulputate eu pharetra nec, mattis ac neque. Duis vulputate. commodo lectus, ac blandit elit tincidunt id. Sed rhoncus, tortor sed eleifend tristique, tortor mauris molestie elit, et lacinia ipsum quam vulputate.
-
+    div.copy-text
+      p ノマドワーカーは孤独でした。
+      p 場所に縛られない生き方を目指して、努力をします。その結果として「自由」を手に入れても、その先に「圧倒的な孤独感」があります。
+      p １人で旅をしても、１人で自由を満喫しても、１人で素晴らしい景色を見ても、その感動を共有する「相手」がいなければ、SNSで投稿して、その後に「空虚な気持ち」を得るだけです。
+      p 本サービス（Nomad Links）では、孤独なノマドワーカーを救います。
+      p 人生における「場所に縛られない生き方」を手に入れたあなたへ。次のフェーズとして「人生の感動を共有できるパートナー」を探してみてください。
+      p 「次は、2人でどこへ行こう」という言葉を交わすことができるパートナーがいれば、人生はさらに豊かになるはずです。
 </template>
 
 <script>
@@ -36,10 +41,12 @@ export default {
 
 .copy-text
   color #6C5A3F
-  font-size 11px
+  font-size 12px
   font-family Hiragino Kaku Gothic ProN
   line-height 1.2rem
-  text-align left
-  padding 8px 20px
+  text-align center
+  padding 8px 16px
   margin-bottom 50px
+  p
+    margin 1rem 0
 </style>
