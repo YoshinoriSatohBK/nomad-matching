@@ -60,7 +60,7 @@
 				"Timeout": "25",
 				"Code": {
 					"S3Bucket": "nomadlinks-20190301174844-deployment",
-					"S3Key": "amplify-builds/nomadmatchinge620bc79-1552557504-latest-build.zip"
+					"S3Key": "amplify-builds/nomadmatchinge620bc79-1552697831-latest-build.zip"
 				}
 			}
 		},

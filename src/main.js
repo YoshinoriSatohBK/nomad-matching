@@ -9,9 +9,16 @@ import { AWS } from "@aws-amplify/core";
 import Amplify, * as AmplifyModules from "aws-amplify";
 import { AmplifyPlugin } from "aws-amplify-vue";
 import awsExports from "./aws-exports";
+import VueAnalytics from "vue-analytics";
 Amplify.configure(awsExports);
 AWS.config.region = awsExports.aws_project_region;
 Vue.use(AmplifyPlugin, AmplifyModules);
+
+// Google Analytics
+Vue.use(VueAnalytics, {
+  id: "UA-136312311-1",
+  router
+});
 
 // Buefy
 import Buefy from "buefy";
