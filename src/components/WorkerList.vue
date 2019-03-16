@@ -93,7 +93,6 @@ export default {
       this.processingReadMore = false;
     },
     openMatchingModal(event) {
-      console.log(event.user);
       this.modalUser = event.user;
       this.isMatchingModalActive = true;
     },
