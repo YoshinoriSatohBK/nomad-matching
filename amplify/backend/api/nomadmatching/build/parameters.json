@@ -8,5 +8,5 @@
         ]
     },
     "S3DeploymentBucket": "nomadlinks-20190223211205-deployment",
-    "S3DeploymentRootKey": "amplify-appsync-files/af19198f7bdf95fab9088a407434453b16018ac1"
+    "S3DeploymentRootKey": "amplify-appsync-files/399db9c92053afb3e2abc3ca60699c5060410b35"
 }

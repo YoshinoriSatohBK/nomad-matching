@@ -12,9 +12,9 @@
         div.column.is-narrow.footer-link
           a(href="https://manablog.org/profile/" target="_blank") 運営者情報
         div.column.is-narrow.footer-link
-          router-link(to="terms-of-service") 利用規約
+          router-link(to="/terms-of-service") 利用規約
         div.column.is-narrow.footer-link
-          router-link(to="privacy-policy") プライバシーポリシー
+          router-link(to="/privacy-policy") プライバシーポリシー
         // div.column.is-narrow.footer-link 安心・安全の取り組みとガイド
       //div.columns.is-mobile
         // div.column.is-narrow.footer-link 特定商取引法に基づく表示

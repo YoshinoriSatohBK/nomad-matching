@@ -17,6 +17,15 @@
             "Description": "The number of write IOPS the table should support.",
             "Default": 5
         },
+        "DynamoDBBillingMode": {
+          "Type": "String",
+          "Description": "Configure @model types to create DynamoDB tables with PAY_PER_REQUEST or PROVISIONED billing modes.",
+          "Default": "PROVISIONED",
+          "AllowedValues": [
+            "PAY_PER_REQUEST",
+            "PROVISIONED"
+          ]
+        },
         "ElasticSearchAccessIAMRoleName": {
             "Type": "String",
             "Description": "The name of the IAM role assumed by AppSync for Elasticsearch.",
