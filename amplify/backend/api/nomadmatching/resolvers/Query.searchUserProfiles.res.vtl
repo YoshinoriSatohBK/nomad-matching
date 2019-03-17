@@ -1,0 +1,26 @@
+#set( $items = [] )
+#foreach( $entry in $context.result.hits.hits )
+  #if( !$foreach.hasNext )
+    #set( $nextToken = "$entry.sort.get(0)" )
+  #end
+  #set( $item = $entry.get("_source") )
+  #set( $publicItem = {
+    "id": $item.id,
+    "name": $item.name,
+    "description": $item.description,
+    "twitterScreenName": $item.twitterScreenName,
+    "imageUrl": $item.imageUrl,
+    "location": $item.location,
+    "income": $item.income,
+    "skill": $item.skill,
+    "smoking": $item.smoking,
+    "drink": $item.drink,
+    "nomadStatus": $item.nomadStatus
+  } )
+  $util.qr($items.add($entry.get("_source")))
+#end
+$util.toJson({
+  "items": $items,
+  "total": $ctx.result.hits.total,
+  "nextToken": $nextToken
+})

@@ -1,12 +1,12 @@
 {
     "DynamoDBBillingMode": "PROVISIONED",
     "AppSyncApiName": "nomadmatching",
-    "ElasticSearchStreamingLambdaCodeS3Bucket": "nomadlinks-20190223211205-deployment",
-    "ElasticSearchStreamingLambdaCodeS3Key": "amplify-appsync-files/python_streaming_function.zip",
     "AuthCognitoUserPoolId": {
         "Fn::GetAtt": [
             "authcognito09b59faa",
             "Outputs.UserPoolId"
         ]
-    }
+    },
+    "S3DeploymentBucket": "nomadlinks-20190223211205-deployment",
+    "S3DeploymentRootKey": "amplify-appsync-files/af19198f7bdf95fab9088a407434453b16018ac1"
 }
