@@ -1,0 +1,11 @@
+{
+    "Migration": {
+        "V1": {
+            "Resources": [
+                "UserProfileTable",
+                "ElasticSearchAccessIAMRole",
+                "ElasticSearchDomain"
+            ]
+        }
+    }
+}

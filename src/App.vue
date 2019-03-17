@@ -1,22 +1,20 @@
-<template lang="pug">
-  div
-    b-loading(
-      :active.sync="loading"
-    )
-    Header(v-if="showHeaderFooter")
-    router-view
-    Footer(v-if="showHeaderFooter")
+<template>
+  <div>
+    <p>只今、メンテナンス中です</p>
+    <p>ご迷惑をおかけして申し訳ありません</p>
+    <p>nomad-links</p>
+  </div>
 </template>
 
 <script>
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+// import Header from "@/components/Header";
+// import Footer from "@/components/Footer";
 
 export default {
-  components: {
-    Header,
-    Footer
-  },
+  // components: {
+  //   Header,
+  //   Footer
+  // },
   computed: {
     showHeaderFooter: function() {
       return this.$store.state.route.showHeaderFooter;
