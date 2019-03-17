@@ -1,5 +1,4 @@
 {
-    "DynamoDBBillingMode": "PROVISIONED",
     "AppSyncApiName": "nomadmatching",
     "AuthCognitoUserPoolId": {
         "Fn::GetAtt": [
@@ -7,6 +6,6 @@
             "Outputs.UserPoolId"
         ]
     },
-    "S3DeploymentBucket": "nomadlinks-20190223211205-deployment",
-    "S3DeploymentRootKey": "amplify-appsync-files/c14e8a05633b902fcf96c527c6368b28badcba6d"
+    "S3DeploymentBucket": "nomadlinks-20190301174844-deployment",
+    "S3DeploymentRootKey": "amplify-appsync-files/400713f53465af2ceadcfad36897016a1ac55d29"
 }

@@ -29,7 +29,20 @@
 
 
     #if( ($isLocalDynamicGroupAuthorized == true || $isLocalOwnerAuthorized == true) )
-      $util.qr($items.add($item))
+      #set( $publicItem = {
+        "id": $item.id,
+        "name": $item.name,
+        "description": $item.description,
+        "twitterScreenName": $item.twitterScreenName,
+        "imageUrl": $item.imageUrl,
+        "location": $item.location,
+        "income": $item.income,
+        "skill": $item.skill,
+        "smoking": $item.smoking,
+        "drink": $item.drink,
+        "nomadStatus": $item.nomadStatus
+      } )
+      $util.qr($items.add($publicItem))
     #end
   #end
   #set( $ctx.result.items = $items )

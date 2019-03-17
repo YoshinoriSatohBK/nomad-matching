@@ -58,6 +58,10 @@ async function getMailFromAddress() {
   );
 }
 
+async function getDynamoDbTableName() {
+  return getSsmParameter(`/NomadMatching/${process.env.ENV}/DynamoDbTableName`);
+}
+
 async function createTransport() {
   const host = await getMailHost();
   const port = await getMailPort();
@@ -74,13 +78,24 @@ async function createTransport() {
   });
 }
 
+const docClient = new AWS.DynamoDB.DocumentClient();
+
 app.post("/matching/message", async (req, res) => {
   try {
     const from = await getMailFromAddress();
     const transporter = await createTransport();
+    const tableName = await getDynamoDbTableName();
+    const user = await docClient
+      .get({
+        TableName: tableName,
+        Key: {
+          id: req.body.userId
+        }
+      })
+      .promise();
     const info = await transporter.sendMail({
       from: from,
-      to: req.body.toEmail,
+      to: user.Item.email,
       subject: req.body.subject,
       text: req.body.text
     });

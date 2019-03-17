@@ -27,7 +27,6 @@ export const listUserProfiles = `query ListUserProfiles(
     items {
       id
       name
-      email
       description
       twitterScreenName
       imageUrl
@@ -57,7 +56,6 @@ export const searchUserProfiles = `query SearchUserProfiles(
     items {
       id
       name
-      email
       description
       twitterScreenName
       imageUrl

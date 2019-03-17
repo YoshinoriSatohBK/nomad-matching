@@ -1,5 +1,4 @@
-import { API, graphqlOperation } from "aws-amplify";
-import * as queries from "../graphql/queries";
+import { API } from "aws-amplify";
 import store from "../store";
 
 const API_AUTH = "api9f77a9d3";
@@ -30,14 +29,9 @@ const sendMessage = async (toUserId, message) => {
   const fromUser = store.state.user.authUserProfile;
   const subject = getMailSubject();
   const text = getMailText(fromUser, message);
-  const toUserResult = await API.graphql(
-    graphqlOperation(queries.getUserProfile, {
-      id: toUserId
-    })
-  );
   return API.post(API_AUTH, "/matching/message", {
     body: {
-      toEmail: toUserResult.data.getUserProfile.email,
+      userId: toUserId,
       subject: subject,
       text: text
     }
